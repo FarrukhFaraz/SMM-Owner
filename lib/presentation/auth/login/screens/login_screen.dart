@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'env_cubit.dart';
-import 'env_model.dart';
+import 'package:sms_owner/config/env/config_model/login_config.dart';
+import 'package:sms_owner/config/env/env_cubit.dart';
+import 'package:sms_owner/config/env/env_model.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
