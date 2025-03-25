@@ -3,17 +3,25 @@ final Map<String, dynamic> environment = {
   "loginConfig": {
     "required": true,
     "enabled": true,
-    "backgroundColor": "#1E1E1E",
+    "backgroundColor": ["#4c8479", "#2b5f56"],
     "enableAnimation": true,
     "animationAsset": "assets/animations/background.json",
     "backgroundImage": "assets/images/login_bg.png",
 
     // Texts
     "loginText": "Sign In",
-    "panelText": "Welcome to MyApp",
+    "panelText": "PANEL NAME",
     "forgotPasswordText": "Forgot Password?",
     "signupText": "Create New Account",
     "orText": "or",
+
+    // Texts Style
+    // #5ce1e6
+    "loginColor": "#5ce1e6",
+    "panelColor": "#FFFFFF",
+    "forgotPasswordColor": "#FFFFFF",
+    "createAccountColor": "#9481d4",
+    "haveAccountColor": "#FFFFFF",
 
     // Input Fields
     "emailHint": "Enter your email",
@@ -22,16 +30,16 @@ final Map<String, dynamic> environment = {
     "passwordError": "Password must be at least 6 characters",
 
     // TextField Styles
-    "textFieldBackgroundColor": "#2E2E2E",
-    "textFieldBorderRadius": 30,
-    "textFieldHintColor": "#AAAAAA",
+    "textFieldBackgroundColor": "#4c8479",
+    "textFieldBorderRadius": 18,
+    "textFieldHintColor": "#FFFFFF",
     "textFieldIconColor": "#FFFFFF",
 
     // Button Styles
-    "buttonBackgroundColor": "#3A86FF",
-    "buttonTextColor": "#FFFFFF",
+    "buttonBackgroundColor": "#ffde59",
+    "buttonTextColor": "#000000",
     "buttonBorderRadius": 30,
-    "buttonHeight": 50,
+    "buttonHeight": 52,
 
     // Feature Toggles
     "enableForgotPassword": true,

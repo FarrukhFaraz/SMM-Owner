@@ -1,9 +1,9 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class LoginConfig {
   final bool required;
   final bool enabled;
-  final Color backgroundColor;
+  final List<Color> backgroundColor;
   final bool enableAnimation;
   final String animationAsset;
   final String backgroundImage;
@@ -14,6 +14,13 @@ class LoginConfig {
   final String forgotPasswordText;
   final String signupText;
   final String orText;
+
+  // Colors
+  final Color loginColor;
+  final Color panelColor;
+  final Color forgotPasswordColor;
+  final Color createAccountColor;
+  final Color haveAccountColor;
 
   // Input Fields
   final String emailHint;
@@ -52,6 +59,11 @@ class LoginConfig {
     required this.forgotPasswordText,
     required this.signupText,
     required this.orText,
+    required this.loginColor,
+    required this.panelColor,
+    required this.forgotPasswordColor,
+    required this.createAccountColor,
+    required this.haveAccountColor,
     required this.emailHint,
     required this.passwordHint,
     required this.emailError,
@@ -71,23 +83,29 @@ class LoginConfig {
     required this.appleLogin,
   });
 
+  /// Factory constructor to create `LoginConfig` from a Map.
   factory LoginConfig.fromMap(Map<String, dynamic> map) {
     return LoginConfig(
       required: map["required"] ?? false,
       enabled: map["enabled"] ?? false,
-      backgroundColor: _hexToColor(map["backgroundColor"] ?? "#FFFFFF"),
+      backgroundColor: _hexToListColor(map["backgroundColor"] ?? ["#FFFFFF"]),
       enableAnimation: map["enableAnimation"] ?? true,
       animationAsset: map["animationAsset"] ?? "",
       backgroundImage: map["backgroundImage"] ?? "",
-      loginText: map["loginText"] ?? "Login",
-      panelText: map["panelText"] ?? "Login Panel",
+      loginText: map["loginText"] ?? "Sign In",
+      panelText: map["panelText"] ?? "Panel",
       forgotPasswordText: map["forgotPasswordText"] ?? "Forgot Password?",
       signupText: map["signupText"] ?? "Create New Account",
       orText: map["orText"] ?? "or",
-      emailHint: map["emailHint"] ?? "Enter email",
-      passwordHint: map["passwordHint"] ?? "Enter password",
-      emailError: map["emailError"] ?? "Invalid email",
-      passwordError: map["passwordError"] ?? "Password too short",
+      loginColor: _hexToColor(map["loginColor"] ?? "#5ce1e6"),
+      panelColor: _hexToColor(map["panelColor"] ?? "#FFFFFF"),
+      forgotPasswordColor: _hexToColor(map["forgotPasswordColor"] ?? "#FFFFFF"),
+      createAccountColor: _hexToColor(map["createAccountColor"] ?? "#9481d4"),
+      haveAccountColor: _hexToColor(map["haveAccountColor"] ?? "#FFFFFF"),
+      emailHint: map["emailHint"] ?? "Enter your email",
+      passwordHint: map["passwordHint"] ?? "Enter your password",
+      emailError: map["emailError"] ?? "Please enter a valid email",
+      passwordError: map["passwordError"] ?? "Password must be at least 6 characters",
       textFieldBackgroundColor: _hexToColor(map["textFieldBackgroundColor"] ?? "#2E2E2E"),
       textFieldBorderRadius: (map["textFieldBorderRadius"] ?? 30).toDouble(),
       textFieldHintColor: _hexToColor(map["textFieldHintColor"] ?? "#AAAAAA"),
@@ -106,6 +124,14 @@ class LoginConfig {
 
   static Color _hexToColor(String hex) {
     hex = hex.replaceAll("#", "");
-    return Color(int.parse("0xFF$hex"));
+    if (hex.length == 6) {
+      return Color(int.parse("FF$hex", radix: 16));
+    } else {
+      return Colors.black;
+    }
+  }
+
+  static List<Color> _hexToListColor(List<dynamic> hexList) {
+    return hexList.map((hex) => _hexToColor(hex)).toList();
   }
 }
