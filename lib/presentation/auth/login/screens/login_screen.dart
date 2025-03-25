@@ -4,9 +4,19 @@ import 'package:lottie/lottie.dart';
 import 'package:sms_owner/config/env/config_model/login_config.dart';
 import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
+import 'package:sms_owner/config/theme/app_text_theme.dart';
+import 'package:sms_owner/core/components/custom_textfield.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -17,51 +27,66 @@ class LoginScreen extends StatelessWidget {
         return Scaffold(
           body: Stack(
             children: [
-              if (loginConfig.enableAnimation) Positioned.fill(child: Lottie.asset(loginConfig.animationAsset, fit: BoxFit.cover)),
-              if (loginConfig.backgroundImage.isNotEmpty) Positioned.fill(child: Image.asset(loginConfig.backgroundImage, fit: BoxFit.cover)),
-              Column(
-                children: [
-                  const SizedBox(height: 60),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Text("Logo here", style: TextStyle(color: Colors.white, fontSize: 18)), Icon(Icons.more_vert, color: Colors.white)],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(child: Center(child: Image.asset("assets/images/illustration.png", height: 200))),
-                  Text(loginConfig.loginText, style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white)),
-                  Text(loginConfig.panelText, style: TextStyle(fontSize: 16, color: Colors.white70)),
-                  const SizedBox(height: 20),
-                  _buildTextField(Icons.email, loginConfig.emailHint, loginConfig),
-                  _buildTextField(Icons.lock, loginConfig.passwordHint, loginConfig, isPassword: true),
-                  const SizedBox(height: 10),
-                  if (loginConfig.enableForgotPassword)
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 30),
-                        child: TextButton(onPressed: () {}, child: Text(loginConfig.forgotPasswordText, style: TextStyle(color: Colors.white70))),
+              // if (loginConfig.enableAnimation) Positioned.fill(child: Lottie.asset(loginConfig.animationAsset, fit: BoxFit.cover)),
+              // if (loginConfig.backgroundImage.isNotEmpty) Positioned.fill(child: Image.asset(loginConfig.backgroundImage, fit: BoxFit.cover)),
+              Container(
+                decoration: BoxDecoration(gradient: LinearGradient(colors: loginConfig.backgroundColor)),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 60),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [Icon(Icons.more_horiz_outlined, color: Theme.of(context).scaffoldBackgroundColor, size: 26)],
                       ),
                     ),
-                  const SizedBox(height: 20),
-                  _buildLoginButton(loginConfig),
-                  if (loginConfig.enableSocialLogin) _buildGoogleLoginButton(loginConfig),
-                  if (loginConfig.enableSignup)
-                    Column(
-                      children: [
-                        const SizedBox(height: 10),
-                        Text(loginConfig.orText, style: TextStyle(color: Colors.white70)),
-                        const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(loginConfig.signupText, style: TextStyle(color: Colors.blueAccent, decoration: TextDecoration.underline)),
-                        ),
-                      ],
+                    const SizedBox(height: 20),
+                    // Expanded(child: Center(child: Image.asset("assets/images/illustration.png", height: 200))),
+                    Text(loginConfig.loginText, style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: loginConfig.loginColor)),
+                    Text(loginConfig.panelText, style: TextStyle(fontSize: 16, color: loginConfig.panelColor)),
+                    const SizedBox(height: 26),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 36.0),
+                      child: CustomTextField(
+                        controller: emailController,
+                        hintText: loginConfig.emailHint,
+                        hintStyle: context.text12Medium?.copyWith(color: loginConfig.textFieldHintColor),
+                        keyboardType: TextInputType.emailAddress,
+                        fillColor: Theme.of(context).primaryColor,
+                        prefix: Icon(Icons.person, color: Theme.of(context).scaffoldBackgroundColor),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: BorderSide(width: 2, color: Colors.white)),
+                      ),
                     ),
-                  const SizedBox(height: 30),
-                ],
+                    // _buildTextField(Icons.email, loginConfig.emailHint, loginConfig),
+                    // _buildTextField(Icons.lock, loginConfig.passwordHint, loginConfig, isPassword: true),
+                    const SizedBox(height: 10),
+                    if (loginConfig.enableForgotPassword)
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 30),
+                          child: TextButton(onPressed: () {}, child: Text(loginConfig.forgotPasswordText, style: TextStyle(color: Colors.white70))),
+                        ),
+                      ),
+                    const SizedBox(height: 20),
+                    _buildLoginButton(loginConfig),
+                    if (loginConfig.enableSocialLogin) _buildGoogleLoginButton(loginConfig),
+                    if (loginConfig.enableSignup)
+                      Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          Text(loginConfig.orText, style: TextStyle(color: Colors.white70)),
+                          const SizedBox(height: 10),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Text(loginConfig.signupText, style: TextStyle(color: Colors.blueAccent, decoration: TextDecoration.underline)),
+                          ),
+                        ],
+                      ),
+                    const SizedBox(height: 30),
+                  ],
+                ),
               ),
             ],
           ),

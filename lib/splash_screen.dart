@@ -64,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 color: Colors.white,
               ),
               SizedBox(height: 20),
-              Text("Your App Name", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
+              Text("SMM Owner", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
               SizedBox(height: 10),
               CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)),
             ],

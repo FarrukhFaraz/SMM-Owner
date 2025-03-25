@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ThemeManager {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
-    primaryColor: Color(0xFF3A86FF), // Extracted primary color
+    primaryColor: Color(0xFF4c8479), // Extracted primary color
     scaffoldBackgroundColor: Color(0xFFF8F9FA), // Background color
     appBarTheme: AppBarTheme(
       backgroundColor: Color(0xFF3A86FF),
@@ -68,8 +68,8 @@ class ThemeManager {
     return isDarkMode == null
         ? ThemeMode.system
         : isDarkMode
-        ? ThemeMode.dark
-        : ThemeMode.light;
+            ? ThemeMode.dark
+            : ThemeMode.light;
   }
 
   /// Set the theme mode in SharedPreferences

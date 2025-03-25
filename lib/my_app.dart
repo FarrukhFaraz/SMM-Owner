@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sms_owner/core/utils/navigation.dart';
 import 'package:sms_owner/splash_screen.dart';
 
 import 'config/theme/theme_cubit.dart';
@@ -13,10 +14,12 @@ class MyApp extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeMode>(
       builder: (context, themeMode) {
         return MaterialApp(
-          title: 'Flutter App',
+          debugShowCheckedModeBanner: false,
+          title: 'SMM',
           theme: ThemeManager.lightTheme,
           darkTheme: ThemeManager.darkTheme,
           themeMode: themeMode,
+          navigatorKey: NavigationService.navigatorKey,
           home: SplashScreen(),
         );
       },
