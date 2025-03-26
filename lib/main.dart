@@ -11,6 +11,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferenceService.init();
 
+
+
   runApp(
     MultiBlocProvider(
       providers: [BlocProvider(create: (_) => ThemeCubit()), BlocProvider(create: (_) => EnvCubit())],
