@@ -45,6 +45,7 @@ class ThemeManager {
       bodyMedium: TextStyle(color: Colors.white70, fontSize: 14),
       labelLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
     ),
+    toggleButtonsTheme: ToggleButtonsThemeData(color: Color(0xFF3A86FF), borderRadius: BorderRadius.circular(10), borderWidth: 1),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: Color(0xFF3A86FF),
@@ -52,6 +53,14 @@ class ThemeManager {
         textStyle: TextStyle(fontWeight: FontWeight.bold),
       ),
     ),
+    dialogTheme: DialogTheme(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      elevation: 1,
+      data: DialogThemeData(backgroundColor: Colors.white),
+    ),
+
     cardTheme: CardTheme(color: Color(0xFF1E1E1E), elevation: 4, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -68,8 +77,8 @@ class ThemeManager {
     return isDarkMode == null
         ? ThemeMode.system
         : isDarkMode
-            ? ThemeMode.dark
-            : ThemeMode.light;
+        ? ThemeMode.dark
+        : ThemeMode.light;
   }
 
   /// Set the theme mode in SharedPreferences
