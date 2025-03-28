@@ -58,7 +58,6 @@ class ThemeManager {
       surfaceTintColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 1,
-      data: DialogThemeData(backgroundColor: Colors.white),
     ),
 
     cardTheme: CardTheme(color: Color(0xFF1E1E1E), elevation: 4, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sms_owner/config/theme/theme_cubit.dart';
 import 'package:sms_owner/core/components/internet_state.dart';
+import 'package:sms_owner/core/cubit/general_cubit.dart';
 import 'package:sms_owner/core/storage/preferences.dart';
 
 import 'config/env/env_cubit.dart';
@@ -13,7 +14,7 @@ void main() async {
 
   runApp(
     MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => ThemeCubit()), BlocProvider(create: (_) => EnvCubit())],
+      providers: [BlocProvider(create: (_) => ThemeCubit()), BlocProvider(create: (_) => EnvCubit()), BlocProvider(create: (_) => GeneralCubit())],
       child: InternetStateWidget(child: const MyApp()),
     ),
   );
