@@ -21,6 +21,9 @@ class LoginConfig {
   final Color forgotPasswordColor;
   final Color createAccountColor;
   final Color haveAccountColor;
+  final Color bottomSheetColor;
+  final Color bottomSheetColor2;
+
 
   // Input Fields
   final String emailHint;
@@ -81,6 +84,8 @@ class LoginConfig {
     required this.enableSocialLogin,
     required this.googleLogin,
     required this.appleLogin,
+    required this.bottomSheetColor,
+    required this.bottomSheetColor2
   });
 
   /// Factory constructor to create `LoginConfig` from a Map.
@@ -119,6 +124,8 @@ class LoginConfig {
       enableSocialLogin: map["enableSocialLogin"] ?? false,
       googleLogin: map["googleLogin"] ?? false,
       appleLogin: map["appleLogin"] ?? false,
+      bottomSheetColor: _hexToColor(map['bottomSheetColor']),
+      bottomSheetColor2: _hexToColor(map['bottomSheetColor2']),
     );
   }
 

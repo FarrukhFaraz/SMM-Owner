@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sms_owner/core/utils/navigation.dart';
 import 'package:sms_owner/core/network/dio_client.dart';
 import 'package:sms_owner/core/utils/common_keys.dart';
 import 'package:sms_owner/presentation/auth/login/screens/login_screen.dart';
-
 import 'core/storage/secure_storage.dart';
 
 class SplashScreen extends StatefulWidget {

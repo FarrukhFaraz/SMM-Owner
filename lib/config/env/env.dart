@@ -6,7 +6,7 @@ final Map<String, dynamic> environment = {
     "backgroundColor": ["#4c8479", "#2b5f56"],
     "enableAnimation": true,
     "animationAsset": "assets/animations/background.json",
-    "backgroundImage": "assets/images/login_bg.png",
+    "backgroundImage": "assets/png/login_image.avif",
 
     // Texts
     "loginText": "Sign In",
@@ -22,6 +22,8 @@ final Map<String, dynamic> environment = {
     "forgotPasswordColor": "#FFFFFF",
     "createAccountColor": "#9481d4",
     "haveAccountColor": "#FFFFFF",
+    "bottomSheetColor":"#000000",
+    "bottomSheetColor2":"#555555",
 
     // Input Fields
     "emailHint": "Enter your email",
@@ -48,4 +50,8 @@ final Map<String, dynamic> environment = {
     "googleLogin": true,
     "appleLogin": true,
   },
+  
+  "signupConfog":{
+    "backgroundColor": ["#4c8479", "#2b5f56"],
+  }, 
 };

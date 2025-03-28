@@ -3,19 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sms_owner/config/theme/theme_cubit.dart';
 import 'package:sms_owner/core/components/internet_state.dart';
 import 'package:sms_owner/core/storage/preferences.dart';
-
 import 'config/env/env_cubit.dart';
 import 'my_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferenceService.init();
-
-
-
   runApp(
     MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => ThemeCubit()), BlocProvider(create: (_) => EnvCubit())],
+      providers: [
+        BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider(create: (_) => EnvCubit()),
+      ],
       child: InternetStateWidget(child: const MyApp()),
     ),
   );
