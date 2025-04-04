@@ -15,6 +15,7 @@ class CustomTextField extends StatefulWidget {
     this.border,
     this.focusBorderColor,
     this.errorBorderColor,
+    this.inputTextStyle,
     this.fillColor,
     this.hintText,
     this.hintStyle,
@@ -34,6 +35,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final InputBorder? border;
   final Color? focusBorderColor;
+  final TextStyle? inputTextStyle;
   final Color? errorBorderColor;
   final Color? fillColor;
   final String? hintText;
@@ -57,8 +59,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
       maxLines: widget.maxLines,
       onChanged: widget.onChanged,
       inputFormatters: widget.inputFormatter,
+
       validator: widget.validator,
       keyboardType: widget.keyboardType,
+      style: widget.inputTextStyle,
       decoration: InputDecoration(
         prefix: widget.prefix,
         suffix:
@@ -77,9 +81,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         errorBorder: widget.border?.copyWith(borderSide: BorderSide(color: widget.errorBorderColor ?? widget.border!.borderSide.color)),
         fillColor: widget.fillColor,
         filled: true,
-        // constraints: BoxConstraints(maxHeight: 58),
         isDense: widget.isDense,
-
         contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         hintText: widget.hintText,
         hintStyle: widget.hintStyle,

@@ -7,6 +7,7 @@ import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/buttons.dart';
 import 'package:sms_owner/core/components/custom_textfield.dart';
 import 'package:sms_owner/core/utils/navigation.dart';
+import 'package:sms_owner/presentation/auth/forgot_password/screens/forgot_password.dart';
 import 'package:sms_owner/presentation/auth/sign_up/screens/sign_up.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,15 +18,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+//
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+//
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EnvCubit, ENVModel>(
       builder: (context, envModel) {
         final loginConfig = envModel.loginConfig;
         return Scaffold(
+          resizeToAvoidBottomInset: false,
+
+          //BottomSheet
           bottomSheet: BottomSheet(
             onClosing: () {},
             builder: (_) {
@@ -80,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
               );
             },
           ),
+
           body: SingleChildScrollView(
             child: Container(
               height: MediaQuery.of(context).size.height,
@@ -92,6 +98,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   //Positioned.fill(child: Lottie.asset(loginConfig.animationAsset, fit: BoxFit.cover)),
                   Column(
                     children: [
+
+                      //top Image
                       const SizedBox(height: 50),
                       if (loginConfig.backgroundImage.isNotEmpty) ...{
                         Container(
@@ -122,6 +130,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       },
+
+                      //Panel Name Side
                       const SizedBox(height: 20),
                       Text(
                         loginConfig.loginText,
@@ -138,6 +148,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: loginConfig.panelColor,
                         ),
                       ),
+
+                      //Textfields
                       const SizedBox(height: 26),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 36.0),
@@ -187,6 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
 
+                      // forget Password
                       const SizedBox(height: 10),
                       if (loginConfig.enableForgotPassword)
                         Align(
@@ -194,7 +207,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 30),
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                NavigationService.push(ForgotPasswordScreen());
+                              },
                               child: Text(
                                 loginConfig.forgotPasswordText,
                                 style: TextStyle(
@@ -205,7 +220,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-
+                      
+                      //
                       const SizedBox(height: 30),
                     ],
                   ),
