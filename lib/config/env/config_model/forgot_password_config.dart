@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ForgotpasswordConfig {
+class ForgotPasswordConfig {
   //Colors
   final List<Color> backgroundColor;
   final Color lockColor;
   final Color buttonColor;
   final Color buttonTextColor;
   final Color arrowBackColor;
-  final Color textbuttonColor;
+  final Color textButtonColor;
   final Color cancelIconColor;
 
   // TextField Styles
@@ -15,9 +15,9 @@ class ForgotpasswordConfig {
   final double textFieldBorderRadius;
   final Color textFieldHintColor;
   final Color textFieldIconColor;
-  final Color textfieldBorderColor;
+  final Color textFieldBorderColor;
 
-  ForgotpasswordConfig({
+  ForgotPasswordConfig({
     required this.backgroundColor,
     required this.lockColor,
     required this.buttonColor,
@@ -26,14 +26,14 @@ class ForgotpasswordConfig {
     required this.textFieldBorderRadius,
     required this.textFieldHintColor,
     required this.textFieldIconColor,
-    required this.textfieldBorderColor,
+    required this.textFieldBorderColor,
     required this.arrowBackColor,
-    required this.textbuttonColor,
+    required this.textButtonColor,
     required this.cancelIconColor,
   });
 
-  factory ForgotpasswordConfig.fromMap(Map<String, dynamic> map) {
-    return ForgotpasswordConfig(
+  factory ForgotPasswordConfig.fromMap(Map<String, dynamic> map) {
+    return ForgotPasswordConfig(
       backgroundColor: _hexToListColor(map["backgroundColor"] ?? ["#FFFFFF"]),
       lockColor: _hexToColor(map['lockColor'] ?? '#2b524a'),
       buttonColor: _hexToColor(map['buttonColor'] ?? '#bed2d0'),
@@ -42,10 +42,10 @@ class ForgotpasswordConfig {
       textFieldBorderRadius: (map["textFieldBorderRadius"] ?? 30).toDouble(),
       textFieldHintColor: _hexToColor(map["textFieldHintColor"] ?? "#bed2d0"),
       textFieldIconColor: _hexToColor(map["textFieldIconColor"] ?? "#bed2d0"),
-      textfieldBorderColor: map['textFieldBorderColor'],
+      textFieldBorderColor: map['textFieldBorderColor'],
       arrowBackColor: map['arrowBackColor'],
-      textbuttonColor: map['textButtonColor'],
-     cancelIconColor:_hexToColor(map['cancelIconColor'] ?? "#2b524a")
+      textButtonColor: map['textButtonColor'],
+      cancelIconColor: _hexToColor(map['cancelIconColor'] ?? "#2b524a"),
     );
   }
 
