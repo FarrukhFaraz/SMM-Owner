@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sms_owner/core/cubit/general_cubit.dart';
 import 'package:sms_owner/core/utils/navigation.dart';
 import 'package:sms_owner/core/network/dio_client.dart';
 import 'package:sms_owner/core/utils/common_keys.dart';
@@ -23,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   validateLogin() async {
     String? token = await SecureStorageService.getString(CommonKeys.accessToken);
+    await context.read<GeneralCubit>().loadPackageInfoDetail();
     if (kDebugMode) {
       print("Stored Token: $token");
     }
