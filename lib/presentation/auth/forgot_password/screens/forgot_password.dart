@@ -109,15 +109,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           SizedBox(height: 30),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: customButton(
-                              50,
-                              double.infinity,
-                              30,
-                              forgotPassConfig.buttonColor,
-                              "Send Code on Email",
-                              forgotPassConfig.buttonTextColor,
-                              fontSize: 15,
-                              fontweight: FontWeight.w200,
+                            child: CustomButton(
+                              onPressed: () {},
+                              buttonTitle: "Send Code on Email",
+                              buttonColor: forgotPassConfig.buttonColor,
+                              textStyle: context.text15Medium?.copyWith(color: forgotPassConfig.buttonTextColor),
+                              borderRadius: 30,
                             ).animate().fadeIn(duration: 1400.ms).slideY(begin: 0.3, end: 0),
                           ),
                           SizedBox(height: 20),

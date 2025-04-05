@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sms_owner/config/env/config_model/signup_config.dart';
 import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/buttons.dart';
 import 'package:sms_owner/core/components/custom_textfield.dart';
+import 'package:sms_owner/core/utils/app_color.dart';
 import 'package:sms_owner/core/utils/navigation.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController retypePasswordController = TextEditingController();
   final TextEditingController whatsappController = TextEditingController();
 
-  //
+  bool checkValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    // top Container
                     Container(
                       alignment: Alignment.centerLeft,
                       height: MediaQuery.of(context).size.height * .3,
@@ -87,84 +86,142 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
 
-                    // fields
                     SizedBox(height: 20),
-                    _buildTextField(signupConfig, fullNameController, Icons.person, signupConfig.fullNameHint),
-                    _buildTextField(signupConfig, usernameController, Icons.person, signupConfig.userNameHint),
-                    _buildTextField(signupConfig, emailController, Icons.email, signupConfig.emailHint),
-                    _buildTextField(signupConfig, whatsappController, Icons.call, signupConfig.whatsappHint),
-                    _buildTextField(
-                      signupConfig,
-                      passwordController,
-                      Icons.password,
-                      signupConfig.passwordHint,
-                      isPassword: true,
-                      suffix: Icon(Icons.visibility, color: signupConfig.textFieldIconColor),
-                    ),
-                    _buildTextField(
-                      signupConfig,
-                      retypePasswordController,
-                      Icons.lock,
-                      signupConfig.retypePasswordHint,
-                      isPassword: true,
-                      suffix: Icon(Icons.visibility, color: signupConfig.textFieldIconColor),
-                    ),
 
-                    //terms and conditions check
-                    SizedBox(height: 10),
                     Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Row(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                      child: Column(
                         children: [
-                          Checkbox(value: false, onChanged: (value) {}),
-                          Text("I agree to the ", style: TextStyle(color: signupConfig.focusBorderColor)),
-                          Text("Terms & Privacy", style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                    ),
+                          CustomTextField(
+                            controller: fullNameController,
+                            hintText: signupConfig.fullNameHint,
+                            hintStyle: context.text12Medium?.copyWith(color: signupConfig.textFieldHintColor),
+                            keyboardType: TextInputType.name,
+                            fillColor: Colors.transparent,
+                            prefix: Icon(Icons.person, color: signupConfig.textFieldIconColor, size: 20),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(18),
+                              borderSide: BorderSide(width: 1, color: signupConfig.focusBorderColor),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          CustomTextField(
+                            controller: usernameController,
+                            hintText: signupConfig.userNameHint,
+                            hintStyle: context.text12Medium?.copyWith(color: signupConfig.textFieldHintColor),
+                            keyboardType: TextInputType.name,
+                            fillColor: Colors.transparent,
+                            prefix: Icon(Icons.person, color: signupConfig.textFieldIconColor, size: 20),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(18),
+                              borderSide: BorderSide(width: 1, color: signupConfig.focusBorderColor),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          CustomTextField(
+                            controller: emailController,
+                            hintText: signupConfig.emailHint,
+                            hintStyle: context.text12Medium?.copyWith(color: signupConfig.textFieldHintColor),
+                            keyboardType: TextInputType.emailAddress,
+                            fillColor: Colors.transparent,
+                            prefix: Icon(Icons.email, color: signupConfig.textFieldIconColor, size: 20),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(18),
+                              borderSide: BorderSide(width: 1, color: signupConfig.focusBorderColor),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          CustomTextField(
+                            controller: whatsappController,
+                            hintText: signupConfig.whatsappHint,
+                            hintStyle: context.text12Medium?.copyWith(color: signupConfig.textFieldHintColor),
+                            keyboardType: TextInputType.phone,
+                            fillColor: Colors.transparent,
+                            prefix: Icon(Icons.call, color: signupConfig.textFieldIconColor, size: 20),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(18),
+                              borderSide: BorderSide(width: 1, color: signupConfig.focusBorderColor),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          CustomTextField(
+                            controller: passwordController,
+                            hintText: signupConfig.passwordHint,
+                            hintStyle: context.text12Medium?.copyWith(color: signupConfig.textFieldHintColor),
+                            keyboardType: TextInputType.visiblePassword,
+                            fillColor: Colors.transparent,
+                            isPassword: true,
+                            prefix: Icon(Icons.lock, color: signupConfig.textFieldIconColor, size: 20),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(18),
+                              borderSide: BorderSide(width: 1, color: signupConfig.focusBorderColor),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          CustomTextField(
+                            controller: retypePasswordController,
+                            hintText: signupConfig.fullNameHint,
+                            hintStyle: context.text12Medium?.copyWith(color: signupConfig.textFieldHintColor),
+                            keyboardType: TextInputType.visiblePassword,
+                            fillColor: Colors.transparent,
+                            isPassword: true,
+                            prefix: Icon(Icons.lock, color: signupConfig.textFieldIconColor, size: 20),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(18),
+                              borderSide: BorderSide(width: 1, color: signupConfig.focusBorderColor),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: checkValue,
+                                onChanged: (value) {
+                                  checkValue = !checkValue;
+                                  setState(() {});
+                                },
+                                activeColor: AppColor.kcPrimaryColor,
+                                checkColor: AppColor.kWhite,
+                                side: BorderSide(width: 1.5, color: AppColor.kcPrimaryDark),
+                              ),
+                              Text("I agree to the ", style: context.text15Medium?.copyWith(color: signupConfig.focusBorderColor)),
+                              Text("Terms & Privacy", style: TextStyle(color: AppColor.kcPrimaryDark, fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          CustomButton(
+                            onPressed: () {},
+                            buttonTitle: "Sign up",
+                            buttonColor: signupConfig.buttonBackgroundColor,
+                            textStyle: context.text15Medium?.copyWith(color: AppColor.kWhite),
+                            borderRadius: 30,
+                          ).animate().fade(duration: 500.ms).slideY(begin: 0.5, end: 0),
+                          SizedBox(height: 15),
+                          Center(child: Text("or", style: TextStyle(color: Colors.black))),
 
-                    //Signup Button
-                    SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: customButton(
-                        50,
-                        double.infinity,
-                        30,
-                        signupConfig.buttonBackgroundColor,
-                        'Sign up',
-                        Colors.white,
-                      ).animate().fade(duration: 500.ms).slideY(begin: 0.5, end: 0),
-                    ),
-                    SizedBox(height: 15),
-                    Center(child: Text("or", style: TextStyle(color: Colors.black))),
+                          SizedBox(height: 10),
+                          OutlinedButton.icon(
+                            onPressed: () {},
+                            icon: Image.asset('assets/png/google_icon.png', height: 20),
+                            label: Text("Signup with Google", style: TextStyle(color: Colors.black)),
+                            style: OutlinedButton.styleFrom(
+                              minimumSize: Size(double.infinity, 50),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                            ),
+                          ),
 
-                    SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: OutlinedButton.icon(
-                        onPressed: () {},
-                        icon: Image.asset('assets/png/google_icon.png', height: 20),
-                        label: Text("Signup with Google", style: TextStyle(color: Colors.black)),
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 50),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("Have an account?", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                          GestureDetector(
-                            onTap: () {
-                              NavigationService.pop();
-                            },
-                            child: Text(" Sign In", style: TextStyle(color: signupConfig.buttonBackgroundColor, fontWeight: FontWeight.bold)),
+                          SizedBox(height: 10),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text("Have an account?", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                              GestureDetector(
+                                onTap: () {
+                                  NavigationService.pop();
+                                },
+                                child: Text(" Sign In", style: TextStyle(color: signupConfig.buttonBackgroundColor, fontWeight: FontWeight.bold)),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -176,35 +233,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         );
       },
-    );
-  }
-
-  //
-  Widget _buildTextField(
-    SignupConfig signupConfig,
-    TextEditingController controller,
-    IconData prefixIcon,
-    String hint, {
-    TextInputType? textInputKeyBoardType,
-    bool? isPassword,
-    Icon? suffix,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-      child: CustomTextField(
-        controller: controller,
-        hintText: hint,
-        focusBorderColor: signupConfig.focusBorderColor,
-        hintStyle: context.text12Medium?.copyWith(color: signupConfig.textFieldHintColor),
-
-        inputTextStyle: TextStyle(color: signupConfig.inputTextColor),
-        keyboardType: textInputKeyBoardType ?? TextInputType.emailAddress,
-        fillColor: Colors.transparent,
-        isPassword: isPassword ?? false,
-        prefix: Icon(prefixIcon, color: signupConfig.textFieldIconColor, size: 20),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: BorderSide(width: 1, color: signupConfig.focusBorderColor)),
-        suffix: suffix,
-      ),
     );
   }
 }

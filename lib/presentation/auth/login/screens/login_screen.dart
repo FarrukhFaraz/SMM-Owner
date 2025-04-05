@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sms_owner/config/env/config_model/login_config.dart';
 import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/buttons.dart';
 import 'package:sms_owner/core/components/custom_textfield.dart';
+import 'package:sms_owner/core/utils/app_color.dart';
 import 'package:sms_owner/core/utils/navigation.dart';
 import 'package:sms_owner/presentation/auth/forgot_password/screens/forgot_password.dart';
 import 'package:sms_owner/presentation/auth/sign_up/screens/sign_up.dart';
@@ -52,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           gradient: RadialGradient(colors: loginConfig.backgroundColor),
                           image: DecorationImage(image: AssetImage(loginConfig.backgroundImage), fit: BoxFit.cover),
                         ),
-                      ),
+                      ).animate().fade(duration: 500.ms).slideY(begin: 0.5, end: 0),
                     ),
                   },
                   const SizedBox(height: 20),
@@ -112,8 +113,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         const SizedBox(height: 40),
-                        buildLoginButton(loginConfig),
-                        if (loginConfig.enableSocialLogin) _buildGoogleLoginButton(loginConfig),
+                        CustomButton(
+                          onPressed: () {},
+                          buttonTitle: loginConfig.loginText,
+                          textStyle: context.text18Bold?.copyWith(color: loginConfig.buttonTextColor),
+                          buttonColor: loginConfig.buttonBackgroundColor,
+                          borderRadius: 30,
+                        ).animate().fade(duration: 500.ms).slideY(begin: 0.5, end: 0),
+                        if (loginConfig.enableSocialLogin)
+                          CustomButton(
+                            onPressed: () {},
+                            buttonTitle: "Login with Google ",
+                            textStyle: context.smallCaption14500,
+                            buttonColor: AppColor.kWhite,
+                            assetImage: "assets/png/google_icon.png",
+                            hasImage: true,
+                            borderRadius: 30,
+                          ).animate().fade(duration: 500.ms).slideY(begin: 0.5, end: 0),
                         if (loginConfig.enableSignup)
                           Column(
                             children: [
@@ -138,25 +154,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildGoogleLoginButton(LoginConfig loginConfig) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-      child: Container(
-        width: double.infinity,
-        height: loginConfig.buttonHeight,
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(loginConfig.buttonBorderRadius)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset("assets/png/google_icon.png", height: 24),
-            const SizedBox(width: 10),
-            Text("Login with Google ", style: context.smallCaption14500),
-          ],
-        ),
-      ),
     );
   }
 }
