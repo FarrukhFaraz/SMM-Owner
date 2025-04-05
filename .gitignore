@@ -3,3 +3,8 @@ pubspec.lock
 /.idea
 /build
 /.dart_tool
+/.dart_tool
+.flutter-plugins
+/.idea/libraries
+/android/app/.idea
+/.idea
