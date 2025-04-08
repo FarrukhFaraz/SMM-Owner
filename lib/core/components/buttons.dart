@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sms_owner/config/env/config_model/login_config.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({

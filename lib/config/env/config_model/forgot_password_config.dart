@@ -38,13 +38,13 @@ class ForgotPasswordConfig {
       lockColor: _hexToColor(map['lockColor'] ?? '#2b524a'),
       buttonColor: _hexToColor(map['buttonColor'] ?? '#bed2d0'),
       buttonTextColor: _hexToColor(map['buttonTextColor'] ?? '#2b524a'),
-      textFieldBackgroundColor: map["textFieldBackgroundColor"],
+      textFieldBackgroundColor: _hexToColor(map["textFieldBackgroundColor"]),
       textFieldBorderRadius: (map["textFieldBorderRadius"] ?? 30).toDouble(),
       textFieldHintColor: _hexToColor(map["textFieldHintColor"] ?? "#bed2d0"),
       textFieldIconColor: _hexToColor(map["textFieldIconColor"] ?? "#bed2d0"),
-      textFieldBorderColor: map['textFieldBorderColor'],
-      arrowBackColor: map['arrowBackColor'],
-      textButtonColor: map['textButtonColor'],
+      textFieldBorderColor: _hexToColor(map['textFieldBorderColor']),
+      arrowBackColor: _hexToColor(map['arrowBackColor']),
+      textButtonColor: _hexToColor(map['textButtonColor']),
       cancelIconColor: _hexToColor(map['cancelIconColor'] ?? "#2b524a"),
     );
   }

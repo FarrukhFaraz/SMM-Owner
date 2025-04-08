@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 
 //// Control system for App
 final Map<String, dynamic> environment = {
@@ -56,7 +56,7 @@ final Map<String, dynamic> environment = {
   "signupConfig": {
     //Colors
     "backgroundColor": ["#4c8479", "#2b5f56"],
-    "cancelIconColor": Colors.white,
+    "cancelIconColor": "#ffffff",
 
     // Input Fields
     "emailHint": "Enter your email",
@@ -75,13 +75,13 @@ final Map<String, dynamic> environment = {
     // TextField Styles
     "textFieldBackgroundColor": "#4c8479",
     "textFieldBorderRadius": 18,
-    "textFieldHintColor": Colors.grey,
-    "textFieldIconColor": Colors.grey,
-    'focusBorderColor': Colors.black,
-    'inputTextColor': Colors.black,
+    "textFieldHintColor": '#bcc4d4', //grey
+    "textFieldIconColor": '#bcc4d4',
+    'focusBorderColor': "#000000", //black
+    'inputTextColor': "#000000",
 
      // Button Styles
-    "buttonBackgroundColor": Colors.teal,
+    "buttonBackgroundColor": "#4c8479",
     "buttonTextColor": "#000000",
     "buttonBorderRadius": 30,
     "buttonHeight": 52,
@@ -94,16 +94,16 @@ final Map<String, dynamic> environment = {
     'lockColor':'#2b524a',
     'buttonColor': '#bed2d0',
     'buttonTextColor': '#2b524a',
-    'arrowBackColor': Colors.white,
-    'textButtonColor':Colors.white,
+    'arrowBackColor': "#ffffff",
+    'textButtonColor':"#ffffff",
     'cancelIconColor': '#2b524a',
 
     // TextField Styles
-    "textFieldBackgroundColor": Colors.transparent,
+    "textFieldBackgroundColor": "",
     "textFieldBorderRadius": 18,
     "textFieldHintColor": "#bed2d0",
     "textFieldIconColor": "#bed2d0",
-    "textFieldBorderColor":Colors.white,
+    "textFieldBorderColor":"#ffffff",
 
   }
 

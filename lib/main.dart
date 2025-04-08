@@ -12,7 +12,11 @@ void main() async {
   await SharedPreferenceService.init();
   runApp(
     MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => ThemeCubit()), BlocProvider(create: (_) => EnvCubit()), BlocProvider(create: (_) => GeneralCubit())],
+      providers: [
+        BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider(create: (_) => EnvCubit()),
+        BlocProvider(create: (_) => GeneralCubit()),
+      ],
       child: InternetStateWidget(child: const MyApp()),
     ),
   );

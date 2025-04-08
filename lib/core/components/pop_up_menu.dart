@@ -36,7 +36,7 @@ class PopUpMenuIconWidget extends StatelessWidget {
 }
 
 class _PopUpMenuItem extends StatelessWidget {
-  const _PopUpMenuItem({super.key, required this.menuKey});
+  const _PopUpMenuItem({required this.menuKey});
 
   final GlobalKey<PopupMenuButtonState<int>> menuKey;
 
