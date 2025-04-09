@@ -1,3 +1,3 @@
 class APIURL {
-  static String baseUrl = '';
+  static String baseUrl = "https://demo.smmowner.shop/api";
 }
