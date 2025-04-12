@@ -5,6 +5,7 @@ import 'package:sms_owner/splash_screen.dart';
 
 import 'config/theme/theme_cubit.dart';
 import 'config/theme/theme_manager.dart';
+import 'core/components/internet_state.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,12 +16,12 @@ class MyApp extends StatelessWidget {
       builder: (context, themeMode) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'SMM',
+          title: 'SMM Owner',
           theme: ThemeManager.lightTheme,
           darkTheme: ThemeManager.darkTheme,
           themeMode: themeMode,
           navigatorKey: NavigationService.navigatorKey,
-          home: SplashScreen(),
+          home: InternetStateWidget(child: SplashScreen()),
         );
       },
     );

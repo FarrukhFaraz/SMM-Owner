@@ -10,17 +10,20 @@ import 'package:sms_owner/core/components/snack_message.dart';
 import 'package:sms_owner/core/utils/app_color.dart';
 import 'package:sms_owner/core/utils/navigation.dart';
 import 'package:sms_owner/presentation/auth/forgot_password/cubit/forgot_password_cubit.dart';
-import 'package:sms_owner/presentation/auth/forgot_password/screens/otp_screen.dart';
+import 'package:sms_owner/presentation/auth/login/screens/login_screen.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
+class ChangePasswordScreen extends StatefulWidget {
+  const ChangePasswordScreen({super.key, required this.email});
+
+  final String email;
 
   @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final TextEditingController _emailController = TextEditingController();
+class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   final ForgotPasswordCubit _forgotPasswordCubit = ForgotPasswordCubit();
 
@@ -91,18 +94,48 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             alignment: Alignment.topLeft,
                             child: Padding(
                               padding: const EdgeInsets.only(left: 30, bottom: 10),
-                              child: Text("Email :", style: context.text15Medium?.copyWith(color: Colors.white, fontWeight: FontWeight.w900)),
+                              child: Text("Password :", style: context.text15Medium?.copyWith(color: Colors.white, fontWeight: FontWeight.w900)),
                             ),
                           ),
                           SizedBox(height: 10),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: CustomTextField(
-                              controller: _emailController,
+                              controller: _passwordController,
                               fillColor: Colors.transparent,
                               isDense: false,
-                              prefix: Icon(Icons.email_outlined, color: forgotPassConfig.textFieldIconColor),
-                              hintText: 'Enter your Email',
+                              isPassword: true,
+                              prefix: Icon(Icons.lock, color: forgotPassConfig.textFieldIconColor),
+                              hintText: 'Enter your password',
+                              contentPadding: EdgeInsets.zero,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(color: forgotPassConfig.textFieldBorderColor, width: 1),
+                              ),
+                              keyboardType: TextInputType.emailAddress,
+                            ).animate().fadeIn(duration: 1200.ms),
+                          ),
+                          SizedBox(height: 30),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 30, bottom: 10),
+                              child: Text(
+                                "Confirm Password :",
+                                style: context.text15Medium?.copyWith(color: Colors.white, fontWeight: FontWeight.w900),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: CustomTextField(
+                              controller: _confirmPasswordController,
+                              fillColor: Colors.transparent,
+                              isDense: false,
+                              isPassword: true,
+                              prefix: Icon(Icons.lock, color: forgotPassConfig.textFieldIconColor),
+                              hintText: 'Confirm password',
                               contentPadding: EdgeInsets.zero,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
@@ -117,9 +150,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             child: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
                               bloc: _forgotPasswordCubit,
                               listener: (context, state) {
-                                if (state.status == ForgotPasswordStatus.codeSent) {
-                                  showSnackMessage(context, 'Code sent on Email');
-                                  NavigationService.push(OtpScreen(email: _emailController.text));
+                                if (state.status == ForgotPasswordStatus.passwordUpdated) {
+                                  showSnackMessage(context, 'Password Changed Successfully');
+                                  Navigator.of(
+                                    context,
+                                  ).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginScreen()), (context) => false);
                                 } else if (state.status == ForgotPasswordStatus.error) {
                                   showSnackErrorMessage(context, state.error, 4);
                                 }
@@ -127,16 +162,25 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               builder: (context, state) {
                                 return CustomButton(
                                   onPressed: () {
-                                    if (_emailController.text.isEmpty) {
-                                      showSnackErrorMessage(context, 'Please enter email', 3);
+                                    if (_passwordController.text.isEmpty) {
+                                      showSnackErrorMessage(context, 'Please enter Password', 3);
                                       return;
                                     }
-                                    if (state.status == ForgotPasswordStatus.sendingCode) return;
+                                    if (_passwordController.text.length < 6) {
+                                      showSnackErrorMessage(context, 'Password must be 6 character long', 3);
+                                      return;
+                                    }
+                                    if (_passwordController.text != _confirmPasswordController.text) {
+                                      showSnackErrorMessage(context, "Password do not match", 4);
+                                      return;
+                                    }
 
-                                    _forgotPasswordCubit.verifyEmail(email: _emailController.text);
+                                    if (state.status == ForgotPasswordStatus.updatingPassword) return;
+
+                                    _forgotPasswordCubit.updatePassword(email: widget.email, password: _passwordController.text);
                                   },
-                                  buttonTitle: "Send Code on Email",
-                                  loading: state.status == ForgotPasswordStatus.sendingCode,
+                                  buttonTitle: "Change Password",
+                                  loading: state.status == ForgotPasswordStatus.updatingPassword,
                                   buttonColor: forgotPassConfig.buttonColor,
                                   textStyle: context.text15Medium?.copyWith(color: forgotPassConfig.buttonTextColor),
                                   borderRadius: 30,

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/webview_screen.dart';
-import 'package:sms_owner/core/cubit/general_cubit.dart';
+import 'package:sms_owner/core/cubit/general_cubit/general_cubit.dart';
 import 'package:sms_owner/core/utils/app_color.dart';
 
 class PopUpMenuIconWidget extends StatelessWidget {

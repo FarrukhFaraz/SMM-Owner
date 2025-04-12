@@ -1,29 +1,25 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:sms_owner/core/network/api_error.dart';
 import 'package:sms_owner/core/network/dio_client.dart';
-import 'package:sms_owner/presentation/auth/login/model/login_model.dart';
+import 'package:sms_owner/presentation/Home/model/user_profile_model.dart';
 
-class LoginRepository {
-  Future<LoginResponseModel> login({required String username, required String password}) async {
+class HomeRepository {
+  Future<UserProfileModel> getProfile({required String id}) async {
     try {
-      Map<String, dynamic> body = {"login": username, "password": password};
-
-      final response = await DioClient().post('/login', data: body);
+      Map<String, dynamic> body = {"id": id};
+      print('HomeRepository.getProfile:::: $body');
+      final response = await DioClient().post('/user/profile', data: body);
+      print('HomeRepository.getProfile::::: ${response.data}');
       if (response.statusCode == 200 || response.statusCode == 201) {
-        LoginResponseModel responseModel = LoginResponseModel.fromJson(response.data);
+        UserProfileModel responseModel = UserProfileModel.fromJson(response.data['data']);
         return responseModel;
       }
       throw ApiError(message: response.data['message'] ?? 'Unexpected error occurred.', code: response.statusCode ?? 0);
     } on DioException catch (e, stackTrace) {
-      if (kDebugMode) {
-        print(stackTrace);
-      }
+      print(stackTrace);
       throw ApiError.fromDioException(e);
     } on TypeError catch (e) {
-      if (kDebugMode) {
-        print(e.stackTrace);
-      }
+      print(e.stackTrace);
       throw ApiError(message: '$e', code: 0);
     } catch (e) {
       throw ApiError(message: '$e', code: 0);

@@ -1,5 +1,3 @@
-
-
 //// Control system for App
 final Map<String, dynamic> environment = {
   "loginConfig": {
@@ -28,7 +26,7 @@ final Map<String, dynamic> environment = {
     "bottomSheetColor2": "#555555",
 
     // Input Fields
-    "emailHint": "Enter your email",
+    "emailHint": "Enter your email or username",
     "passwordHint": "Enter your password",
     "emailError": "Please enter a valid email",
     "passwordError": "Password must be at least 6 characters",
@@ -80,22 +78,21 @@ final Map<String, dynamic> environment = {
     'focusBorderColor': "#000000", //black
     'inputTextColor': "#000000",
 
-     // Button Styles
+    // Button Styles
     "buttonBackgroundColor": "#4c8479",
     "buttonTextColor": "#000000",
     "buttonBorderRadius": 30,
     "buttonHeight": 52,
   },
 
-  "forgetPasswordConfig":{
-    
+  "forgetPasswordConfig": {
     //Colors
     "backgroundColor": ["#4c8479", "#2b5f56"],
-    'lockColor':'#2b524a',
+    'lockColor': '#2b524a',
     'buttonColor': '#bed2d0',
     'buttonTextColor': '#2b524a',
     'arrowBackColor': "#ffffff",
-    'textButtonColor':"#ffffff",
+    'textButtonColor': "#ffffff",
     'cancelIconColor': '#2b524a',
 
     // TextField Styles
@@ -103,8 +100,6 @@ final Map<String, dynamic> environment = {
     "textFieldBorderRadius": 18,
     "textFieldHintColor": "#bed2d0",
     "textFieldIconColor": "#bed2d0",
-    "textFieldBorderColor":"#ffffff",
-
-  }
-
+    "textFieldBorderColor": "#ffffff",
+  },
 };

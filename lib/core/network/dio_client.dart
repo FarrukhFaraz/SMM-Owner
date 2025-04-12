@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
+import 'package:sms_owner/core/storage/secure_storage.dart';
 import 'package:sms_owner/core/utils/api_url.dart';
+import 'package:sms_owner/core/utils/common_keys.dart';
 
 class DioClient extends DioForNative {
   String? _authToken;
@@ -15,7 +17,7 @@ class DioClient extends DioForNative {
       InterceptorsWrapper(
         onRequest: (options, handler) {
           if (_authToken != null) {
-            options.headers.putIfAbsent('Authorization', () => 'Bearer $_authToken');
+            options.headers.putIfAbsent('Authorization', () => 'Bearer ${SecureStorageService.getString(CommonKeys.accessToken)}');
           }
           return handler.next(options);
         },

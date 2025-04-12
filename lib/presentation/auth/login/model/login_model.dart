@@ -1,7 +1,28 @@
+import 'package:sms_owner/presentation/Home/model/user_profile_model.dart';
+
 class LoginResponseModel {
-  String? status;
+  int? statusCode;
+  String? message;
+  UserProfileModel? user;
+  String? token;
 
-  LoginResponseModel({this.status});
+  LoginResponseModel({this.statusCode, this.message, this.user, this.token});
 
-  factory LoginResponseModel.fromJson(Map<String, dynamic> json) => LoginResponseModel(status: json['status']?.toString());
+  LoginResponseModel.fromJson(Map<String, dynamic> json) {
+    statusCode = json['statuscode'];
+    message = json['message'];
+    user = json['user'] != null ? UserProfileModel.fromJson(json['user']) : null;
+    token = json['token'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['statuscode'] = statusCode;
+    data['message'] = message;
+    if (user != null) {
+      data['user'] = user!.toJson();
+    }
+    data['token'] = token;
+    return data;
+  }
 }

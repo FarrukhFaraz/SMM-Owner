@@ -11,5 +11,6 @@ class AppColor {
   static Color kRed = Colors.red;
   static Color kBlue = Colors.blue;
   static Color kBlack = Colors.black;
+  static Color blackText = Color(0xFF252525);
   static Color kWhite = Colors.white;
 }

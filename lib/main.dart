@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sms_owner/config/theme/theme_cubit.dart';
 import 'package:sms_owner/core/components/internet_state.dart';
-import 'package:sms_owner/core/cubit/general_cubit.dart';
+import 'package:sms_owner/core/cubit/general_cubit/general_cubit.dart';
 import 'package:sms_owner/core/storage/preferences.dart';
+import 'package:sms_owner/presentation/Home/cubit/home_cubit.dart';
 import 'package:sms_owner/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:sms_owner/presentation/auth/sign_up/cubit/sign_up_cubit.dart';
 import 'config/env/env_cubit.dart';
@@ -20,8 +21,9 @@ void main() async {
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => EnvCubit()),
         BlocProvider(create: (_) => GeneralCubit()),
+        BlocProvider(create: (_) => HomeCubit()),
       ],
-      child: InternetStateWidget(child: const MyApp()),
+      child: const MyApp(),
     ),
   );
 }

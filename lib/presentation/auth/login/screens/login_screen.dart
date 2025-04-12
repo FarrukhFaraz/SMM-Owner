@@ -85,10 +85,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: BorderSide(width: 1, color: Colors.white)),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Email is required';
-                          } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                            return 'Enter a valid email';
+                            return 'Email or username is required';
                           }
+                          // else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                          //   return 'Enter a valid email';
+                          // }
                           return null;
                         },
                       ),
