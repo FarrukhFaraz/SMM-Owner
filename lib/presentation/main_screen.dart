@@ -220,14 +220,20 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: "Account"),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Handle FAB press
-        },
-        backgroundColor: Colors.green,
-        clipBehavior: Clip.hardEdge,
-        child: const Icon(Icons.add, size: 32),
+      floatingActionButton: Container(
+        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+        child: Padding(
+          padding: EdgeInsets.all(3),
+          child: FloatingActionButton(
+            onPressed: () {},
+            elevation: 0,
+            backgroundColor: Color(0xFF2D6B5F),
+            shape: const CircleBorder(),
+            child: const Icon(Icons.add, size: 40),
+          ),
+        ),
       ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
