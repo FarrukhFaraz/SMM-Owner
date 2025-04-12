@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sms_owner/config/env/env_cubit.dart';
+import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/custom_textfield.dart';
 import 'package:sms_owner/core/components/wallet_info.dart';
@@ -26,149 +29,164 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.only(bottom: 12),
-              decoration: BoxDecoration(
-                color: Colors.greenAccent,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40),
-                ),
-              ),
-              child: Container(
-                padding: EdgeInsets.only(bottom: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40),
-                    bottomRight: Radius.circular(40),
+    return BlocBuilder<EnvCubit, ENVModel>(
+      builder: (context, _homeConfig) {
+        final homeConfig = _homeConfig.homeConfig;
+        return Scaffold(
+          backgroundColor: homeConfig.backGroundColor,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(
+                    color: homeConfig.backContainerColor,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40),
+                      bottomRight: Radius.circular(40),
+                    ),
                   ),
-                  color: const Color(0xFF2D6B5F),
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 12,
-                        right: 12,
-                        top: 12,
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(40),
+                        bottomRight: Radius.circular(40),
                       ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.menu, color: Colors.white),
-                          SizedBox(width: 60),
-                          CircleAvatar(backgroundColor: Colors.grey),
-                          const SizedBox(width: 10),
-                          const Text(
-                            "Logo here",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.amber,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      color: homeConfig.frontContainerColor,
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 12,
+                            right: 12,
+                            top: 12,
                           ),
-                          const Spacer(),
-                          _buildNotificationIcon(Icons.verified, 13),
-                          const SizedBox(width: 10),
-                          _buildNotificationIcon(Icons.notifications, 13),
-                        ],
-                      ),
+                          child: Row(
+                            children: [
+                              Icon(Icons.menu, color: homeConfig.menuIconColor),
+                              SizedBox(width: 60),
+                              CircleAvatar(backgroundColor: Colors.grey),
+                              const SizedBox(width: 10),
+                              Text(
+                                "Logo here",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: homeConfig.logoTextColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const Spacer(),
+                              _buildNotificationIcon(Icons.verified, 13),
+                              const SizedBox(width: 10),
+                              _buildNotificationIcon(Icons.notifications, 13),
+                            ],
+                          ),
+                        ),
+                        //
+                        Divider(color: Colors.white),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 10,
+                          ),
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: homeConfig.walletContainerColor,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              WalletInfo(
+                                title: 'My Wallet',
+                                value: '\$ 350',
+                                homeConfig: homeConfig,
+                              ),
+                              WalletInfo(
+                                title: 'My Coins',
+                                value: '1,234,567',
+                                homeConfig: homeConfig,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // Social Icons Grid
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Wrap(
+                            spacing: 15,
+                            runSpacing: 15,
+                            alignment: WrapAlignment.center,
+                            children: List.generate(socialIcons.length, (
+                              index,
+                            ) {
+                              return CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.grey.shade300,
+                                child: Icon(
+                                  socialIcons[index],
+                                  size: 30,
+                                  color: Colors.black,
+                                ),
+                              );
+                            }),
+                          ),
+                        ),
+                      ],
                     ),
-                    //
-                    Divider(color: Colors.white),
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 10,
-                      ),
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.black87,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          WalletInfo(title: 'My Wallet', value: '\$ 350'),
-                          WalletInfo(title: 'My Coins', value: '1,234,567'),
-                        ],
-                      ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                _searchField(),
+
+                _dropdownSection(),
+
+                _textField(label: "Link"),
+
+                _quantitySection(),
+
+                const SizedBox(height: 20),
+                const Text(
+                  "Total: \$10000",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                    color: Colors.blue,
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                      vertical: 15,
                     ),
-
-                    // Social Icons Grid
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Wrap(
-                        spacing: 15,
-                        runSpacing: 15,
-                        alignment: WrapAlignment.center,
-                        children: List.generate(socialIcons.length, (index) {
-                          return CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.grey.shade300,
-                            child: Icon(
-                              socialIcons[index],
-                              size: 30,
-                              color: Colors.black,
-                            ),
-                          );
-                        }),
-                      ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                  ],
+                  ),
+                  child: const Text(
+                    "Order Now",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(height: 100),
+              ],
             ),
-            const SizedBox(height: 20),
-
-            _searchField(),
-
-            _dropdownSection(),
-
-            _textField(label: "Link"),
-
-            _quantitySection(),
-
-            const SizedBox(height: 20),
-            const Text(
-              "Total: \$10000",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-                color: Colors.blue,
-              ),
-            ),
-
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 15,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-              child: const Text(
-                "Order Now",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            const SizedBox(height: 100),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 

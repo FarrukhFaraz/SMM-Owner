@@ -13,7 +13,7 @@ class _MainScreenState extends State<MainScreen> {
 
   // Dummy widgets for each tab
   final List<Widget> _pages = const [
-   HomeScreen(),
+    HomeScreen(),
     Center(
       child: Text(
         "Orders",
@@ -68,14 +68,20 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Handle FAB press
-        },
-        backgroundColor: Colors.green,
-        clipBehavior: Clip.hardEdge,
-        child: const Icon(Icons.add, size: 32),
+      floatingActionButton: Container(
+        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+        child: Padding(
+          padding: EdgeInsets.all(3),
+          child: FloatingActionButton(
+            onPressed: () {},
+            elevation: 0,
+            backgroundColor: Color(0xFF2D6B5F),
+            shape: const CircleBorder(),
+            child: const Icon(Icons.add, size: 40),
+          ),
+        ),
       ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

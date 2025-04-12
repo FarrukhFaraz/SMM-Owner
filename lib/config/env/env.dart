@@ -104,7 +104,44 @@ final Map<String, dynamic> environment = {
     "textFieldHintColor": "#bed2d0",
     "textFieldIconColor": "#bed2d0",
     "textFieldBorderColor":"#ffffff",
+  },
 
-  }
+  "homeConfig": {
+   
+   //Colors
+  "backContainerColor": "#004d40",
+  "frontContainerColor": "#00695c",
+  "walletContainerColor": "#ffffff",
+  "walletIconColor": "#388e3c",
+  "walletinfoTitleColor": "#4e342e",
+  "walletInfoValueColor": "#1e88e5",
+  "backGroundColor": "#e0f2f1",
+  "menuIconColor": "#ffffff",
+  "logoTextColor": "#ffffff",
+  "dividerColor": "#ffffff",
+  "socialIconBackgroundColor": "#e0e0e0",
+  "socialIconColor": "#000000",
+  "searchButtonBackgroundColor": "#2d6b5f",
+  "searchButtonIconColor": "#000000",
+  "searchBorderColor": "#9e9e9e",
+  "dropdownBorderColor": "#000000",
+  "dropdownLabelColor": "#000000",
+  "serviceIdTagColor": "#bdbdbd",
+  "serviceIdTextColor": "#000000",
+  "textFieldBorderColor": "#9e9e9e",
+  "pasteButtonBackgroundColor": "#1976d2",
+  "pasteButtonTextColor": "#ffffff",
+  "quantityLabelColor": "#000000",
+  "quantityHintTextColor": "#757575",
+  "totalAmountColor": "#2196f3",
+  "orderButtonBackgroundColor": "#43a047",
+  "orderButtonTextColor": "#ffffff",
+  "notificationIconColor": "#ffffff",
+  "notificationBadgeColor": "#ffc107",
+  "notificationBadgeTextColor": "#000000"
+  //
+  
+}
+
 
 };
