@@ -24,7 +24,6 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       UserProfileModel profile = await HomeRepository().getProfile(id: id);
       myProfile = profile;
-      print('HomeCubit.getMyProfile');
       if (profile.name != null) SharedPreferenceService.setString("name", profile.name ?? "");
       if (profile.image != null) SharedPreferenceService.setString("PROFILE_IMAGE", profile.image ?? '');
 

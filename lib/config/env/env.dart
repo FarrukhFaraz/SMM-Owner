@@ -135,7 +135,13 @@ final Map<String, dynamic> environment = {
   "orderButtonTextColor": "#ffffff",
   "notificationIconColor": "#ffffff",
   "notificationBadgeColor": "#ffc107",
-  "notificationBadgeTextColor": "#000000"
+  "notificationBadgeTextColor": "#000000",
+  'categoryTextColor':"#000000",
+  'textFieldColor':'',
+  'hintTextColor':'',
+  'dropDownColor':"",
+  'dropDownFieldColor':'',
+  'dropDownTextColor':'#000000',
   //
   
 }

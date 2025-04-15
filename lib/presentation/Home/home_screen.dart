@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sms_owner/config/env/config_model/home_config.dart';
 import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
@@ -78,9 +79,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               const Spacer(),
-                              _buildNotificationIcon(Icons.verified, 13),
+                              _buildNotificationIcon(
+                                Icons.verified,
+                                13,
+                                homeConfig,
+                              ),
                               const SizedBox(width: 10),
-                              _buildNotificationIcon(Icons.notifications, 13),
+                              _buildNotificationIcon(
+                                Icons.notifications,
+                                13,
+                                homeConfig,
+                              ),
                             ],
                           ),
                         ),
@@ -125,7 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ) {
                               return CircleAvatar(
                                 radius: 30,
-                                backgroundColor: Colors.grey.shade300,
+                                backgroundColor:
+                                    homeConfig.socialIconBackgroundColor,
                                 child: Icon(
                                   socialIcons[index],
                                   size: 30,
@@ -141,13 +151,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 20),
 
-                _searchField(),
+                _searchField(homeConfig),
 
-                _dropdownSection(),
+                _dropdownSection(homeConfig),
 
-                _textField(label: "Link"),
+                _textField(homeConfig, label: "Link"),
 
-                _quantitySection(),
+                _quantitySection(homeConfig),
 
                 const SizedBox(height: 20),
                 const Text(
@@ -190,10 +200,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildNotificationIcon(IconData icon, int count) {
+  Widget _buildNotificationIcon(
+    IconData icon,
+    int count,
+    HomeConfig homeConfig,
+  ) {
     return Stack(
       children: [
-        Icon(icon, color: Colors.white),
+        Icon(icon, color: homeConfig.notificationIconColor),
         Positioned(
           right: 0,
           top: 0,
@@ -213,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _searchField() {
+  Widget _searchField(HomeConfig homeConfig) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: CustomTextField(
@@ -221,24 +235,25 @@ class _HomeScreenState extends State<HomeScreen> {
         hintText: 'Search Services ....',
         hintStyle: context.text12Medium?.copyWith(color: Colors.grey),
         keyboardType: TextInputType.visiblePassword,
-        fillColor: Colors.transparent,
+        fillColor: homeConfig.textFieldColor,
+
         suffix: Container(
           padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Color(0xFF2D6B5F),
+            color: homeConfig.searchButtonBackgroundColor,
             borderRadius: BorderRadius.circular(90),
           ),
           child: Icon(Icons.search),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(18),
-          borderSide: BorderSide(width: 1, color: Colors.grey),
+          borderSide: BorderSide(width: 1, color: homeConfig.textFieldBorderColor),
         ),
       ),
     );
   }
 
-  Widget _dropdownSection() {
+  Widget _dropdownSection(HomeConfig homeConfig) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -249,15 +264,15 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text(
               "Category",
               style: context.text12Medium?.copyWith(
-                color: Colors.black,
+                color: homeConfig.categoryTextColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
           const SizedBox(height: 5),
           DropdownButtonFormField(
-            autofocus: true,
-            focusColor: Colors.transparent,
+            dropdownColor: homeConfig.dropDownColor,
+            iconEnabledColor: Colors.black,
             value: "Instagram Followers Service - Refill 30 Days Guarantee",
             items:
                 [
@@ -271,7 +286,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         value: e,
                         child: Text(
                           e,
-                          style: context.text10Bold?.copyWith(fontSize: 11),
+                          style: context.text10Bold?.copyWith(
+                            fontSize: 11,
+                            color: homeConfig.dropDownTextColor,
+                          ),
                         ),
                       ),
                     )
@@ -280,7 +298,9 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide(color: homeConfig.dropdownBorderColor),
               ),
+              fillColor: homeConfig.dropDownFieldColor,
             ),
           ),
           const SizedBox(height: 10),
@@ -289,16 +309,15 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text(
               "Services",
               style: context.text12Medium?.copyWith(
-                color: Colors.black,
+                color: homeConfig.categoryTextColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
           const SizedBox(height: 5),
           DropdownButtonFormField(
-            focusColor: Colors.transparent,
-
-            autofocus: true,
+            dropdownColor: homeConfig.dropDownColor,
+            iconEnabledColor: Colors.black,
             value: "Instagram Followers Service - Refill 30 Days Guarantee",
             items:
                 [
@@ -318,7 +337,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 vertical: 4,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors.grey,
+                                color: homeConfig.serviceIdTagColor,
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Text(
@@ -331,7 +350,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(width: 5),
                             Text(
                               e,
-                              style: context.text10Bold?.copyWith(fontSize: 9),
+                              style: context.text10Bold?.copyWith(
+                                fontSize: 9,
+                                color: homeConfig.dropDownTextColor,
+                              ),
                             ),
                           ],
                         ),
@@ -342,8 +364,9 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: Colors.black),
+                borderSide: BorderSide(color: homeConfig.dropdownBorderColor),
               ),
+              fillColor: homeConfig.dropDownFieldColor,
             ),
           ),
         ],
@@ -351,7 +374,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _textField({required String label}) {
+  Widget _textField(HomeConfig homeConfig, {required String label}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
@@ -362,7 +385,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text(
               label,
               style: context.text12Medium?.copyWith(
-                color: Colors.black,
+                color: homeConfig.categoryTextColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -373,21 +396,26 @@ class _HomeScreenState extends State<HomeScreen> {
             hintText: 'link ....',
             hintStyle: context.text12Medium?.copyWith(color: Colors.grey),
             keyboardType: TextInputType.visiblePassword,
-            fillColor: Colors.transparent,
+            fillColor: homeConfig.textFieldColor,
             suffix: Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: homeConfig.pasteButtonBackgroundColor,
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Text(
                 "Paste",
-                style: context.text12Bold?.copyWith(color: Colors.white),
+                style: context.text12Bold?.copyWith(
+                  color: homeConfig.pasteButtonTextColor,
+                ),
               ),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(18),
-              borderSide: BorderSide(width: 1, color: Colors.grey),
+              borderSide: BorderSide(
+                width: 1,
+                color: homeConfig.textFieldBorderColor,
+              ),
             ),
           ),
         ],
@@ -395,7 +423,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _quantitySection() {
+  Widget _quantitySection(HomeConfig homeConfig) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -406,7 +434,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text(
               "Quantity",
               style: context.text12Medium?.copyWith(
-                color: Colors.black,
+                color: homeConfig.categoryTextColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -415,13 +443,18 @@ class _HomeScreenState extends State<HomeScreen> {
           CustomTextField(
             controller: searchController,
             hintText: '100',
-            hintStyle: context.text12Medium?.copyWith(color: Colors.grey),
+            hintStyle: context.text12Medium?.copyWith(
+              color: homeConfig.hintTextColor,
+            ),
             keyboardType: TextInputType.visiblePassword,
-            fillColor: Colors.transparent,
+            fillColor: homeConfig.textFieldColor,
 
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(18),
-              borderSide: BorderSide(width: 1, color: Colors.grey),
+              borderSide: BorderSide(
+                width: 1,
+                color: homeConfig.textFieldBorderColor,
+              ),
             ),
           ),
           const SizedBox(height: 5),
