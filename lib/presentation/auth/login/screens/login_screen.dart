@@ -41,7 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
         return Scaffold(
           body: Container(
             height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(gradient: LinearGradient(colors: loginConfig.backgroundColor)),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: loginConfig.backgroundColor),
+            ),
             child: SingleChildScrollView(
               child: Form(
                 key: _formKey,
@@ -55,34 +57,68 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(120),
                           border: Border.all(color: Colors.white38),
-                          boxShadow: <BoxShadow>[BoxShadow(color: Colors.white), BoxShadow(color: Color(0xff4c8479))],
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(color: Colors.white),
+                            BoxShadow(color: Color(0xff4c8479)),
+                          ],
                         ),
                         padding: EdgeInsets.all(10),
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.2,
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(120),
-                            gradient: RadialGradient(colors: loginConfig.backgroundColor),
-                            image: DecorationImage(image: AssetImage(loginConfig.backgroundImage), fit: BoxFit.cover),
-                          ),
-                        ).animate().fade(duration: 500.ms).slideY(begin: 0.5, end: 0),
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              width: MediaQuery.of(context).size.width * 0.2,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(120),
+                                gradient: RadialGradient(
+                                  colors: loginConfig.backgroundColor,
+                                ),
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    loginConfig.backgroundImage,
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            )
+                            .animate()
+                            .fade(duration: 500.ms)
+                            .slideY(begin: 0.5, end: 0),
                       ),
                     },
                     const SizedBox(height: 20),
-                    Text(loginConfig.loginText, style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: loginConfig.loginColor)),
-                    Text(loginConfig.panelText, style: TextStyle(fontSize: 16, color: loginConfig.panelColor)),
+                    Text(
+                      loginConfig.loginText,
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: loginConfig.loginColor,
+                      ),
+                    ),
+                    Text(
+                      loginConfig.panelText,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: loginConfig.panelColor,
+                      ),
+                    ),
                     const SizedBox(height: 26),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 36.0),
                       child: CustomTextField(
                         controller: emailController,
                         hintText: loginConfig.emailHint,
-                        hintStyle: context.text12Medium?.copyWith(color: loginConfig.textFieldHintColor),
+                        hintStyle: context.text12Medium?.copyWith(
+                          color: loginConfig.textFieldHintColor,
+                        ),
                         keyboardType: TextInputType.emailAddress,
                         fillColor: Colors.transparent,
-                        prefix: Icon(Icons.person, color: Theme.of(context).scaffoldBackgroundColor),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: BorderSide(width: 1, color: Colors.white)),
+                        prefix: Icon(
+                          Icons.person,
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18),
+                          borderSide: BorderSide(width: 1, color: Colors.white),
+                        ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Email or username is required';
@@ -100,11 +136,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: CustomTextField(
                         controller: passwordController,
                         hintText: loginConfig.passwordHint,
-                        hintStyle: context.text12Medium?.copyWith(color: loginConfig.textFieldHintColor),
+                        hintStyle: context.text12Medium?.copyWith(
+                          color: loginConfig.textFieldHintColor,
+                        ),
                         keyboardType: TextInputType.visiblePassword,
                         fillColor: Colors.transparent,
-                        prefix: Icon(Icons.lock, color: Theme.of(context).scaffoldBackgroundColor),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: BorderSide(width: 1, color: Colors.white)),
+                        prefix: Icon(
+                          Icons.lock,
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18),
+                          borderSide: BorderSide(width: 1, color: Colors.white),
+                        ),
                         isPassword: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -128,7 +172,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             child: Text(
                               loginConfig.forgotPasswordText,
-                              style: TextStyle(color: Colors.white70, decoration: TextDecoration.underline),
+                              style: TextStyle(
+                                color: Colors.white70,
+                                decoration: TextDecoration.underline,
+                              ),
                             ),
                           ),
                         ),
@@ -137,64 +184,103 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [loginConfig.bottomSheetColor2, loginConfig.bottomSheetColor],
+                          colors: [
+                            loginConfig.bottomSheetColor2,
+                            loginConfig.bottomSheetColor,
+                          ],
                           tileMode: TileMode.mirror,
                           end: AlignmentDirectional.topStart,
                           stops: [0.02, 1.5],
                         ),
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
                       ),
                       child: Column(
                         children: [
                           const SizedBox(height: 40),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
+                            ),
                             child: BlocConsumer<LoginCubit, LoginState>(
-                              listener: (context, state) {
-                                if (state.status == LoginStatus.success) {
-                                  showSnackMessage(context, "Login Successfully");
-                                  NavigationService.pushReplacement(MainScreen());
-                                } else if (state.status == LoginStatus.error) {
-                                  showSnackErrorMessage(context, state.error, 4);
-                                }
-                              },
-                              builder: (context, state) {
-                                return CustomButton(
-                                  onPressed: () {
-                                    if (state.status == LoginStatus.loading) return;
-                                    if (!_formKey.currentState!.validate()) {
-                                      return;
+                                  listener: (context, state) {
+                                    if (state.status == LoginStatus.success) {
+                                      showSnackMessage(
+                                        context,
+                                        "Login Successfully",
+                                      );
+                                      NavigationService.pushReplacement(
+                                        MainScreen(),
+                                      );
+                                    } else if (state.status ==
+                                        LoginStatus.error) {
+                                      showSnackErrorMessage(
+                                        context,
+                                        state.error,
+                                        4,
+                                      );
                                     }
-
-                                    _loginCubit.login(username: emailController.text, password: passwordController.text);
                                   },
-                                  buttonTitle: loginConfig.loginText,
-                                  loading: state.status == LoginStatus.loading,
-                                  textStyle: context.text18Bold?.copyWith(color: loginConfig.buttonTextColor),
-                                  buttonColor: loginConfig.buttonBackgroundColor,
-                                  borderRadius: 30,
-                                );
-                              },
-                            ).animate().fade(duration: 500.ms).slideY(begin: 0.5, end: 0),
+                                  builder: (context, state) {
+                                    return CustomButton(
+                                      onPressed: () {
+                                        if (state.status == LoginStatus.loading)
+                                          return;
+                                        if (!_formKey.currentState!
+                                            .validate()) {
+                                          return;
+                                        }
+
+                                        _loginCubit.login(
+                                          username: emailController.text,
+                                          password: passwordController.text,
+                                        );
+                                      },
+                                      buttonTitle: loginConfig.loginText,
+                                      loading:
+                                          state.status == LoginStatus.loading,
+                                      textStyle: context.text18Bold?.copyWith(
+                                        color: loginConfig.buttonTextColor,
+                                      ),
+                                      buttonColor:
+                                          loginConfig.buttonBackgroundColor,
+                                      borderRadius: 30,
+                                    );
+                                  },
+                                )
+                                .animate()
+                                .fade(duration: 500.ms)
+                                .slideY(begin: 0.5, end: 0),
                           ),
                           if (loginConfig.enableSocialLogin)
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                              ),
                               child: CustomButton(
-                                onPressed: () {},
-                                buttonTitle: "Login with Google ",
-                                textStyle: context.smallCaption14500,
-                                buttonColor: AppColor.kWhite,
-                                assetImage: "assets/png/google_icon.png",
-                                hasImage: true,
-                                borderRadius: 30,
-                              ).animate().fade(duration: 500.ms).slideY(begin: 0.5, end: 0),
+                                    onPressed: () {},
+                                    buttonTitle: "Login with Google ",
+                                    textStyle: context.smallCaption14500,
+                                    buttonColor: AppColor.kWhite,
+                                    assetImage: "assets/png/google_icon.png",
+                                    hasImage: true,
+                                    borderRadius: 30,
+                                  )
+                                  .animate()
+                                  .fade(duration: 500.ms)
+                                  .slideY(begin: 0.5, end: 0),
                             ),
                           if (loginConfig.enableSignup)
                             Column(
                               children: [
                                 const SizedBox(height: 10),
-                                Text(loginConfig.orText, style: TextStyle(color: Colors.white70)),
+                                Text(
+                                  loginConfig.orText,
+                                  style: TextStyle(color: Colors.white70),
+                                ),
                                 const SizedBox(height: 10),
                                 GestureDetector(
                                   onTap: () {
@@ -202,7 +288,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                   child: Text(
                                     loginConfig.signupText,
-                                    style: TextStyle(color: Colors.blueAccent, decoration: TextDecoration.underline),
+                                    style: TextStyle(
+                                      color: Colors.blueAccent,
+                                      decoration: TextDecoration.underline,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 20),

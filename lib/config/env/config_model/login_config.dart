@@ -24,7 +24,6 @@ class LoginConfig {
   final Color bottomSheetColor;
   final Color bottomSheetColor2;
 
-
   // Input Fields
   final String emailHint;
   final String passwordHint;
@@ -85,7 +84,7 @@ class LoginConfig {
     required this.googleLogin,
     required this.appleLogin,
     required this.bottomSheetColor,
-    required this.bottomSheetColor2
+    required this.bottomSheetColor2,
   });
 
   /// Factory constructor to create `LoginConfig` from a Map.
@@ -110,12 +109,17 @@ class LoginConfig {
       emailHint: map["emailHint"] ?? "Enter your email",
       passwordHint: map["passwordHint"] ?? "Enter your password",
       emailError: map["emailError"] ?? "Please enter a valid email",
-      passwordError: map["passwordError"] ?? "Password must be at least 6 characters",
-      textFieldBackgroundColor: _hexToColor(map["textFieldBackgroundColor"] ?? "#2E2E2E"),
+      passwordError:
+          map["passwordError"] ?? "Password must be at least 6 characters",
+      textFieldBackgroundColor: _hexToColor(
+        map["textFieldBackgroundColor"] ?? "#2E2E2E",
+      ),
       textFieldBorderRadius: (map["textFieldBorderRadius"] ?? 30).toDouble(),
       textFieldHintColor: _hexToColor(map["textFieldHintColor"] ?? "#AAAAAA"),
       textFieldIconColor: _hexToColor(map["textFieldIconColor"] ?? "#FFFFFF"),
-      buttonBackgroundColor: _hexToColor(map["buttonBackgroundColor"] ?? "#3A86FF"),
+      buttonBackgroundColor: _hexToColor(
+        map["buttonBackgroundColor"] ?? "#3A86FF",
+      ),
       buttonTextColor: _hexToColor(map["buttonTextColor"] ?? "#FFFFFF"),
       buttonBorderRadius: (map["buttonBorderRadius"] ?? 30).toDouble(),
       buttonHeight: (map["buttonHeight"] ?? 50).toDouble(),

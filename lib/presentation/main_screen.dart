@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:lottie/lottie.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:sms_owner/core/components/profile_pic_widget.dart';
-import 'package:sms_owner/core/storage/preferences.dart';
-import 'package:sms_owner/core/utils/app_color.dart';
 import 'package:sms_owner/core/utils/settings.dart';
 import 'package:sms_owner/presentation/Home/cubit/home_cubit.dart';
 import 'package:sms_owner/presentation/Home/home_screen.dart';
+import 'package:sms_owner/presentation/Order/order_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -44,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _pages = const [
     HomeScreen(),
-    Center(child: Text("Orders", style: TextStyle(color: Colors.white, fontSize: 24))),
+    OrderScreen(),
     Center(child: Text("Top-Up", style: TextStyle(color: Colors.white, fontSize: 24))),
     Center(child: Text("Account", style: TextStyle(color: Colors.white, fontSize: 24))),
   ];

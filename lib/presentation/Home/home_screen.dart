@@ -31,15 +31,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EnvCubit, ENVModel>(
-      builder: (context, _homeConfig) {
-        final homeConfig = _homeConfig.homeConfig;
+      builder: (context, homeConfiguration) {
+        final homeConfig = homeConfiguration.homeConfig;
         return Scaffold(
           backgroundColor: homeConfig.backGroundColor,
           body: SingleChildScrollView(
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.only(bottom: 12),
                   decoration: BoxDecoration(
                     color: homeConfig.backContainerColor,
                     borderRadius: BorderRadius.only(
@@ -47,105 +46,105 @@ class _HomeScreenState extends State<HomeScreen> {
                       bottomRight: Radius.circular(40),
                     ),
                   ),
-                  child: Container(
-                    padding: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(40),
-                        bottomRight: Radius.circular(40),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Container(
+                      padding: EdgeInsets.only(bottom: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(40),
+                          bottomRight: Radius.circular(40),
+                        ),
+                        color: homeConfig.frontContainerColor,
                       ),
-                      color: homeConfig.frontContainerColor,
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 12,
-                            right: 12,
-                            top: 12,
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(Icons.menu, color: homeConfig.menuIconColor),
-                              SizedBox(width: 60),
-                              CircleAvatar(backgroundColor: Colors.grey),
-                              const SizedBox(width: 10),
-                              Text(
-                                "Logo here",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: homeConfig.logoTextColor,
-                                  fontWeight: FontWeight.bold,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 12,
+                              right: 12,
+                              top: 12,
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.menu,
+                                  color: homeConfig.menuIconColor,
                                 ),
-                              ),
-                              const Spacer(),
-                              _buildNotificationIcon(
-                                Icons.verified,
-                                13,
-                                homeConfig,
-                              ),
-                              const SizedBox(width: 10),
-                              _buildNotificationIcon(
-                                Icons.notifications,
-                                13,
-                                homeConfig,
-                              ),
-                            ],
+                                SizedBox(width: 60),
+                                CircleAvatar(backgroundColor: Colors.grey),
+                                const SizedBox(width: 10),
+                                Text(
+                                  "Logo here",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: homeConfig.logoTextColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const Spacer(),
+                                _buildNotificationIcon(
+                                  Icons.verified,
+                                  13,
+                                  homeConfig,
+                                ),
+                                const SizedBox(width: 10),
+                                _buildNotificationIcon(
+                                  Icons.notifications,
+                                  13,
+                                  homeConfig,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        //
-                        Divider(color: Colors.white),
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 15,
-                            vertical: 10,
+                          //
+                          Divider(color: Colors.white),
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                              vertical: 10,
+                            ),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: homeConfig.walletContainerColor,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                WalletInfo(
+                                  title: 'My Wallet',
+                                  value: '\$ 350',
+                                  homeConfig: homeConfig,
+                                ),
+                                WalletInfo(
+                                  title: 'My Coins',
+                                  value: '1,234,567',
+                                  homeConfig: homeConfig,
+                                ),
+                              ],
+                            ),
                           ),
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: homeConfig.walletContainerColor,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              WalletInfo(
-                                title: 'My Wallet',
-                                value: '\$ 350',
-                                homeConfig: homeConfig,
-                              ),
-                              WalletInfo(
-                                title: 'My Coins',
-                                value: '1,234,567',
-                                homeConfig: homeConfig,
-                              ),
-                            ],
-                          ),
-                        ),
 
-                        // Social Icons Grid
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Wrap(
-                            spacing: 15,
-                            runSpacing: 15,
-                            alignment: WrapAlignment.center,
-                            children: List.generate(socialIcons.length, (
-                              index,
-                            ) {
-                              return CircleAvatar(
-                                radius: 30,
-                                backgroundColor:
-                                    homeConfig.socialIconBackgroundColor,
-                                child: Icon(
-                                  socialIcons[index],
-                                  size: 30,
-                                  color: Colors.black,
-                                ),
-                              );
-                            }),
+                          // Social Icons Grid
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Wrap(
+                              spacing: 15,
+                              runSpacing: 15,
+                              alignment: WrapAlignment.center,
+                              children: List.generate(socialIcons.length, (
+                                index,
+                              ) {
+                                return CircleAvatar(
+                                  radius: 30,
+                                  child: Icon(socialIcons[index], size: 30),
+                                );
+                              }),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -247,7 +246,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(18),
-          borderSide: BorderSide(width: 1, color: homeConfig.textFieldBorderColor),
+          borderSide: BorderSide(
+            width: 1,
+            color: homeConfig.textFieldBorderColor,
+          ),
         ),
       ),
     );

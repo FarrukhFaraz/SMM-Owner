@@ -63,7 +63,7 @@ class SignupConfig {
   factory SignupConfig.fromMap(Map<String, dynamic> map) {
     return SignupConfig(
       backgroundColor: _hexToListColor(map["backgroundColor"] ?? ["#FFFFFF"]),
-      cancelIconColor:_hexToColor(map["cancelIconColor"] ?? "#FFFFFF"),
+      cancelIconColor: _hexToColor(map["cancelIconColor"] ?? "#FFFFFF"),
       emailHint: map["emailHint"] ?? "Enter your email",
       passwordHint: map["passwordHint"] ?? "Enter your password",
       userNameHint: map["userNameHint"] ?? "Enter your userName",

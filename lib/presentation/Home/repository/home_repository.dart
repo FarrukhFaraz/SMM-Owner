@@ -11,10 +11,15 @@ class HomeRepository {
       final response = await DioClient().post('/user/profile', data: body);
       print('HomeRepository.getProfile::::: ${response.data}');
       if (response.statusCode == 200 || response.statusCode == 201) {
-        UserProfileModel responseModel = UserProfileModel.fromJson(response.data['data']);
+        UserProfileModel responseModel = UserProfileModel.fromJson(
+          response.data['data'],
+        );
         return responseModel;
       }
-      throw ApiError(message: response.data['message'] ?? 'Unexpected error occurred.', code: response.statusCode ?? 0);
+      throw ApiError(
+        message: response.data['message'] ?? 'Unexpected error occurred.',
+        code: response.statusCode ?? 0,
+      );
     } on DioException catch (e, stackTrace) {
       print(stackTrace);
       throw ApiError.fromDioException(e);

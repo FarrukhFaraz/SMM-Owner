@@ -13,7 +13,6 @@ import 'package:sms_owner/core/utils/app_color.dart';
 import 'package:sms_owner/core/utils/navigation.dart';
 import 'package:sms_owner/presentation/auth/login/screens/login_screen.dart';
 import 'package:sms_owner/presentation/auth/sign_up/cubit/sign_up_cubit.dart';
-import 'package:sms_owner/presentation/main_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

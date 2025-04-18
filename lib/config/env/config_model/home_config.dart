@@ -7,7 +7,6 @@ class HomeConfig {
   final Color backGroundColor;
   final Color menuIconColor;
   final Color logoTextColor;
-  final Color socialIconBackgroundColor;
 
   // wallet
   final Color walletContainerColor;
@@ -53,7 +52,6 @@ class HomeConfig {
     required this.backGroundColor,
     required this.menuIconColor,
     required this.logoTextColor,
-    required this.socialIconBackgroundColor,
     required this.textFieldColor,
     required this.hintTextColor,
     required this.searchButtonBackgroundColor,
@@ -85,7 +83,7 @@ class HomeConfig {
       backGroundColor: _hexToColor(map['backGroundColor']),
       menuIconColor: _hexToColor(map['menuIconColor']),
       logoTextColor: _hexToColor(map['logoTextColor']),
-      socialIconBackgroundColor: _hexToColor(map['socialIconBackgroundColor']),
+
       textFieldColor: _hexToColor(map['textFieldColor']),
       hintTextColor: _hexToColor(map['hintTextColor']),
       searchButtonBackgroundColor: _hexToColor(
