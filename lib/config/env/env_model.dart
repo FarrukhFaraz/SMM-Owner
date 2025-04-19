@@ -1,7 +1,6 @@
 import 'package:sms_owner/config/env/config_model/forgot_password_config.dart';
 import 'package:sms_owner/config/env/config_model/home_config.dart';
 import 'package:sms_owner/config/env/config_model/order_config.dart';
-import 'package:sms_owner/config/env/config_model/payment_config.dart';
 import 'package:sms_owner/config/env/config_model/signup_config.dart';
 
 import 'config_model/login_config.dart';

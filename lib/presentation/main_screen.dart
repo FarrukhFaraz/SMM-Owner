@@ -41,8 +41,18 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = const [
     HomeScreen(),
     OrderScreen(),
-    Center(child: Text("Top-Up", style: TextStyle(color: Colors.white, fontSize: 24))),
-    Center(child: Text("Account", style: TextStyle(color: Colors.white, fontSize: 24))),
+    Center(
+      child: Text(
+        "Top-Up",
+        style: TextStyle(color: Colors.white, fontSize: 24),
+      ),
+    ),
+    Center(
+      child: Text(
+        "Account",
+        style: TextStyle(color: Colors.white, fontSize: 24),
+      ),
+    ),
   ];
 
   void _onItemTapped(int index) {
@@ -55,6 +65,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF2D6B5F),
+
       body: SafeArea(child: _pages[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -63,11 +74,26 @@ class _MainScreenState extends State<MainScreen> {
         unselectedItemColor: Colors.white70,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
-        items: const [
+        items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: "Orders"),
-          BottomNavigationBarItem(icon: Icon(Icons.attach_money), label: "Top-Up"),
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: "Account"),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: const EdgeInsets.only(right: 50),
+              child: Icon(Icons.shopping_bag),
+            ),
+            label: "Orders".padRight(20),
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: const EdgeInsets.only(left: 50),
+              child: Icon(Icons.attach_money),
+            ),
+            label: "Top-Up".padLeft(20),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: "Account",
+          ),
         ],
       ),
       floatingActionButton: Container(

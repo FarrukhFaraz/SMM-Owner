@@ -227,8 +227,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   builder: (context, state) {
                                     return CustomButton(
                                       onPressed: () {
-                                        if (state.status == LoginStatus.loading)
+                                        if (state.status == LoginStatus.loading) {
                                           return;
+                                        }
                                         if (!_formKey.currentState!
                                             .validate()) {
                                           return;

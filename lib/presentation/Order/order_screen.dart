@@ -115,7 +115,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: CustomTextField(
                       controller: searchFieldController,
-                      fillColor: orderConfig.backgroundColor,
+                      fillColor: orderConfig.searchFieldColor,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide(color: Colors.grey),
@@ -132,7 +132,11 @@ class _OrderScreenState extends State<OrderScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     itemCount: 6,
                     itemBuilder: (context, index) {
-                      return _orderCard(context, index);
+                      return _orderCard(
+                        context,
+                        index,
+                        orderConfig: orderConfig,
+                      );
                     },
                   ),
                 ],
@@ -144,39 +148,45 @@ class _OrderScreenState extends State<OrderScreen> {
     );
   }
 
-  Widget _orderCard(BuildContext context, int index) {
+  Widget _orderCard(
+    BuildContext context,
+    int index, {
+    required OrderConfig orderConfig,
+  }) {
+    // Dummy data for demo
+    final statuses = ["Completed", "Pending", "InProgress", "Refill"];
+    final statusColors = {
+      "Completed": Colors.green,
+      "Pending": Colors.orange,
+      "InProgress": Colors.blue,
+      "Refill": Colors.yellow[700],
+    };
+    final currentStatus = statuses[index % statuses.length];
+
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      elevation: 2,
+      color: orderConfig.cardColor,
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Order ID and Status
+            /// Top Row — Order ID and Expiry
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Order #${index + 1}',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                  "Order ID: 132311${index + 1}",
+                  style: context.text14Bold?.copyWith(
+                    color: orderConfig.orderIdColor,
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: index % 2 == 0 ? Colors.green : Colors.red,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    index % 2 == 0 ? 'Completed' : 'Pending',
-                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                Text(
+                  "12/11/2025 - 02:56",
+                  style: context.text12Medium?.copyWith(
+                    color: orderConfig.expirationColor,
                   ),
                 ),
               ],
@@ -184,64 +194,141 @@ class _OrderScreenState extends State<OrderScreen> {
 
             const SizedBox(height: 6),
 
+            /// Product Title
             Text(
-              'Instagram Followers Service - Refill 30 Days Guarantee',
-              style: const TextStyle(fontSize: 13),
+              "Instagram Followers Service - Refill 30 Days Guarantee",
+              style: context.text13Bold?.copyWith(
+                color: orderConfig.orderProductColor,
+              ),
+            ),
+
+            const SizedBox(height: 4),
+
+            /// Link
+            Text(
+              "🔗 https://www.likelife.com/order-history",
+              style: context.text12Medium?.copyWith(
+                color: orderConfig.linkColor,
+              ),
+            ),
+
+            const SizedBox(height: 6),
+
+            /// Price + Status Badge
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "\$200",
+                  style: context.text16Bold?.copyWith(
+                    color: orderConfig.priceColor,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: statusColors[currentStatus],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    currentStatus,
+                    style: TextStyle(
+                      color: orderConfig.statusColor,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
             ),
 
             const SizedBox(height: 10),
 
-            // Buttons Row
+            /// Stats Row
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Text(
-                  '\$3200',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
+                _statBlock("Start Count", "100000"),
+                _statBlock("Order Quantity", "100000"),
+                _statBlock("Total Quantity", "100000"),
+                _statBlock("Remains", "100000"),
+              ],
+            ),
 
-                // Buttons
-                Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            index % 2 == 0 ? Colors.blue : Colors.red,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+            const SizedBox(height: 10),
+
+            /// Buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text("Action"),
+                ),
+                const SizedBox(width: 8),
+                PopupMenuButton<String>(
+                  offset: const Offset(0, 40),
+                  color: orderConfig.dropdownBackgroundColor,
+                  icon: const Icon(Icons.more_vert, color: Colors.black),
+                  itemBuilder:
+                      (context) => [
+                        const PopupMenuItem(
+                          value: "ticket",
+                          child: Text("Create Ticket"),
                         ),
-                      ),
-                      child: const Text('Active'),
-                    ),
-                    const SizedBox(width: 5),
-                    PopupMenuButton<String>(
-                      onSelected: (value) {
-                        if (value == "ticket") {
-                          // Handle ticket creation
-                        } else {
-                          // Handle reorder
-                        }
-                      },
-                      itemBuilder:
-                          (context) => [
-                            const PopupMenuItem(
-                              value: "ticket",
-                              child: Text("Create Ticket"),
-                            ),
-                            const PopupMenuItem(
-                              value: "reorder",
-                              child: Text("Reorder"),
-                            ),
-                          ],
-                    ),
-                  ],
+                        const PopupMenuItem(
+                          value: "reorder",
+                          child: Text("Reorder"),
+                        ),
+                      ],
+                  onSelected: (value) {
+                    if (value == "ticket") {
+                      // Handle ticket
+                    } else {
+                      // Handle reorder
+                    }
+                  },
                 ),
               ],
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _statBlock(String title, String value) {
+    return Column(
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.grey,
+          ),
+        ),
+      ],
     );
   }
 

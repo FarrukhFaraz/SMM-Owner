@@ -25,8 +25,11 @@ class OrderConfig {
   final Color orderHistoryTextColor;
   final Color cardColor;
   final Color cardBorderColor;
+  final Color orderProductColor;
+  final Color linkColor;
   final Color orderIdColor;
   final Color expirationColor;
+  final Color searchFieldColor;
   final Color priceColor;
   final Color statusColor;
   final Color dropdownBackgroundColor;
@@ -52,12 +55,15 @@ class OrderConfig {
     required this.menuIconColor,
     required this.logoTextColor,
     required this.orderHistoryTextColor,
+    required this.linkColor,
     required this.searchHint,
     required this.filterButtonText,
     required this.orderIdPrefix,
     required this.expirationText,
     required this.priceLabel,
     required this.statusLabel,
+    required this.searchFieldColor,
+    required this.orderProductColor,
     required this.backgroundColor,
     required this.cardColor,
     required this.cardBorderColor,
@@ -85,8 +91,13 @@ class OrderConfig {
       searchHint: map['searchHint'] ?? "Search Order",
       topContainerColor: _hexToColor(map['topContainerColor'] ?? ''),
       menuIconColor: _hexToColor(map['menuIconColor'] ?? ''),
-      orderHistoryTextColor: _hexToColor(map['orderHistoryTextColor']??'#000000'),
+      orderHistoryTextColor: _hexToColor(
+        map['orderHistoryTextColor'] ?? '#000000',
+      ),
+      orderProductColor: _hexToColor(map['orderProductTextColor'] ?? '#100f0d'),
+      linkColor: _hexToColor(map['linkColor'] ?? '#5e17eb'),
       logoTextColor: _hexToColor(map['logoTextColor'] ?? '#ebc428'),
+      searchFieldColor: _hexToColor(map['searchFieldColor'] ?? '#ebebeb'),
       filterButtonText: map['filterButtonText'] ?? "Filter",
       orderIdPrefix: map['orderIdPrefix'] ?? "Order ID:",
       expirationText: map['expirationText'] ?? "EXPIRATION:",
