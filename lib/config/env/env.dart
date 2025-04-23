@@ -200,6 +200,7 @@ final Map<String, dynamic> environment = {
   "historyCardColor": "#F5F5F5",
   "methodTextColor": "#1D3C34",
   "amountTextColor": "#4CAF50",
+  'paymentContainerColor':'#FFFFFF',
   "dateTextColor": "#757575",
   "statusTextColor": "#FFFFFF"
 }

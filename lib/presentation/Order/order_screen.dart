@@ -90,9 +90,7 @@ class _OrderScreenState extends State<OrderScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 10),
-
                   // Order Cards List
                   ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
@@ -314,33 +312,6 @@ class _OrderScreenState extends State<OrderScreen> {
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.grey,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildNotificationIcon(
-    IconData icon,
-    int count,
-    OrderConfig orderConfig,
-  ) {
-    return Stack(
-      children: [
-        Icon(icon, color: orderConfig.menuIconColor),
-        Positioned(
-          right: 0,
-          top: 0,
-          child: Container(
-            padding: const EdgeInsets.all(3),
-            decoration: const BoxDecoration(
-              color: Colors.amber,
-              shape: BoxShape.circle,
-            ),
-            child: Text(
-              "$count",
-              style: const TextStyle(fontSize: 10, color: Colors.black),
-            ),
           ),
         ),
       ],

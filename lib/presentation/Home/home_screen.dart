@@ -163,7 +163,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
- 
   Widget _searchField(HomeConfig homeConfig) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

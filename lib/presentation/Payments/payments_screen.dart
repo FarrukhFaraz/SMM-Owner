@@ -6,7 +6,7 @@ import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/custom_appBar.dart';
 
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({super.key, });
+  const PaymentScreen({super.key});
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -44,7 +44,7 @@ class _PaymentScreenState extends State<PaymentScreen>
               Container(
                 height: 70,
                 width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(color: Colors.white),
+                decoration: BoxDecoration(color: config.paymentContainerColor),
                 child: Center(
                   child: Text(
                     "Payments",
@@ -116,7 +116,12 @@ class _PaymentScreenState extends State<PaymentScreen>
                                 onChanged: (_) {},
                                 activeColor: config.checkboxColor,
                               ),
-                              const Text("I agree"),
+                              Text(
+                                "I agree",
+                                style: context.text12Bold?.copyWith(
+                                  color: Colors.black,
+                                ),
+                              ),
                             ],
                           ),
                           ElevatedButton(

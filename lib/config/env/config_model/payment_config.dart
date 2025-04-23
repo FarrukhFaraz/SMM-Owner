@@ -10,6 +10,7 @@ class PaymentConfig {
   final Color dropdownColor;
   final Color checkboxColor;
   final Color submitButtonColor;
+  final Color paymentContainerColor;
   final Color submitTextColor;
   final Color historyCardColor;
   final Color methodTextColor;
@@ -22,6 +23,7 @@ class PaymentConfig {
     required this.activeTabColor,
     required this.inactiveTabColor,
     required this.formBackgroundColor,
+    required this.paymentContainerColor,
     required this.inputFieldColor,
     required this.inputTextColor,
     required this.dropdownColor,
@@ -44,6 +46,7 @@ class PaymentConfig {
       activeTabColor: hex(map["activeTabColor"]),
       inactiveTabColor: hex(map["inactiveTabColor"]),
       formBackgroundColor: hex(map["formBackgroundColor"]),
+      paymentContainerColor: hex(map['paymentContainerColor']),
       inputFieldColor: hex(map["inputFieldColor"]),
       inputTextColor: hex(map["inputTextColor"]),
       dropdownColor: hex(map["dropdownColor"]),
