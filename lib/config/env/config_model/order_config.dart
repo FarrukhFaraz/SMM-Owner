@@ -30,8 +30,10 @@ class OrderConfig {
   final Color orderIdColor;
   final Color expirationColor;
   final Color searchFieldColor;
+  final Color searchFieldTextColor;
   final Color priceColor;
   final Color statusColor;
+  final Color hintTextColor;
   final Color dropdownBackgroundColor;
   final Color dropdownTextColor;
 
@@ -63,12 +65,14 @@ class OrderConfig {
     required this.priceLabel,
     required this.statusLabel,
     required this.searchFieldColor,
+    required this.searchFieldTextColor,
     required this.orderProductColor,
     required this.backgroundColor,
     required this.cardColor,
     required this.cardBorderColor,
     required this.orderIdColor,
     required this.expirationColor,
+    required this.hintTextColor,
     required this.priceColor,
     required this.statusColor,
     required this.dropdownBackgroundColor,
@@ -98,6 +102,9 @@ class OrderConfig {
       linkColor: _hexToColor(map['linkColor'] ?? '#5e17eb'),
       logoTextColor: _hexToColor(map['logoTextColor'] ?? '#ebc428'),
       searchFieldColor: _hexToColor(map['searchFieldColor'] ?? '#ebebeb'),
+      searchFieldTextColor: _hexToColor(map['searchInputTextColor']?? '#100f0d'),
+      hintTextColor: _hexToColor(map['hintTextColor']?? '#100f0d'),
+      
       filterButtonText: map['filterButtonText'] ?? "Filter",
       orderIdPrefix: map['orderIdPrefix'] ?? "Order ID:",
       expirationText: map['expirationText'] ?? "EXPIRATION:",
@@ -109,7 +116,7 @@ class OrderConfig {
       orderIdColor: _hexToColor(map['orderIdColor'] ?? "#000000"),
       expirationColor: _hexToColor(map['expirationColor'] ?? "#FF0000"),
       priceColor: _hexToColor(map['priceColor'] ?? "#000000"),
-      statusColor: _hexToColor(map['statusColor'] ?? "#00B894"),
+      statusColor: _hexToColor(map['statusColor'] ?? "#000000"),
       dropdownBackgroundColor: _hexToColor(
         map['dropdownBackgroundColor'] ?? "#FFFFFF",
       ),

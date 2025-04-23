@@ -4,6 +4,7 @@ import 'package:sms_owner/config/env/config_model/home_config.dart';
 import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
+import 'package:sms_owner/core/components/custom_appBar.dart';
 import 'package:sms_owner/core/components/custom_textfield.dart';
 import 'package:sms_owner/core/components/wallet_info.dart';
 
@@ -59,44 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 12,
-                              right: 12,
-                              top: 12,
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.menu,
-                                  color: homeConfig.menuIconColor,
-                                ),
-                                SizedBox(width: 60),
-                                CircleAvatar(backgroundColor: Colors.grey),
-                                const SizedBox(width: 10),
-                                Text(
-                                  "Logo here",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: homeConfig.logoTextColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const Spacer(),
-                                _buildNotificationIcon(
-                                  Icons.verified,
-                                  13,
-                                  homeConfig,
-                                ),
-                                const SizedBox(width: 10),
-                                _buildNotificationIcon(
-                                  Icons.notifications,
-                                  13,
-                                  homeConfig,
-                                ),
-                              ],
-                            ),
-                          ),
+                          customAppBar(homeConfig),
                           //
                           Divider(color: Colors.white),
                           Container(
@@ -199,33 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildNotificationIcon(
-    IconData icon,
-    int count,
-    HomeConfig homeConfig,
-  ) {
-    return Stack(
-      children: [
-        Icon(icon, color: homeConfig.notificationIconColor),
-        Positioned(
-          right: 0,
-          top: 0,
-          child: Container(
-            padding: const EdgeInsets.all(3),
-            decoration: const BoxDecoration(
-              color: Colors.amber,
-              shape: BoxShape.circle,
-            ),
-            child: Text(
-              "$count",
-              style: const TextStyle(fontSize: 10, color: Colors.black),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
+ 
   Widget _searchField(HomeConfig homeConfig) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

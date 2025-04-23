@@ -156,6 +156,8 @@ final Map<String, dynamic> environment = {
     'orderHistoryTextColor': '#020001',
     "screenTitle": "Order History",
     "searchHint": "Search Order",
+    'searchInputTextColor':'#100f0d',
+    'hintTextColor': '#100f0d',
     "filterButtonText": "Filter",
     //
     "orderIdPrefix": "Order ID:",
@@ -167,12 +169,12 @@ final Map<String, dynamic> environment = {
     "cardColor": "#FFFFFF",
     "cardBorderColor": "#DDDDDD",
     "orderIdColor": "#2C3E50",
-    'searchFieldColor':"#ebebeb",
-    'orderProductColor':'#100f0d',
-    'linkColor':"#5e17eb",
+    'searchFieldColor': "#ebebeb",
+    'orderProductColor': '#100f0d',
+    'linkColor': "#5e17eb",
     "expirationColor": "#E74C3C",
     "priceColor": "#2C3E50",
-    "statusColor": "#27AE60",
+    "statusColor": "#000000",
     //
     "dropdownBackgroundColor": "#FFFFFF",
     "dropdownTextColor": "#000000",
@@ -184,5 +186,21 @@ final Map<String, dynamic> environment = {
     "filterIconColor": "#FFFFFF",
   },
 
-  'paymentConfig': {'': ''},
+  "paymentConfig": {
+  "tabBarBackgroundColor": "#00695c",
+  "activeTabColor": "#FFFFFF",
+  "inactiveTabColor": "#B0BEC5",
+  "formBackgroundColor": "#FFFFFF",
+  "inputFieldColor": "#F0F0F0",
+  "inputTextColor": "#000000",
+  "dropdownColor": "#FFFFFF",
+  "checkboxColor": "#1D3C34",
+  "submitButtonColor": "#4CAF50",
+  "submitTextColor": "#FFFFFF",
+  "historyCardColor": "#F5F5F5",
+  "methodTextColor": "#1D3C34",
+  "amountTextColor": "#4CAF50",
+  "dateTextColor": "#757575",
+  "statusTextColor": "#FFFFFF"
+}
 };

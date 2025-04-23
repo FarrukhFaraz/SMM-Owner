@@ -5,6 +5,7 @@ import 'package:sms_owner/config/env/config_model/order_config.dart';
 import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
+import 'package:sms_owner/core/components/custom_appBar.dart';
 import 'package:sms_owner/core/components/custom_textfield.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -21,6 +22,7 @@ class _OrderScreenState extends State<OrderScreen> {
     return BlocBuilder<EnvCubit, ENVModel>(
       builder: (context, orderConfigration) {
         final orderConfig = orderConfigration.orderConfig;
+        final homeConfig = orderConfigration.homeConfig;
         return Scaffold(
           backgroundColor: orderConfig.backgroundColor,
           body: SafeArea(
@@ -33,48 +35,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     decoration: BoxDecoration(
                       color: orderConfig.topContainerColor,
                     ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 12,
-                            right: 12,
-                            top: 12,
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.menu,
-                                color: orderConfig.menuIconColor,
-                              ),
-                              SizedBox(width: 60),
-                              CircleAvatar(backgroundColor: Colors.grey),
-                              const SizedBox(width: 10),
-                              Text(
-                                "Logo here",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: orderConfig.logoTextColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const Spacer(),
-                              _buildNotificationIcon(
-                                Icons.verified,
-                                13,
-                                orderConfig,
-                              ),
-                              const SizedBox(width: 10),
-                              _buildNotificationIcon(
-                                Icons.notifications,
-                                13,
-                                orderConfig,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: customAppBar(homeConfig),
                   ),
                   // Order History Title and Filter
                   Padding(
@@ -114,8 +75,15 @@ class _OrderScreenState extends State<OrderScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: CustomTextField(
+                      hintText: orderConfig.searchHint,
                       controller: searchFieldController,
                       fillColor: orderConfig.searchFieldColor,
+                      inputTextStyle: context.text13Medium?.copyWith(
+                        color: orderConfig.searchFieldTextColor,
+                      ),
+                      hintStyle: context.text14Medium?.copyWith(
+                        color: orderConfig.hintTextColor,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide(color: Colors.grey),
@@ -153,7 +121,6 @@ class _OrderScreenState extends State<OrderScreen> {
     int index, {
     required OrderConfig orderConfig,
   }) {
-    // Dummy data for demo
     final statuses = ["Completed", "Pending", "InProgress", "Refill"];
     final statusColors = {
       "Completed": Colors.green,
@@ -165,57 +132,72 @@ class _OrderScreenState extends State<OrderScreen> {
 
     return Card(
       color: orderConfig.cardColor,
-      elevation: 3,
+      elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// Top Row — Order ID and Expiry
-            Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+
+            height: 30,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: orderConfig.topContainerColor,
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              ),
+            ),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Order ID: 132311${index + 1}",
-                  style: context.text14Bold?.copyWith(
-                    color: orderConfig.orderIdColor,
-                  ),
+                  style: context.text14Bold?.copyWith(color: Colors.white),
                 ),
                 Text(
                   "12/11/2025 - 02:56",
-                  style: context.text12Medium?.copyWith(
-                    color: orderConfig.expirationColor,
-                  ),
+                  style: context.text12Medium?.copyWith(color: Colors.white),
                 ),
               ],
             ),
+          ),
 
-            const SizedBox(height: 6),
+          const SizedBox(height: 6),
 
-            /// Product Title
-            Text(
+          /// Product Title
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Text(
               "Instagram Followers Service - Refill 30 Days Guarantee",
               style: context.text13Bold?.copyWith(
                 color: orderConfig.orderProductColor,
               ),
             ),
+          ),
 
-            const SizedBox(height: 4),
+          const SizedBox(height: 4),
 
-            /// Link
-            Text(
+          /// Link
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Text(
               "🔗 https://www.likelife.com/order-history",
               style: context.text12Medium?.copyWith(
                 color: orderConfig.linkColor,
               ),
             ),
+          ),
 
-            const SizedBox(height: 6),
+          const SizedBox(height: 6),
 
-            /// Price + Status Badge
-            Row(
+          /// Price + Status Badge
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -243,11 +225,14 @@ class _OrderScreenState extends State<OrderScreen> {
                 ),
               ],
             ),
+          ),
 
-            const SizedBox(height: 10),
+          const SizedBox(height: 10),
 
-            /// Stats Row
-            Row(
+          /// Stats Row
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _statBlock("Start Count", "100000"),
@@ -256,11 +241,14 @@ class _OrderScreenState extends State<OrderScreen> {
                 _statBlock("Remains", "100000"),
               ],
             ),
+          ),
 
-            const SizedBox(height: 10),
+          const SizedBox(height: 10),
 
-            /// Buttons
-            Row(
+          /// Buttons
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
@@ -303,8 +291,8 @@ class _OrderScreenState extends State<OrderScreen> {
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:sms_owner/core/utils/settings.dart';
 import 'package:sms_owner/presentation/Home/cubit/home_cubit.dart';
 import 'package:sms_owner/presentation/Home/home_screen.dart';
 import 'package:sms_owner/presentation/Order/order_screen.dart';
+import 'package:sms_owner/presentation/Payments/payments_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -17,7 +18,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   late HomeCubit _homeCubit;
   Settings settings = Settings();
-  final PersistentTabController _controller = PersistentTabController();
+  final PersistentTabController controller = PersistentTabController();
 
   @override
   void initState() {
@@ -41,12 +42,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = const [
     HomeScreen(),
     OrderScreen(),
-    Center(
-      child: Text(
-        "Top-Up",
-        style: TextStyle(color: Colors.white, fontSize: 24),
-      ),
-    ),
+   PaymentScreen(),
     Center(
       child: Text(
         "Account",
