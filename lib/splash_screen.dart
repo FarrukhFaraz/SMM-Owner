@@ -25,7 +25,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   validateLogin() async {
-    String? token = await SecureStorageService.getString(CommonKeys.accessToken);
+    String? token = await SecureStorageService.getString(
+      CommonKeys.accessToken,
+    );
     await context.read<GeneralCubit>().loadPackageInfoDetail();
     if (kDebugMode) {
       print("Stored Token: $token");
@@ -66,9 +68,18 @@ class _SplashScreenState extends State<SplashScreen> {
                 color: Colors.white,
               ),
               SizedBox(height: 20),
-              Text("SMM Owner", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
+              Text(
+                "SMM Owner",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
               SizedBox(height: 10),
-              CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)),
+              CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
             ],
           ),
         ),

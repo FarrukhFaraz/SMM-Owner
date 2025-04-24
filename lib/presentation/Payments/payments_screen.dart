@@ -4,6 +4,7 @@ import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/custom_appBar.dart';
+import 'package:sms_owner/core/components/custom_textfield.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -15,9 +16,32 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreenState extends State<PaymentScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+
+  TextEditingController amountController = TextEditingController();
+
+  final List<String> paymentLogos = [
+    'assets/png/google_icon.png',
+    'assets/png/apple_pay.png',
+    'assets/png/download.jpeg',
+    'assets/png/easy_paisa.png',
+    'assets/png/jazzcash.png',
+    'assets/png/paypal.png',
+    'assets/png/download.jpeg',
+    'assets/png/paypal.png',
+    'assets/png/google_icon.png',
+    'assets/png/easy_paisa.png',
+    'assets/png/apple_pay.png',
+    'assets/png/jazzcash.png',
+  ];
+  //
   final List<String> paymentMethods = [
     "JazzCash Manual Payment",
     "Easypaisa Manual Payment",
+    "Google Pay",
+    "Apple Pay",
+    "PayPal",
+    "Bank Account",
+    "offline Payment",
   ];
   String selectedMethod = "JazzCash Manual Payment";
 
@@ -57,6 +81,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                 child: TabBar(
                   controller: _tabController,
                   labelColor: config.activeTabColor,
+                  indicatorColor: Colors.white,
                   unselectedLabelColor: config.inactiveTabColor,
                   tabs: const [
                     Tab(text: "Add Funds"),
@@ -74,6 +99,34 @@ class _PaymentScreenState extends State<PaymentScreen>
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         children: [
+                          //top PaymentMethods
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.15,
+                            child: GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: 12,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 6,
+                                    mainAxisSpacing: 8,
+                                    crossAxisSpacing: 8,
+                                    childAspectRatio: 1,
+                                  ),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(30),
+                                    image: DecorationImage(
+                                      image: AssetImage(paymentLogos[index]),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
                           DropdownButtonFormField<String>(
                             value: selectedMethod,
                             decoration: InputDecoration(
@@ -81,6 +134,8 @@ class _PaymentScreenState extends State<PaymentScreen>
                               fillColor: config.inputFieldColor,
                               border: OutlineInputBorder(),
                             ),
+                            iconEnabledColor: Colors.black,
+                            dropdownColor: Colors.white,
                             items:
                                 paymentMethods
                                     .map(
@@ -100,13 +155,12 @@ class _PaymentScreenState extends State<PaymentScreen>
                             },
                           ),
                           const SizedBox(height: 12),
-                          TextField(
-                            decoration: InputDecoration(
-                              hintText: "Enter Amount",
-                              filled: true,
-                              fillColor: config.inputFieldColor,
-                              border: OutlineInputBorder(),
-                            ),
+                          CustomTextField(
+                            controller: amountController,
+                            hintText: "Enter Amount",
+                            inputTextStyle: context.text14Medium,
+                            fillColor: config.inputFieldColor,
+                            border: OutlineInputBorder(),
                           ),
                           const SizedBox(height: 12),
                           Row(

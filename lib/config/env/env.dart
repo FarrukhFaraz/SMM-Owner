@@ -187,6 +187,8 @@ final Map<String, dynamic> environment = {
   },
 
   "paymentConfig": {
+
+  //Colors
   "tabBarBackgroundColor": "#00695c",
   "activeTabColor": "#FFFFFF",
   "inactiveTabColor": "#B0BEC5",
@@ -202,6 +204,9 @@ final Map<String, dynamic> environment = {
   "amountTextColor": "#4CAF50",
   'paymentContainerColor':'#FFFFFF',
   "dateTextColor": "#757575",
-  "statusTextColor": "#FFFFFF"
+  "statusTextColor": "#FFFFFF",
+  'dropDownIconColor':'',
+  'dropDownColor':'',
+  '':'',
 }
 };

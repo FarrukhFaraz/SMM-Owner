@@ -42,7 +42,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = const [
     HomeScreen(),
     OrderScreen(),
-   PaymentScreen(),
+    PaymentScreen(),
     Center(
       child: Text(
         "Account",
@@ -105,7 +105,6 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
