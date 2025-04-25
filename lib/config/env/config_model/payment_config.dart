@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PaymentConfig {
+  //add Fund 
   final Color tabBarBackgroundColor;
   final Color activeTabColor;
   final Color inactiveTabColor;
@@ -9,6 +10,8 @@ class PaymentConfig {
   final Color inputTextColor;
   final Color dropdownColor;
   final Color checkboxColor;
+  final Color dropDownIconColor;
+  final Color tabBarIndicatorColor;
   final Color submitButtonColor;
   final Color paymentContainerColor;
   final Color submitTextColor;
@@ -18,7 +21,13 @@ class PaymentConfig {
   final Color dateTextColor;
   final Color statusTextColor;
 
+// Funds History
+
+  final Color firstContainerColor;
+  final Color paymentStatusColor;
+
   PaymentConfig({
+  // Add Fund
     required this.tabBarBackgroundColor,
     required this.activeTabColor,
     required this.inactiveTabColor,
@@ -28,6 +37,8 @@ class PaymentConfig {
     required this.inputTextColor,
     required this.dropdownColor,
     required this.checkboxColor,
+    required this.dropDownIconColor,
+    required this.tabBarIndicatorColor,
     required this.submitButtonColor,
     required this.submitTextColor,
     required this.historyCardColor,
@@ -35,6 +46,10 @@ class PaymentConfig {
     required this.amountTextColor,
     required this.dateTextColor,
     required this.statusTextColor,
+
+  //
+    required this.firstContainerColor,
+    required this.paymentStatusColor,  
   });
 
   factory PaymentConfig.fromMap(Map<String, dynamic> map) {
@@ -42,6 +57,7 @@ class PaymentConfig {
         Color(int.parse('FF${hex?.replaceAll('#', '')}', radix: 16));
 
     return PaymentConfig(
+      //Add Fund
       tabBarBackgroundColor: hex(map["tabBarBackgroundColor"]),
       activeTabColor: hex(map["activeTabColor"]),
       inactiveTabColor: hex(map["inactiveTabColor"]),
@@ -50,6 +66,8 @@ class PaymentConfig {
       inputFieldColor: hex(map["inputFieldColor"]),
       inputTextColor: hex(map["inputTextColor"]),
       dropdownColor: hex(map["dropdownColor"]),
+      dropDownIconColor: hex(map['dropDownIconColor']),
+      tabBarIndicatorColor: hex(map['tabBarIndicatorColor']),
       checkboxColor: hex(map["checkboxColor"]),
       submitButtonColor: hex(map["submitButtonColor"]),
       submitTextColor: hex(map["submitTextColor"]),
@@ -58,6 +76,9 @@ class PaymentConfig {
       amountTextColor: hex(map["amountTextColor"]),
       dateTextColor: hex(map["dateTextColor"]),
       statusTextColor: hex(map["statusTextColor"]),
+      //Fund History
+      firstContainerColor: hex(map['firstContainerColor']),
+      paymentStatusColor: hex(map['paymentStatusColor'])
     );
   }
 }

@@ -81,7 +81,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                 child: TabBar(
                   controller: _tabController,
                   labelColor: config.activeTabColor,
-                  indicatorColor: Colors.white,
+                  indicatorColor: config.tabBarIndicatorColor,
                   unselectedLabelColor: config.inactiveTabColor,
                   tabs: const [
                     Tab(text: "Add Funds"),
@@ -191,57 +191,65 @@ class _PaymentScreenState extends State<PaymentScreen>
                         ],
                       ),
                     ),
-
+                    
                     // Funds History
-                    ListView.builder(
-                      padding: const EdgeInsets.all(12),
-                      itemCount: 5,
-                      itemBuilder:
-                          (_, i) => Card(
-                            color: config.historyCardColor,
-                            child: ListTile(
-                              leading: const Icon(Icons.account_balance_wallet),
-                              title: Text(
-                                paymentMethods[0],
-                                style: TextStyle(color: config.methodTextColor),
-                              ),
-                              subtitle: Text(
-                                "2025-04-21",
-                                style: TextStyle(color: config.dateTextColor),
-                              ),
-                              trailing: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "\$3200",
-                                    style: TextStyle(
-                                      color: config.amountTextColor,
-                                    ),
+                    Container(
+                      decoration: BoxDecoration(color: config.firstContainerColor),
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(12),
+                        itemCount: 5,
+                        itemBuilder:
+                            (_, i) => Card(
+                              color: config.historyCardColor,
+                              child: ListTile(
+                                leading: const Icon(
+                                  Icons.account_balance_wallet,
+                                ),
+                                title: Text(
+                                  paymentMethods[0],
+                                  style: TextStyle(
+                                    color: config.methodTextColor,
                                   ),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 4),
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 2,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Text(
-                                      "Success",
+                                ),
+                                subtitle: Text(
+                                  "2025-04-21",
+                                  style: TextStyle(color: config.dateTextColor),
+                                ),
+                                trailing: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "\$3200",
                                       style: TextStyle(
-                                        fontSize: 12,
-                                        color: config.statusTextColor,
+                                        color: config.amountTextColor,
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 4),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 2,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: config.paymentStatusColor,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(
+                                        "Success",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: config.statusTextColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
+                      ),
                     ),
+                  
                   ],
                 ),
               ),
