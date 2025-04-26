@@ -1,6 +1,9 @@
 import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sms_owner/config/env/env_cubit.dart';
 
 class InternetStateWidget extends StatefulWidget {
   final Widget child;
@@ -18,6 +21,8 @@ class _InternetStateWidgetState extends State<InternetStateWidget> {
   @override
   void initState() {
     super.initState();
+    EnvCubit cubit = context.read<EnvCubit>();
+    cubit.updateEnv();
     _monitorInternet();
   }
 

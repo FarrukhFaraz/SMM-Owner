@@ -4,6 +4,9 @@ import 'package:sms_owner/config/theme/theme_cubit.dart';
 import 'package:sms_owner/core/cubit/general_cubit/general_cubit.dart';
 import 'package:sms_owner/core/storage/preferences.dart';
 import 'package:sms_owner/presentation/Home/cubit/home_cubit.dart';
+import 'package:sms_owner/presentation/Payments/cubit/add_fund/add_fund_cubit.dart';
+import 'package:sms_owner/presentation/Payments/cubit/payment_history/payment_history_cubit.dart';
+import 'package:sms_owner/presentation/Payments/cubit/payment_method/payment_method_cubit.dart';
 import 'package:sms_owner/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:sms_owner/presentation/auth/sign_up/cubit/sign_up_cubit.dart';
 import 'config/env/env_cubit.dart';
@@ -21,6 +24,9 @@ void main() async {
         BlocProvider(create: (_) => EnvCubit()),
         BlocProvider(create: (_) => GeneralCubit()),
         BlocProvider(create: (_) => HomeCubit()),
+        BlocProvider(create: (_) => AddFundCubit()),
+        BlocProvider(create: (_) => PaymentHistoryCubit()),
+        BlocProvider(create: (_) => PaymentMethodCubit()),
       ],
       child: const MyApp(),
     ),

@@ -6,7 +6,7 @@ import 'package:sms_owner/core/utils/settings.dart';
 import 'package:sms_owner/presentation/Home/cubit/home_cubit.dart';
 import 'package:sms_owner/presentation/Home/home_screen.dart';
 import 'package:sms_owner/presentation/Order/order_screen.dart';
-import 'package:sms_owner/presentation/Payments/payments_screen.dart';
+import 'package:sms_owner/presentation/Payments/screens/payments_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -43,12 +43,7 @@ class _MainScreenState extends State<MainScreen> {
     HomeScreen(),
     OrderScreen(),
     PaymentScreen(),
-    Center(
-      child: Text(
-        "Account",
-        style: TextStyle(color: Colors.white, fontSize: 24),
-      ),
-    ),
+    Center(child: Text("Account", style: TextStyle(color: Colors.white, fontSize: 24))),
   ];
 
   void _onItemTapped(int index) {
@@ -73,23 +68,14 @@ class _MainScreenState extends State<MainScreen> {
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
-            icon: Padding(
-              padding: const EdgeInsets.only(right: 50),
-              child: Icon(Icons.shopping_bag),
-            ),
+            icon: Padding(padding: const EdgeInsets.only(right: 50), child: Icon(Icons.shopping_bag)),
             label: "Orders".padRight(20),
           ),
           BottomNavigationBarItem(
-            icon: Padding(
-              padding: const EdgeInsets.only(left: 50),
-              child: Icon(Icons.attach_money),
-            ),
+            icon: Padding(padding: const EdgeInsets.only(left: 50), child: Icon(Icons.attach_money)),
             label: "Top-Up".padLeft(20),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: "Account",
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: "Account"),
         ],
       ),
       floatingActionButton: Container(

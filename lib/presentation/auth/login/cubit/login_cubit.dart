@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +35,8 @@ class LoginCubit extends Cubit<LoginState> {
       emit(state.copyWith(status: LoginStatus.success));
     } on ApiError catch (e) {
       emit(state.copyWith(status: LoginStatus.error, error: e.message));
+    } on DioException {
+      emit(state.copyWith(status: LoginStatus.error, error: 'Some thing went Wrong'));
     } catch (e) {
       emit(state.copyWith(status: LoginStatus.error, error: e.toString()));
     }
