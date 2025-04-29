@@ -32,12 +32,18 @@ class _FundsHistoryState extends State<FundsHistory> {
             builder: (context, state) {
               if (state.status == PaymentHistoryStatus.loading) {
                 return Center(child: CircularProgressIndicator());
-              } else if (state.status != PaymentHistoryStatus.initial && state.paymentHistory.isEmpty) {
+              } else if (state.status != PaymentHistoryStatus.initial &&
+                  state.paymentHistory.isEmpty) {
                 return Center(child: Text("No payment history found"));
               }
 
               return ListView.builder(
-                padding: const EdgeInsets.only(left: 12, top: 2, right: 12, bottom: 10),
+                padding: const EdgeInsets.only(
+                  left: 12,
+                  top: 2,
+                  right: 12,
+                  bottom: 10,
+                ),
                 itemCount: state.paymentHistory.length,
                 itemBuilder: (context, index) {
                   PaymentHistoryModel model = state.paymentHistory[index];
@@ -47,7 +53,10 @@ class _FundsHistoryState extends State<FundsHistory> {
 
                     child: ListTile(
                       leading: const Icon(Icons.account_balance_wallet),
-                      title: Text(model.paymentMethod ?? '', style: TextStyle(color: config.methodTextColor)),
+                      title: Text(
+                        model.paymentMethod ?? '',
+                        style: TextStyle(color: config.methodTextColor),
+                      ),
                       subtitle: Text(
                         '${DateFormat('yyyy-MM-dd').tryParse(model.createdAt ?? '') ?? ''}',
                         style: TextStyle(color: config.dateTextColor),
@@ -56,12 +65,27 @@ class _FundsHistoryState extends State<FundsHistory> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("\$${model.amount}", style: TextStyle(color: config.amountTextColor)),
+                          Text(
+                            "\$${model.amount}",
+                            style: TextStyle(color: config.amountTextColor),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(top: 4),
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                            decoration: BoxDecoration(color: config.paymentStatusColor, borderRadius: BorderRadius.circular(8)),
-                            child: Text("Success", style: TextStyle(fontSize: 12, color: config.statusTextColor)),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: config.paymentStatusColor,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              "Success",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: config.statusTextColor,
+                              ),
+                            ),
                           ),
                         ],
                       ),

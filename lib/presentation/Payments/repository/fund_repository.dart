@@ -12,11 +12,14 @@ class FundsRepository {
       final response = await DioClient().get('/meta-payment');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        List<PaymentModel> responseList = (response.data as List).map((data) => PaymentModel.fromJson(data)).toList();
+        List<PaymentModel> responseList =
+            (response.data as List)
+                .map((data) => PaymentModel.fromJson(data))
+                .toList();
         return responseList;
       }
       throw ApiError(code: 0, message: 'Something went wrong');
-    } on DioException catch (e, stack) {
+    } on DioException catch (e) {
       throw ApiError(code: 0, message: e.message);
     } on TypeError catch (e) {
       throw ApiError(code: 0, message: e.toString());
@@ -25,7 +28,10 @@ class FundsRepository {
     }
   }
 
-  Future<bool> addFunds({required int paymentId, required double amount}) async {
+  Future<bool> addFunds({
+    required int paymentId,
+    required double amount,
+  }) async {
     try {
       Map<String, dynamic> body = {
         "user_id": await SecureStorageService.getString(CommonKeys.userId),
@@ -39,7 +45,7 @@ class FundsRepository {
         return true;
       }
       throw ApiError(code: 0, message: 'Something went wrong');
-    } on DioException catch (e, stack) {
+    } on DioException catch (e) {
       throw ApiError(code: 0, message: e.message);
     } on TypeError catch (e) {
       throw ApiError(code: 0, message: e.toString());
@@ -49,18 +55,23 @@ class FundsRepository {
   }
 
   Future<List<PaymentHistoryModel>> loadPaymentHistory() async {
-    Map<String, dynamic> body = {"user_id": await SecureStorageService.getString(CommonKeys.userId)};
+    Map<String, dynamic> body = {
+      "user_id": await SecureStorageService.getString(CommonKeys.userId),
+    };
 
     try {
       final response = await DioClient().post('/get-payment', data: body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        List<PaymentHistoryModel> responseList = (response.data as List).map((data) => PaymentHistoryModel.fromJson(data)).toList();
+        List<PaymentHistoryModel> responseList =
+            (response.data as List)
+                .map((data) => PaymentHistoryModel.fromJson(data))
+                .toList();
 
         return responseList;
       }
       throw ApiError(code: 0, message: 'Something went wrong');
-    } on DioException catch (e, stack) {
+    } on DioException catch (e) {
       throw ApiError(code: 0, message: e.message);
     } on TypeError catch (e) {
       throw ApiError(code: 0, message: e.toString());

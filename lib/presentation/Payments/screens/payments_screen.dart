@@ -4,7 +4,6 @@ import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/custom_appBar.dart';
-import 'package:sms_owner/core/components/custom_textfield.dart';
 import 'package:sms_owner/presentation/Payments/cubit/payment_history/payment_history_cubit.dart';
 import 'package:sms_owner/presentation/Payments/cubit/payment_method/payment_method_cubit.dart';
 import 'package:sms_owner/presentation/Payments/widgets/funds_history.dart';
@@ -17,7 +16,8 @@ class PaymentScreen extends StatefulWidget {
   State<PaymentScreen> createState() => _PaymentScreenState();
 }
 
-class _PaymentScreenState extends State<PaymentScreen> with SingleTickerProviderStateMixin {
+class _PaymentScreenState extends State<PaymentScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -46,7 +46,12 @@ class _PaymentScreenState extends State<PaymentScreen> with SingleTickerProvider
                 height: 70,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(color: config.paymentContainerColor),
-                child: Center(child: Text("Payments", style: context.text16Light?.copyWith(color: Colors.black))),
+                child: Center(
+                  child: Text(
+                    "Payments",
+                    style: context.text16Light?.copyWith(color: Colors.black),
+                  ),
+                ),
               ),
               Container(
                 color: config.tabBarBackgroundColor,
@@ -55,10 +60,18 @@ class _PaymentScreenState extends State<PaymentScreen> with SingleTickerProvider
                   labelColor: config.activeTabColor,
                   indicatorColor: config.tabBarIndicatorColor,
                   unselectedLabelColor: config.inactiveTabColor,
-                  tabs: const [Tab(text: "Add Funds"), Tab(text: "Funds History")],
+                  tabs: const [
+                    Tab(text: "Add Funds"),
+                    Tab(text: "Funds History"),
+                  ],
                 ),
               ),
-              Expanded(child: TabBarView(controller: _tabController, children: [const FundsWidget(), const FundsHistory()])),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [const FundsWidget(), const FundsHistory()],
+                ),
+              ),
             ],
           ),
         );

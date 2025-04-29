@@ -138,7 +138,6 @@ class _OrderScreenState extends State<OrderScreen> {
         children: [
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
-
             height: 30,
             width: double.infinity,
             decoration: BoxDecoration(
