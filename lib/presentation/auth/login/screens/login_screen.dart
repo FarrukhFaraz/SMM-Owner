@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocBuilder<EnvCubit, ENVModel>(
       builder: (context, envModel) {
         final loginConfig = envModel.loginConfig;
+        log("MyAPp ==> ${loginConfig.backgroundColor}");
         return Scaffold(
           body: Container(
             height: MediaQuery.of(context).size.height,

@@ -104,9 +104,9 @@ class SignupConfig {
     }
   }
 
-   static List<Color> _hexToListColor(dynamic value) {
+   static  _hexToListColor(dynamic value) {
   if (value is String) {
-    return [_hexToColor(value)];
+    return [_hexToListColor(value)];
   } else if (value is List) {
     return value.map((hex) => _hexToColor(hex.toString())).toList();
   } else {
