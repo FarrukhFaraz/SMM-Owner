@@ -3,7 +3,6 @@ import 'package:sms_owner/config/env/config_model/home_config.dart';
 import 'package:sms_owner/config/env/config_model/order_config.dart';
 import 'package:sms_owner/config/env/config_model/payment_config.dart';
 import 'package:sms_owner/config/env/config_model/signup_config.dart';
-
 import 'config_model/login_config.dart';
 
 class ENVModel {
@@ -25,7 +24,7 @@ class ENVModel {
 
   factory ENVModel.fromEnvironment(Map<String, dynamic> env) {
     return ENVModel(
-      loginConfig: LoginConfig.fromMap(env["loginConfig"] ?? {}),
+      loginConfig: LoginConfig.fromMap(env['loginConfig'] ?? {}),
       signupConfig: SignupConfig.fromMap(env['signupConfig'] ?? {}),
       forgotpasswordConfig: ForgotPasswordConfig.fromMap(
         env['forgetPasswordConfig'] ?? {},

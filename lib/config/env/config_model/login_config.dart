@@ -90,10 +90,10 @@ class LoginConfig {
   /// Factory constructor to create `LoginConfig` from a Map.
   factory LoginConfig.fromMap(Map<String, dynamic> map) {
     return LoginConfig(
-      required: map["required"] ?? false,
-      enabled: map["enabled"] ?? false,
+      required: _parseBool(map["required"] ?? false) ,
+      enabled: _parseBool(map["enabled"] ?? false),
       backgroundColor: _hexToListColor(map["backgroundColor"] ?? ["#FFFFFF"]),
-      enableAnimation: map["enableAnimation"] ?? true,
+      enableAnimation: _parseBool(map["enableAnimation"] ?? true),
       animationAsset: map["animationAsset"] ?? "",
       backgroundImage: map["backgroundImage"] ?? "",
       loginText: map["loginText"] ?? "Sign In",
@@ -114,22 +114,22 @@ class LoginConfig {
       textFieldBackgroundColor: _hexToColor(
         map["textFieldBackgroundColor"] ?? "#2E2E2E",
       ),
-      textFieldBorderRadius: (map["textFieldBorderRadius"] ?? 30).toDouble(),
+      textFieldBorderRadius: double.parse(map["textFieldBorderRadius"].toString()),
       textFieldHintColor: _hexToColor(map["textFieldHintColor"] ?? "#AAAAAA"),
       textFieldIconColor: _hexToColor(map["textFieldIconColor"] ?? "#FFFFFF"),
       buttonBackgroundColor: _hexToColor(
         map["buttonBackgroundColor"] ?? "#3A86FF",
       ),
       buttonTextColor: _hexToColor(map["buttonTextColor"] ?? "#FFFFFF"),
-      buttonBorderRadius: (map["buttonBorderRadius"] ?? 30).toDouble(),
-      buttonHeight: (map["buttonHeight"] ?? 50).toDouble(),
-      enableForgotPassword: map["enableForgotPassword"] ?? false,
-      enableSignup: map["enableSignup"] ?? false,
-      enableSocialLogin: map["enableSocialLogin"] ?? false,
-      googleLogin: map["googleLogin"] ?? false,
-      appleLogin: map["appleLogin"] ?? false,
-      bottomSheetColor: _hexToColor(map['bottomSheetColor']),
-      bottomSheetColor2: _hexToColor(map['bottomSheetColor2']),
+      buttonBorderRadius: double.parse(map["buttonBorderRadius"].toString()),
+      buttonHeight: double.parse(map["buttonHeight"].toString()),
+      enableForgotPassword: _parseBool(map["enableForgotPassword"] ?? false),
+      enableSignup: _parseBool(map["enableSignup"] ?? false),
+      enableSocialLogin: _parseBool(map["enableSocialLogin"] ?? false),
+      googleLogin: _parseBool( map["googleLogin"] ?? false),
+      appleLogin: _parseBool( map["appleLogin"] ?? false),
+      bottomSheetColor: _hexToColor(map['bottomSheetColor'] ?? "#000000"),
+      bottomSheetColor2: _hexToColor(map['bottomSheetColor2'] ?? "#000000"),
     );
   }
 
@@ -142,7 +142,19 @@ class LoginConfig {
     }
   }
 
-  static List<Color> _hexToListColor(List<dynamic> hexList) {
-    return hexList.map((hex) => _hexToColor(hex)).toList();
+  static List<Color> _hexToListColor(dynamic value) {
+  if (value is String) {
+    return [_hexToColor(value)];
+  } else if (value is List) {
+    return value.map((hex) => _hexToColor(hex.toString())).toList();
+  } else {
+    return [Colors.white]; // fallback
+  }
+}
+
+  static bool _parseBool(dynamic value) {
+    if (value is bool) return value;
+    if (value is String) return value.toLowerCase() == 'true';
+    return false;
   }
 }

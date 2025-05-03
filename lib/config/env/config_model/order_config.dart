@@ -88,9 +88,9 @@ class OrderConfig {
 
   factory OrderConfig.fromMap(Map<String, dynamic> map) {
     return OrderConfig(
-      enabled: map['enabled'] ?? true,
-      enableFilter: map['enableFilter'] ?? true,
-      enableDropdown: map['enableDropdown'] ?? true,
+      enabled: _parseBool(map['enabled'] ?? true),
+      enableFilter: _parseBool(map['enableFilter'] ?? true),
+      enableDropdown: _parseBool(map['enableDropdown'] ?? true),
       screenTitle: map['screenTitle'] ?? "Order History",
       searchHint: map['searchHint'] ?? "Search Order",
       topContainerColor: _hexToColor(map['topContainerColor'] ?? ''),
@@ -102,9 +102,11 @@ class OrderConfig {
       linkColor: _hexToColor(map['linkColor'] ?? '#5e17eb'),
       logoTextColor: _hexToColor(map['logoTextColor'] ?? '#ebc428'),
       searchFieldColor: _hexToColor(map['searchFieldColor'] ?? '#ebebeb'),
-      searchFieldTextColor: _hexToColor(map['searchInputTextColor']?? '#100f0d'),
-      hintTextColor: _hexToColor(map['hintTextColor']?? '#100f0d'),
-      
+      searchFieldTextColor: _hexToColor(
+        map['searchInputTextColor'] ?? '#100f0d',
+      ),
+      hintTextColor: _hexToColor(map['hintTextColor'] ?? '#100f0d'),
+
       filterButtonText: map['filterButtonText'] ?? "Filter",
       orderIdPrefix: map['orderIdPrefix'] ?? "Order ID:",
       expirationText: map['expirationText'] ?? "EXPIRATION:",
@@ -142,5 +144,11 @@ class OrderConfig {
     } else {
       return Colors.black;
     }
+  }
+
+  static bool _parseBool(dynamic value) {
+    if (value is bool) return value;
+    if (value is String) return value.toLowerCase() == 'true';
+    return false;
   }
 }

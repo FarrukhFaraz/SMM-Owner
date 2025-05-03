@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ class EnvCubit extends Cubit<ENVModel> {
         print('EnvCubit.updateEnv');
       }
       if (response.statusCode == 200 || response.statusCode == 201) {
+        log("EnvCubit ==> ${response.data}");
         ENVModel responseModel = ENVModel.fromEnvironment(response.data);
         if (kDebugMode) {
           print('EnvCubit.updateEnv::::$responseModel');

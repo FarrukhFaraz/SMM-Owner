@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PaymentConfig {
-  //add Fund 
+  //add Fund
   final Color tabBarBackgroundColor;
   final Color activeTabColor;
   final Color inactiveTabColor;
@@ -21,13 +21,13 @@ class PaymentConfig {
   final Color dateTextColor;
   final Color statusTextColor;
 
-// Funds History
+  // Funds History
 
   final Color firstContainerColor;
   final Color paymentStatusColor;
 
   PaymentConfig({
-  // Add Fund
+    // Add Fund
     required this.tabBarBackgroundColor,
     required this.activeTabColor,
     required this.inactiveTabColor,
@@ -47,9 +47,9 @@ class PaymentConfig {
     required this.dateTextColor,
     required this.statusTextColor,
 
-  //
+    //
     required this.firstContainerColor,
-    required this.paymentStatusColor,  
+    required this.paymentStatusColor,
   });
 
   factory PaymentConfig.fromMap(Map<String, dynamic> map) {
@@ -78,7 +78,7 @@ class PaymentConfig {
       statusTextColor: hex(map["statusTextColor"]),
       //Fund History
       firstContainerColor: hex(map['firstContainerColor']),
-      paymentStatusColor: hex(map['paymentStatusColor'])
+      paymentStatusColor: hex(map['paymentStatusColor']),
     );
   }
 }

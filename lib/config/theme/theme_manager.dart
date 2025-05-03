@@ -8,7 +8,11 @@ class ThemeManager {
     scaffoldBackgroundColor: Color(0xFFF8F9FA), // Background color
     appBarTheme: AppBarTheme(
       backgroundColor: Color(0xFF3A86FF),
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+      titleTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
       iconTheme: IconThemeData(color: Colors.white),
     ),
     textTheme: TextTheme(
@@ -23,7 +27,11 @@ class ThemeManager {
         textStyle: TextStyle(fontWeight: FontWeight.bold),
       ),
     ),
-    cardTheme: CardTheme(color: Colors.white, elevation: 4, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+    cardTheme: CardTheme(
+      color: Colors.white,
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,
@@ -37,7 +45,11 @@ class ThemeManager {
     scaffoldBackgroundColor: Color(0xFF121212),
     appBarTheme: AppBarTheme(
       backgroundColor: Color(0xFF1F1F1F),
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+      titleTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
       iconTheme: IconThemeData(color: Colors.white),
     ),
     textTheme: TextTheme(
@@ -45,7 +57,11 @@ class ThemeManager {
       bodyMedium: TextStyle(color: Colors.white70, fontSize: 14),
       labelLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
     ),
-    toggleButtonsTheme: ToggleButtonsThemeData(color: Color(0xFF3A86FF), borderRadius: BorderRadius.circular(10), borderWidth: 1),
+    toggleButtonsTheme: ToggleButtonsThemeData(
+      color: Color(0xFF3A86FF),
+      borderRadius: BorderRadius.circular(10),
+      borderWidth: 1,
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: Color(0xFF3A86FF),
@@ -60,7 +76,11 @@ class ThemeManager {
       elevation: 1,
     ),
 
-    cardTheme: CardTheme(color: Color(0xFF1E1E1E), elevation: 4, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+    cardTheme: CardTheme(
+      color: Color(0xFF1E1E1E),
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Color(0xFF333333),

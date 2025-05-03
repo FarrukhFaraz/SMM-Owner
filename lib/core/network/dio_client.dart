@@ -12,17 +12,32 @@ class DioClient extends DioForNative {
   }
 
   DioClient() {
-    options = BaseOptions(baseUrl: APIURL.baseApiUrl, responseType: ResponseType.json);
+    options = BaseOptions(
+      baseUrl: APIURL.baseApiUrl,
+      responseType: ResponseType.json,
+    );
     interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
           if (_authToken != null) {
-            options.headers.putIfAbsent('Authorization', () => 'Bearer ${SecureStorageService.getString(CommonKeys.accessToken)}');
+            options.headers.putIfAbsent(
+              'Authorization',
+              () =>
+                  'Bearer ${SecureStorageService.getString(CommonKeys.accessToken)}',
+            );
           }
           return handler.next(options);
         },
       ),
     );
-    interceptors.add(LogInterceptor(request: false, requestHeader: false, requestBody: true, responseHeader: false, responseBody: true));
+    interceptors.add(
+      LogInterceptor(
+        request: false,
+        requestHeader: false,
+        requestBody: true,
+        responseHeader: false,
+        responseBody: true,
+      ),
+    );
   }
 }

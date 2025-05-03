@@ -83,15 +83,15 @@ class SignupConfig {
       textFieldBackgroundColor: _hexToColor(
         map["textFieldBackgroundColor"] ?? "#2E2E2E",
       ),
-      textFieldBorderRadius: (map["textFieldBorderRadius"] ?? 30).toDouble(),
+      textFieldBorderRadius: double.parse(map["textFieldBorderRadius"].toString()),
       textFieldHintColor: _hexToColor(map["textFieldHintColor"]),
       textFieldIconColor: _hexToColor(map["textFieldIconColor"]),
       focusBorderColor: _hexToColor(map['focusBorderColor']),
       inputTextColor: _hexToColor(map['inputTextColor']),
       buttonBackgroundColor: _hexToColor(map["buttonBackgroundColor"]),
       buttonTextColor: _hexToColor(map["buttonTextColor"] ?? "#FFFFFF"),
-      buttonBorderRadius: (map["buttonBorderRadius"] ?? 30).toDouble(),
-      buttonHeight: (map["buttonHeight"] ?? 50).toDouble(),
+      buttonBorderRadius: double.parse(map["buttonBorderRadius"].toString()),
+      buttonHeight: double.parse(map["buttonHeight"].toString()),
     );
   }
 
@@ -104,7 +104,13 @@ class SignupConfig {
     }
   }
 
-  static List<Color> _hexToListColor(List<dynamic> hexList) {
-    return hexList.map((hex) => _hexToColor(hex)).toList();
+   static List<Color> _hexToListColor(dynamic value) {
+  if (value is String) {
+    return [_hexToColor(value)];
+  } else if (value is List) {
+    return value.map((hex) => _hexToColor(hex.toString())).toList();
+  } else {
+    return [Colors.white]; // fallback
   }
+}
 }
