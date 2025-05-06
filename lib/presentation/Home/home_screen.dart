@@ -17,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController searchController = TextEditingController();
+  TextEditingController qunatityController = TextEditingController();
+  TextEditingController linkController = TextEditingController();
 
   final List<IconData> socialIcons = [
     Icons.facebook,
@@ -118,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 _dropdownSection(homeConfig),
 
-                _textField(homeConfig, label: "Link"),
+                _linkField(homeConfig, label: "Link"),
 
                 _quantitySection(homeConfig),
 
@@ -172,7 +174,9 @@ class _HomeScreenState extends State<HomeScreen> {
         hintStyle: context.text12Medium?.copyWith(color: Colors.grey),
         keyboardType: TextInputType.visiblePassword,
         fillColor: homeConfig.textFieldColor,
-
+        inputTextStyle: context.text15Medium?.copyWith(
+          color: homeConfig.dropDownTextColor,
+        ),
         suffix: Container(
           padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
@@ -313,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _textField(HomeConfig homeConfig, {required String label}) {
+  Widget _linkField(HomeConfig homeConfig, {required String label}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
@@ -331,8 +335,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 5),
           CustomTextField(
-            controller: searchController,
+            controller: linkController,
             hintText: 'link ....',
+            inputTextStyle: context.text15Medium?.copyWith(
+              color: homeConfig.dropDownTextColor,
+            ),
             hintStyle: context.text12Medium?.copyWith(color: Colors.grey),
             keyboardType: TextInputType.visiblePassword,
             fillColor: homeConfig.textFieldColor,
@@ -380,14 +387,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 5),
           CustomTextField(
-            controller: searchController,
+            controller: qunatityController,
             hintText: '100',
             hintStyle: context.text12Medium?.copyWith(
               color: homeConfig.hintTextColor,
             ),
             keyboardType: TextInputType.visiblePassword,
             fillColor: homeConfig.textFieldColor,
-
+            inputTextStyle: context.text15Medium?.copyWith(
+              color: homeConfig.dropDownTextColor,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(18),
               borderSide: BorderSide(
