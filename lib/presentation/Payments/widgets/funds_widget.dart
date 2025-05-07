@@ -69,10 +69,13 @@ class _FundsWidgetState extends State<FundsWidget> {
                                 border: Border.all(color: Colors.black),
                                 borderRadius: BorderRadius.circular(50),
                                 image: DecorationImage(
+                                  
                                   image: NetworkImage(
                                     '${APIURL.baseMediaUrl}/${e.logo}',
+                                    scale: 1
                                   ),
                                   fit: BoxFit.contain,
+                                  
                                 ),
                               ),
                             );

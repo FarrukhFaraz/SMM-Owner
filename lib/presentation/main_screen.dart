@@ -101,7 +101,7 @@ class _MainScreenState extends State<MainScreen> {
             elevation: 0,
             backgroundColor: Color(0xFF2D6B5F),
             shape: const CircleBorder(),
-            child: const Icon(Icons.add, size: 40),
+            child: const Icon(Icons.add, size: 40,color: Colors.white,),
           ),
         ),
       ),

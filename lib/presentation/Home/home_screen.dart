@@ -20,15 +20,16 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController qunatityController = TextEditingController();
   TextEditingController linkController = TextEditingController();
 
-  final List<IconData> socialIcons = [
-    Icons.facebook,
-    Icons.video_library,
-    Icons.clear,
-    Icons.more_horiz,
-    Icons.video_call,
-    Icons.extension,
-    Icons.camera_alt,
-    Icons.more_vert,
+  final List<String> socialIcons = [
+'assets/png/facebook1.png',
+'assets/png/video_library.png',
+'assets/png/clear.png',
+'assets/png/more.png',
+'assets/png/video_call.png',
+'assets/png/extension.png',
+'assets/png/camera.png',
+'assets/png/more_vert.png',
+
   ];
 
   @override
@@ -104,7 +105,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               ) {
                                 return CircleAvatar(
                                   radius: 30,
-                                  child: Icon(socialIcons[index], size: 30),
+                                  child: Image.asset(socialIcons[index],
+                                  
+                                  color: Colors.purple,
+                                  fit: BoxFit.fitHeight,
+                                  
+                                  height: 30,width: 30,),
                                 );
                               }),
                             ),
@@ -183,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: homeConfig.searchButtonBackgroundColor,
             borderRadius: BorderRadius.circular(90),
           ),
-          child: Icon(Icons.search),
+          child: Icon(Icons.search,color: Colors.white,),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(18),
@@ -227,11 +233,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     .map(
                       (e) => DropdownMenuItem(
                         value: e,
-                        child: Text(
-                          e,
-                          style: context.text10Bold?.copyWith(
-                            fontSize: 11,
-                            color: homeConfig.dropDownTextColor,
+                        child: SizedBox(width: 280,
+                          child: Text(
+                            
+                            e,
+                            style: context.text10Bold?.copyWith(
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 14,
+                              color: homeConfig.dropDownTextColor,
+                            ),
                           ),
                         ),
                       ),
@@ -290,12 +300,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 5),
-                            Text(
-                              e,
-                              style: context.text10Bold?.copyWith(
-                                fontSize: 9,
-                                color: homeConfig.dropDownTextColor,
+                            const SizedBox(width: 2),
+                            SizedBox(
+                              width: 230,
+                              child: Text(
+                                e,
+                                style: context.text10Bold?.copyWith(
+                                  fontSize: 14,
+                                   overflow: TextOverflow.ellipsis,
+                                  color: homeConfig.dropDownTextColor,
+                                ),
                               ),
                             ),
                           ],
@@ -406,15 +420,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const SizedBox(height: 5),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Min: 100", style: TextStyle(fontStyle: FontStyle.italic)),
-              Text(
-                "Max: 1000000",
-                style: TextStyle(fontStyle: FontStyle.italic),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric (horizontal:  8.0),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Min: 100", style: TextStyle(fontStyle: FontStyle.italic)),
+                Text(
+                  "Max: 1000000",
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ],
+            ),
           ),
         ],
       ),

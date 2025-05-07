@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class LoginConfig {
 
-
+  //
   final bool required;
   final bool enabled;
   final List<Color> backgroundColor;

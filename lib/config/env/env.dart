@@ -180,6 +180,7 @@ final Map<String, dynamic> environment = {
   },
 
   "paymentConfig": {
+  
     //Add fund
     "tabBarBackgroundColor": "#00695c",
     "activeTabColor": "#FFFFFF",
@@ -204,6 +205,7 @@ final Map<String, dynamic> environment = {
     // Fund History
     'firstContainerColor': '#ffffff',
     'paymentStatusColor': '#00bf63',
+
   },
 
 };

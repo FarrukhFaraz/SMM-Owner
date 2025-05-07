@@ -55,8 +55,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 70),
                     if (loginConfig.backgroundImage.isNotEmpty) ...{
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        width: MediaQuery.of(context).size.width * 0.66,
+                        height: MediaQuery.of(context).size.height * 0.27,
+                        width: MediaQuery.of(context).size.width * 0.60,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(120),
                           border: Border.all(color: Colors.white38),
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             .slideY(begin: 0.5, end: 0),
                       ),
                     },
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 22),
                     Text(
                       loginConfig.loginText,
                       style: TextStyle(
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: loginConfig.panelColor,
                       ),
                     ),
-                    const SizedBox(height: 26),
+                    const SizedBox(height: 25),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 36.0),
                       child: CustomTextField(
