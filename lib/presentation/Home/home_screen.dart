@@ -23,15 +23,38 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController linkController = TextEditingController();
 
   final List<SocialIcons> socialIcons = [
-   SocialIcons(icon: 'assets/png/facebook1.png', url:"https://www.facebook.com/?_rdr"),
-   SocialIcons(icon: 'assets/png/video_library.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
-   SocialIcons(icon: 'assets/png/clear.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
-   SocialIcons(icon: 'assets/png/more.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
-   SocialIcons(icon: 'assets/png/video_call.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
-   SocialIcons(icon: 'assets/png/extension.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
-   SocialIcons(icon: 'assets/png/camera.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
-   SocialIcons(icon: 'assets/png/more_vert.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
-
+    SocialIcons(
+      icon: 'assets/png/facebook1.png',
+      url: "https://www.facebook.com/?_rdr",
+    ),
+    SocialIcons(
+      icon: 'assets/png/video_library.png',
+      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
+    ),
+    SocialIcons(
+      icon: 'assets/png/clear.png',
+      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
+    ),
+    SocialIcons(
+      icon: 'assets/png/more.png',
+      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
+    ),
+    SocialIcons(
+      icon: 'assets/png/video_call.png',
+      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
+    ),
+    SocialIcons(
+      icon: 'assets/png/extension.png',
+      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
+    ),
+    SocialIcons(
+      icon: 'assets/png/camera.png',
+      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
+    ),
+    SocialIcons(
+      icon: 'assets/png/more_vert.png',
+      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
+    ),
   ];
 
   @override
@@ -106,17 +129,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 index,
                               ) {
                                 return GestureDetector(
-                                  onTap: ()async {
-                                    await launchMyUrl("https://www.youtube.com/watch?v=_y4nzLXB2Lc");
+                                  onTap: () async {
+                                    await launchMyUrl(
+                                      "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
+                                    );
                                   },
                                   child: CircleAvatar(
                                     radius: 30,
                                     child: Image.asset(
                                       socialIcons[index].icon,
-                                  
+
                                       color: Colors.purple,
                                       fit: BoxFit.fitHeight,
-                                  
+
                                       height: 30,
                                       width: 30,
                                     ),
@@ -449,9 +474,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class SocialIcons{
-String icon;
-String url;
-SocialIcons({required this.icon,required this.url});
-
+class SocialIcons {
+  String icon;
+  String url;
+  SocialIcons({required this.icon, required this.url});
 }

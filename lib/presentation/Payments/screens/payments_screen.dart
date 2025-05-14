@@ -49,7 +49,9 @@ class _PaymentScreenState extends State<PaymentScreen>
                 child: Center(
                   child: Text(
                     "Payments",
-                    style: context.text16Light?.copyWith(color: Colors.black),
+                    style: context.text16Bold?.copyWith(color: Colors.black,
+                    fontStyle: FontStyle.italic,
+                    ),
                   ),
                 ),
               ),

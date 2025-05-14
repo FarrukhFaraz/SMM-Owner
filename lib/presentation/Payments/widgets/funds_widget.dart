@@ -69,19 +69,30 @@ class _FundsWidgetState extends State<FundsWidget> {
                                 border: Border.all(color: Colors.black),
                                 borderRadius: BorderRadius.circular(50),
                                 image: DecorationImage(
-                                  
                                   image: NetworkImage(
                                     '${APIURL.baseMediaUrl}/${e.logo}',
-                                    scale: 1
+                                    scale: 1,
                                   ),
                                   fit: BoxFit.contain,
-                                  
                                 ),
                               ),
                             );
                           }).toList(),
                     ),
                     SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, bottom: 5),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Payment Method",
+                          style: context.text13Medium?.copyWith(
+                            color: Colors.black,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                    ),
                     DropdownButtonFormField<int>(
                       value: selectedMethod,
                       hint: Text(
@@ -93,7 +104,9 @@ class _FundsWidgetState extends State<FundsWidget> {
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: config.inputFieldColor,
-                        border: OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                       iconEnabledColor: Colors.black,
                       dropdownColor: Colors.white,
@@ -117,6 +130,19 @@ class _FundsWidgetState extends State<FundsWidget> {
                       },
                     ),
                     const SizedBox(height: 12),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, bottom: 5),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Amount",
+                          style: context.text13Medium?.copyWith(
+                            color: Colors.black,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                    ),
                     CustomTextField(
                       controller: amountController,
                       hintText: "Enter Amount",
@@ -124,12 +150,45 @@ class _FundsWidgetState extends State<FundsWidget> {
                         color: config.inputTextColor,
                       ),
                       fillColor: config.inputFieldColor,
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       keyboardType: TextInputType.number,
                       inputFormatter: [
                         FilteringTextInputFormatter.allow(RegExp(r'^[0-9]*$')),
                       ],
                     ),
+                    const SizedBox(height: 12),
+                    Padding(
+                       padding: const EdgeInsets.only(left: 10, bottom: 5),
+                       child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Instructions",
+                          style: context.text13Medium?.copyWith(
+                            color: Colors.black,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                                           ),
+                     ),
+                    CustomTextField(
+                      maxLines: 10,
+                      controller: amountController,
+                      hintText: "Enter instructions",
+                      inputTextStyle: context.text14Medium?.copyWith(
+                        color: config.inputTextColor,
+                      ),
+                      fillColor: config.inputFieldColor,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatter: [
+                        FilteringTextInputFormatter.allow(RegExp(r'^[0-9]*$')),
+                      ],
+                    ),
+
                     const SizedBox(height: 12),
                     Row(
                       children: [
