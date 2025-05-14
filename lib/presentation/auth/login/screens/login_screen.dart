@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +10,7 @@ import 'package:sms_owner/core/components/custom_textfield.dart';
 import 'package:sms_owner/core/components/snack_message.dart';
 import 'package:sms_owner/core/utils/app_color.dart';
 import 'package:sms_owner/core/utils/navigation.dart';
+import 'package:sms_owner/presentation/Home/home_screen.dart';
 import 'package:sms_owner/presentation/auth/forgot_password/screens/forgot_password.dart';
 import 'package:sms_owner/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:sms_owner/presentation/auth/sign_up/screens/sign_up.dart';
@@ -230,7 +230,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   builder: (context, state) {
                                     return CustomButton(
                                       onPressed: () {
-                                        if (state.status == LoginStatus.loading) {
+                                        if (state.status ==
+                                            LoginStatus.loading) {
                                           return;
                                         }
                                         if (!_formKey.currentState!
@@ -265,7 +266,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 horizontal: 20,
                               ),
                               child: CustomButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      NavigationService.push(HomeScreen());
+                                    },
                                     buttonTitle: "Login with Google ",
                                     textStyle: context.smallCaption14500,
                                     buttonColor: AppColor.kWhite,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class LoginConfig {
-
   //
   final bool required;
   final bool enabled;
@@ -92,7 +91,7 @@ class LoginConfig {
   /// Factory constructor to create `LoginConfig` from a Map.
   factory LoginConfig.fromMap(Map<String, dynamic> map) {
     return LoginConfig(
-      required: _parseBool(map["required"] ?? false) ,
+      required: _parseBool(map["required"] ?? false),
       enabled: _parseBool(map["enabled"] ?? false),
       backgroundColor: _hexToListColor(map["backgroundColor"] ?? ["#FFFFFF"]),
       enableAnimation: _parseBool(map["enableAnimation"] ?? true),
@@ -116,7 +115,9 @@ class LoginConfig {
       textFieldBackgroundColor: _hexToColor(
         map["textFieldBackgroundColor"] ?? "#2E2E2E",
       ),
-      textFieldBorderRadius: double.parse(map["textFieldBorderRadius"].toString()),
+      textFieldBorderRadius: double.parse(
+        map["textFieldBorderRadius"].toString(),
+      ),
       textFieldHintColor: _hexToColor(map["textFieldHintColor"] ?? "#AAAAAA"),
       textFieldIconColor: _hexToColor(map["textFieldIconColor"] ?? "#FFFFFF"),
       buttonBackgroundColor: _hexToColor(
@@ -128,8 +129,8 @@ class LoginConfig {
       enableForgotPassword: _parseBool(map["enableForgotPassword"] ?? false),
       enableSignup: _parseBool(map["enableSignup"] ?? false),
       enableSocialLogin: _parseBool(map["enableSocialLogin"] ?? false),
-      googleLogin: _parseBool( map["googleLogin"] ?? false),
-      appleLogin: _parseBool( map["appleLogin"] ?? false),
+      googleLogin: _parseBool(map["googleLogin"] ?? false),
+      appleLogin: _parseBool(map["appleLogin"] ?? false),
       bottomSheetColor: _hexToColor(map['bottomSheetColor'] ?? "#000000"),
       bottomSheetColor2: _hexToColor(map['bottomSheetColor2'] ?? "#000000"),
     );
@@ -144,15 +145,15 @@ class LoginConfig {
     }
   }
 
-  static  _hexToListColor(dynamic value) {
-  if (value is String) {
-    return [_hexToListColor(value)];
-  } else if (value is List) {
-    return value.map((hex) => _hexToColor(hex.toString())).toList();
-  } else {
-    return [Colors.white]; // fallback
+  static _hexToListColor(dynamic value) {
+    if (value is String) {
+      return [_hexToListColor(value)];
+    } else if (value is List) {
+      return value.map((hex) => _hexToColor(hex.toString())).toList();
+    } else {
+      return [Colors.white]; // fallback
+    }
   }
-}
 
   static bool _parseBool(dynamic value) {
     if (value is bool) return value;

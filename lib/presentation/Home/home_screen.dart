@@ -8,6 +8,8 @@ import 'package:sms_owner/core/components/custom_appBar.dart';
 import 'package:sms_owner/core/components/custom_textfield.dart';
 import 'package:sms_owner/core/components/wallet_info.dart';
 
+import '../../core/components/url_lancher.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -20,15 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController qunatityController = TextEditingController();
   TextEditingController linkController = TextEditingController();
 
-  final List<String> socialIcons = [
-'assets/png/facebook1.png',
-'assets/png/video_library.png',
-'assets/png/clear.png',
-'assets/png/more.png',
-'assets/png/video_call.png',
-'assets/png/extension.png',
-'assets/png/camera.png',
-'assets/png/more_vert.png',
+  final List<SocialIcons> socialIcons = [
+   SocialIcons(icon: 'assets/png/facebook1.png', url:"https://www.facebook.com/?_rdr"),
+   SocialIcons(icon: 'assets/png/video_library.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
+   SocialIcons(icon: 'assets/png/clear.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
+   SocialIcons(icon: 'assets/png/more.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
+   SocialIcons(icon: 'assets/png/video_call.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
+   SocialIcons(icon: 'assets/png/extension.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
+   SocialIcons(icon: 'assets/png/camera.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
+   SocialIcons(icon: 'assets/png/more_vert.png', url:"https://www.youtube.com/watch?v=_y4nzLXB2Lc"),
 
   ];
 
@@ -103,14 +105,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: List.generate(socialIcons.length, (
                                 index,
                               ) {
-                                return CircleAvatar(
-                                  radius: 30,
-                                  child: Image.asset(socialIcons[index],
+                                return GestureDetector(
+                                  onTap: ()async {
+                                    await launchMyUrl("https://www.youtube.com/watch?v=_y4nzLXB2Lc");
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 30,
+                                    child: Image.asset(
+                                      socialIcons[index].icon,
                                   
-                                  color: Colors.purple,
-                                  fit: BoxFit.fitHeight,
+                                      color: Colors.purple,
+                                      fit: BoxFit.fitHeight,
                                   
-                                  height: 30,width: 30,),
+                                      height: 30,
+                                      width: 30,
+                                    ),
+                                  ),
                                 );
                               }),
                             ),
@@ -189,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: homeConfig.searchButtonBackgroundColor,
             borderRadius: BorderRadius.circular(90),
           ),
-          child: Icon(Icons.search,color: Colors.white,),
+          child: Icon(Icons.search, color: Colors.white),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(18),
@@ -233,9 +243,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     .map(
                       (e) => DropdownMenuItem(
                         value: e,
-                        child: SizedBox(width: 280,
+                        child: SizedBox(
+                          width: 280,
                           child: Text(
-                            
                             e,
                             style: context.text10Bold?.copyWith(
                               overflow: TextOverflow.ellipsis,
@@ -307,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 e,
                                 style: context.text10Bold?.copyWith(
                                   fontSize: 14,
-                                   overflow: TextOverflow.ellipsis,
+                                  overflow: TextOverflow.ellipsis,
                                   color: homeConfig.dropDownTextColor,
                                 ),
                               ),
@@ -421,7 +431,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 5),
           Padding(
-            padding: const EdgeInsets.symmetric (horizontal:  8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -437,4 +447,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+class SocialIcons{
+String icon;
+String url;
+SocialIcons({required this.icon,required this.url});
+
 }
