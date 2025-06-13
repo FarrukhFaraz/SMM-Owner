@@ -1,0 +1,53 @@
+name: Multi Domain Pipeline
+
+on:
+  repository_dispatch:
+    types: [ trigger-build ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.1'
+
+      - name: Retrieve API Variables
+        run: |
+          echo "BASE_URL=${{ github.event.client_payload.baseUrl }}" >> $GITHUB_ENV
+          echo "PACKAGE_NAME=${{ github.event.client_payload.packageName }}" >> $GITHUB_ENV
+          echo "APP_NAME=${{ github.event.client_payload.appName }}" >> $GITHUB_ENV
+
+      - name: Update `url_file.dart`
+        run: |
+          sed -i "s|static String baseUrl = '.*'|static String baseUrl = '${{ env.BASE_URL }}'|" lib/url_file.dart
+          sed -i "s|static String packageName = '.*'|static String packageName = '${{ env.PACKAGE_NAME }}'|" lib/url_file.dart
+
+      - name: Change App Package Name
+        run: flutter pub run change_app_package_name:main ${{ env.PACKAGE_NAME }}
+
+      - name: Rename App
+        run: flutter pub run rename_app:main ${APP_NAME}
+
+      - name: Generate App Icon
+        run: flutter pub run flutter_launcher_icons:main
+
+      - name: Run `flutter clean`
+        run: flutter clean
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: build/app/outputs/flutter-apk/app-release.apk
