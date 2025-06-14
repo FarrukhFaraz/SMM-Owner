@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    if: github.event_name == 'repository_dispatch'  # ✅ Prevent run on push/yml update
     runs-on: ubuntu-latest
 
     steps:
@@ -19,19 +20,19 @@ jobs:
 
       - name: Retrieve API Variables
         run: |
-        echo "BASE_URL=${{ github.event.client_payload.baseUrl }}" >> $GITHUB_ENV
-        echo "PACKAGE_NAME=${{ github.event.client_payload.packageName }}" >> $GITHUB_ENV
-        echo "APP_NAME=${{ github.event.client_payload.appName }}" >> $GITHUB_ENV
+          echo "BASE_URL=${{ github.event.client_payload.baseUrl }}" >> $GITHUB_ENV
+          echo "PACKAGE_NAME=${{ github.event.client_payload.packageName }}" >> $GITHUB_ENV
+          echo "APP_NAME=${{ github.event.client_payload.appName }}" >> $GITHUB_ENV
 
       - name: Update `api_url.dart`
         run: |
-        sed -i "s|String mainURL = \".*\"|String mainURL = \"${{ env.BASE_URL }}\"|" lib/core/utils/api_url.dart
-        
+          sed -i "s|String mainURL = \".*\"|String mainURL = \"${{ env.BASE_URL }}\"|" lib/core/utils/api_url.dart
+
       - name: Change App Package Name
         run: flutter pub run change_app_package_name:main ${{ env.PACKAGE_NAME }}
 
       - name: Rename App
-        run: flutter pub run rename_app:main ${APP_NAME}
+        run: flutter pub run rename_app:main "${{ env.APP_NAME }}"
 
       - name: Generate App Icon
         run: flutter pub run flutter_launcher_icons:main
