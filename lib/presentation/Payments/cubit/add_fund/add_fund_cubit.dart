@@ -9,10 +9,18 @@ part 'add_fund_state.dart';
 class AddFundCubit extends Cubit<AddFundState> {
   AddFundCubit() : super(AddFundState.initial());
 
-  Future<void> addFund({required int paymentId, required double amount}) async {
+  Future<void> addFund({
+    required int paymentId,
+    required double amount,
+    String? detail,
+  }) async {
     emit(state.copyWith(status: AddFundStatus.loading));
     try {
-      bool val = await FundsRepository().addFunds(paymentId: paymentId, amount: amount);
+      bool val = await FundsRepository().addFunds(
+        paymentId: paymentId,
+        amount: amount,
+        detail: detail,
+      );
       if (kDebugMode) {
         print('AddFundCubit.addFund:::: $val');
       }

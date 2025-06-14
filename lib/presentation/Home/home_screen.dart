@@ -62,144 +62,160 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<EnvCubit, ENVModel>(
       builder: (context, homeConfiguration) {
         final homeConfig = homeConfiguration.homeConfig;
-        return Scaffold(
-          backgroundColor: homeConfig.backGroundColor,
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: homeConfig.backContainerColor,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40),
-                    ),
+        return Container(
+          color: homeConfig.backGroundColor,
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(0),
+                decoration: BoxDecoration(color: homeConfig.backContainerColor),
+                child: customAppBar(homeConfig),
+              ),
+              Divider(color: Colors.white, height: 0.5, thickness: 0.5),
+
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: Container(
-                      padding: EdgeInsets.only(bottom: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(40),
-                          bottomRight: Radius.circular(40),
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: homeConfig.backContainerColor,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(40),
+                            bottomRight: Radius.circular(40),
+                          ),
                         ),
-                        color: homeConfig.frontContainerColor,
-                      ),
-                      child: Column(
-                        children: [
-                          customAppBar(homeConfig),
-                          //
-                          Divider(color: Colors.white),
-                          Container(
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 15,
-                              vertical: 10,
-                            ),
-                            padding: const EdgeInsets.all(20),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: Container(
+                            padding: EdgeInsets.only(bottom: 20),
                             decoration: BoxDecoration(
-                              color: homeConfig.walletContainerColor,
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(40),
+                                bottomRight: Radius.circular(40),
+                              ),
+                              color: homeConfig.frontContainerColor,
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: Column(
                               children: [
-                                WalletInfo(
-                                  title: 'My Wallet',
-                                  value: '\$ 350',
-                                  homeConfig: homeConfig,
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 15,
+                                    vertical: 10,
+                                  ),
+                                  padding: const EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                    color: homeConfig.walletContainerColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      WalletInfo(
+                                        title: 'My Wallet',
+                                        value: '\$ 350',
+                                        homeConfig: homeConfig,
+                                      ),
+                                      WalletInfo(
+                                        title: 'My Coins',
+                                        value: '1,234,567',
+                                        homeConfig: homeConfig,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                WalletInfo(
-                                  title: 'My Coins',
-                                  value: '1,234,567',
-                                  homeConfig: homeConfig,
+
+                                // Social Icons Grid
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                  ),
+                                  child: Wrap(
+                                    spacing: 15,
+                                    runSpacing: 15,
+                                    alignment: WrapAlignment.center,
+                                    children: List.generate(socialIcons.length, (
+                                      index,
+                                    ) {
+                                      return GestureDetector(
+                                        onTap: () async {
+                                          await launchMyUrl(
+                                            "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
+                                          );
+                                        },
+                                        child: CircleAvatar(
+                                          radius: 30,
+                                          child: Image.asset(
+                                            socialIcons[index].icon,
+
+                                            color: Colors.purple,
+                                            fit: BoxFit.fitHeight,
+
+                                            height: 30,
+                                            width: 30,
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-
-                          // Social Icons Grid
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Wrap(
-                              spacing: 15,
-                              runSpacing: 15,
-                              alignment: WrapAlignment.center,
-                              children: List.generate(socialIcons.length, (
-                                index,
-                              ) {
-                                return GestureDetector(
-                                  onTap: () async {
-                                    await launchMyUrl(
-                                      "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
-                                    );
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 30,
-                                    child: Image.asset(
-                                      socialIcons[index].icon,
-
-                                      color: Colors.purple,
-                                      fit: BoxFit.fitHeight,
-
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                  ),
-                                );
-                              }),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: 20),
+
+                      _searchField(homeConfig),
+
+                      _dropdownSection(homeConfig),
+
+                      _linkField(homeConfig, label: "Link"),
+
+                      _quantitySection(homeConfig),
+
+                      const SizedBox(height: 20),
+                      const Text(
+                        "Total: \$10000",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          color: Colors.blue,
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 40,
+                            vertical: 15,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: const Text(
+                          "Order Now",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      // const SizedBox(height: 100),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 20),
-
-                _searchField(homeConfig),
-
-                _dropdownSection(homeConfig),
-
-                _linkField(homeConfig, label: "Link"),
-
-                _quantitySection(homeConfig),
-
-                const SizedBox(height: 20),
-                const Text(
-                  "Total: \$10000",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                    color: Colors.blue,
-                  ),
-                ),
-
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 15,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                  child: const Text(
-                    "Order Now",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 100),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

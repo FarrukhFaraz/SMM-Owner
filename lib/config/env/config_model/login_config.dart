@@ -93,7 +93,9 @@ class LoginConfig {
     return LoginConfig(
       required: _parseBool(map["required"] ?? false),
       enabled: _parseBool(map["enabled"] ?? false),
-      backgroundColor: _hexToListColor(map["backgroundColor"] ?? ["#FFFFFF"]),
+      backgroundColor: _hexToListColor(
+        map["backgroundColor"] ?? ["#4c8479", "#2b5f56"],
+      ),
       enableAnimation: _parseBool(map["enableAnimation"] ?? true),
       animationAsset: map["animationAsset"] ?? "",
       backgroundImage: map["backgroundImage"] ?? "",
@@ -145,14 +147,17 @@ class LoginConfig {
     }
   }
 
-  static _hexToListColor(dynamic value) {
+  static List<Color> _hexToListColor(dynamic value) {
+    List<Color> list = [];
     if (value is String) {
-      return [_hexToListColor(value)];
+      list = [_hexToColor(value)];
     } else if (value is List) {
-      return value.map((hex) => _hexToColor(hex.toString())).toList();
+      list = value.map((hex) => _hexToColor(hex.toString())).toList();
     } else {
-      return [Colors.white]; // fallback
+      list = [Color(0xff4c8479), Color(0xff2b5f56)];
     }
+
+    return list.length > 1 ? list : [Color(0xff4c8479), Color(0xff2b5f56)];
   }
 
   static bool _parseBool(dynamic value) {

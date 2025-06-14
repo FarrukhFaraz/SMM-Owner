@@ -58,7 +58,11 @@ class _FundsHistoryState extends State<FundsHistory> {
                         style: TextStyle(color: config.methodTextColor),
                       ),
                       subtitle: Text(
-                        '${DateFormat('yyyy-MM-dd').tryParse(model.createdAt ?? '') ?? ''}',
+                        model.createdAt == null
+                            ? ""
+                            : DateFormat(
+                              'yyyy-MM-dd hh:mm',
+                            ).format(model.createdAt!),
                         style: TextStyle(color: config.dateTextColor),
                       ),
                       trailing: Column(

@@ -15,19 +15,18 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.1'
+          flutter-version: '3.29.0'
 
       - name: Retrieve API Variables
         run: |
-          echo "BASE_URL=${{ github.event.client_payload.baseUrl }}" >> $GITHUB_ENV
-          echo "PACKAGE_NAME=${{ github.event.client_payload.packageName }}" >> $GITHUB_ENV
-          echo "APP_NAME=${{ github.event.client_payload.appName }}" >> $GITHUB_ENV
+        echo "BASE_URL=${{ github.event.client_payload.baseUrl }}" >> $GITHUB_ENV
+        echo "PACKAGE_NAME=${{ github.event.client_payload.packageName }}" >> $GITHUB_ENV
+        echo "APP_NAME=${{ github.event.client_payload.appName }}" >> $GITHUB_ENV
 
-      - name: Update `url_file.dart`
+      - name: Update `api_url.dart`
         run: |
-          sed -i "s|static String baseUrl = '.*'|static String baseUrl = '${{ env.BASE_URL }}'|" lib/url_file.dart
-          sed -i "s|static String packageName = '.*'|static String packageName = '${{ env.PACKAGE_NAME }}'|" lib/url_file.dart
-
+        sed -i "s|String mainURL = \".*\"|String mainURL = \"${{ env.BASE_URL }}\"|" lib/core/utils/api_url.dart
+        
       - name: Change App Package Name
         run: flutter pub run change_app_package_name:main ${{ env.PACKAGE_NAME }}
 

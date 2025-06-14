@@ -3,7 +3,7 @@ import 'package:sms_owner/config/env/config_model/home_config.dart';
 
 Widget customAppBar(HomeConfig homeConfig) {
   return Padding(
-    padding: const EdgeInsets.only(left: 12, right: 12, top: 12),
+    padding: const EdgeInsets.all(12),
     child: Row(
       children: [
         Icon(Icons.menu, color: homeConfig.menuIconColor),

@@ -62,7 +62,9 @@ class SignupConfig {
 
   factory SignupConfig.fromMap(Map<String, dynamic> map) {
     return SignupConfig(
-      backgroundColor: _hexToListColor(map["backgroundColor"] ?? ["#FFFFFF"]),
+      backgroundColor: _hexToListColor(
+        map["backgroundColor"] ?? ["#4c8479", "#2b5f56"],
+      ),
       cancelIconColor: _hexToColor(map["cancelIconColor"] ?? "#FFFFFF"),
       emailHint: map["emailHint"] ?? "Enter your email",
       passwordHint: map["passwordHint"] ?? "Enter your password",
@@ -83,7 +85,9 @@ class SignupConfig {
       textFieldBackgroundColor: _hexToColor(
         map["textFieldBackgroundColor"] ?? "#2E2E2E",
       ),
-      textFieldBorderRadius: double.parse(map["textFieldBorderRadius"].toString()),
+      textFieldBorderRadius: double.parse(
+        map["textFieldBorderRadius"].toString(),
+      ),
       textFieldHintColor: _hexToColor(map["textFieldHintColor"]),
       textFieldIconColor: _hexToColor(map["textFieldIconColor"]),
       focusBorderColor: _hexToColor(map['focusBorderColor']),
@@ -104,13 +108,16 @@ class SignupConfig {
     }
   }
 
-   static  _hexToListColor(dynamic value) {
-  if (value is String) {
-    return [_hexToListColor(value)];
-  } else if (value is List) {
-    return value.map((hex) => _hexToColor(hex.toString())).toList();
-  } else {
-    return [Colors.white]; // fallback
+  static List<Color> _hexToListColor(dynamic value) {
+    List<Color> list = [];
+    if (value is String) {
+      list = [_hexToColor(value)];
+    } else if (value is List) {
+      list = value.map((hex) => _hexToColor(hex.toString())).toList();
+    } else {
+      // ["#4c8479", "#2b5f56"]
+      list = [Colors.white]; // fallback
+    }
+    return list.length > 1 ? list : [Color(0xff4c8479), Color(0xff2b5f56)];
   }
-}
 }

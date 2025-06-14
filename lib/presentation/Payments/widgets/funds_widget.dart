@@ -22,6 +22,7 @@ class FundsWidget extends StatefulWidget {
 
 class _FundsWidgetState extends State<FundsWidget> {
   TextEditingController amountController = TextEditingController();
+  TextEditingController detailController = TextEditingController();
   int? selectedMethod;
   bool terms = false;
 
@@ -57,27 +58,26 @@ class _FundsWidgetState extends State<FundsWidget> {
                       direction: Axis.horizontal,
                       runAlignment: WrapAlignment.start,
                       spacing: 20,
-                      children:
-                          state.paymentList.map((e) {
-                            if (e.logo == null) return SizedBox();
-                            return Container(
-                              height: 50,
-                              width: 50,
-                              padding: EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(color: Colors.black),
-                                borderRadius: BorderRadius.circular(50),
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    '${APIURL.baseMediaUrl}/${e.logo}',
-                                    scale: 1,
-                                  ),
-                                  fit: BoxFit.contain,
-                                ),
+                      children: state.paymentList.map((e) {
+                        if (e.logo == null) return SizedBox();
+                        return Container(
+                          height: 50,
+                          width: 50,
+                          padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(50),
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                '$baseMediaUrl/${e.logo}',
+                                scale: 1,
                               ),
-                            );
-                          }).toList(),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        );
+                      }).toList(),
                     ),
                     SizedBox(height: 20),
                     Padding(
@@ -110,20 +110,19 @@ class _FundsWidgetState extends State<FundsWidget> {
                       ),
                       iconEnabledColor: Colors.black,
                       dropdownColor: Colors.white,
-                      items:
-                          state.paymentList
-                              .map(
-                                (e) => DropdownMenuItem(
-                                  value: e.id,
-                                  child: Text(
-                                    e.name ?? '',
-                                    style: TextStyle(
-                                      color: config.inputTextColor,
-                                    ),
-                                  ),
+                      items: state.paymentList
+                          .map(
+                            (e) => DropdownMenuItem(
+                              value: e.id,
+                              child: Text(
+                                e.name ?? '',
+                                style: TextStyle(
+                                  color: config.inputTextColor,
                                 ),
-                              )
-                              .toList(),
+                              ),
+                            ),
+                          )
+                          .toList(),
                       onChanged: (value) {
                         selectedMethod = value;
                         setState(() {});
@@ -160,8 +159,8 @@ class _FundsWidgetState extends State<FundsWidget> {
                     ),
                     const SizedBox(height: 12),
                     Padding(
-                       padding: const EdgeInsets.only(left: 10, bottom: 5),
-                       child: Align(
+                      padding: const EdgeInsets.only(left: 10, bottom: 5),
+                      child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
                           "Instructions",
@@ -170,11 +169,11 @@ class _FundsWidgetState extends State<FundsWidget> {
                             fontStyle: FontStyle.italic,
                           ),
                         ),
-                                           ),
-                     ),
+                      ),
+                    ),
                     CustomTextField(
                       maxLines: 10,
-                      controller: amountController,
+                      controller: detailController,
                       hintText: "Enter instructions",
                       inputTextStyle: context.text14Medium?.copyWith(
                         color: config.inputTextColor,
@@ -183,12 +182,8 @@ class _FundsWidgetState extends State<FundsWidget> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      keyboardType: TextInputType.number,
-                      inputFormatter: [
-                        FilteringTextInputFormatter.allow(RegExp(r'^[0-9]*$')),
-                      ],
+                      keyboardType: TextInputType.text,
                     ),
-
                     const SizedBox(height: 12),
                     Row(
                       children: [
@@ -208,69 +203,68 @@ class _FundsWidgetState extends State<FundsWidget> {
                         ),
                       ],
                     ),
-
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: BlocConsumer<AddFundCubit, AddFundState>(
-                            listener: (context, state) {
-                              if (state.status == AddFundStatus.success) {
-                                context
-                                    .read<PaymentHistoryCubit>()
-                                    .loadPaymentHistory();
-                                showSnackMessage(
+                        listener: (context, state) {
+                          if (state.status == AddFundStatus.success) {
+                            context
+                                .read<PaymentHistoryCubit>()
+                                .loadPaymentHistory();
+                            showSnackMessage(
+                              context,
+                              "Payment successfully added",
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          return CustomButton(
+                            onPressed: () {
+                              if (selectedMethod == null) {
+                                showSnackErrorMessage(
                                   context,
-                                  "Payment successfully added",
+                                  "Please select payment methods",
+                                  3,
                                 );
+                                return;
                               }
-                            },
-                            builder: (context, state) {
-                              return CustomButton(
-                                onPressed: () {
-                                  if (selectedMethod == null) {
-                                    showSnackErrorMessage(
-                                      context,
-                                      "Please select payment methods",
-                                      3,
-                                    );
-                                    return;
-                                  }
-                                  if (amountController.text.isEmpty ||
-                                      amountController.text == '0') {
-                                    showSnackErrorMessage(
-                                      context,
-                                      "Please enter amount",
-                                      3,
-                                    );
-                                    return;
-                                  }
+                              if (amountController.text.isEmpty ||
+                                  amountController.text == '0') {
+                                showSnackErrorMessage(
+                                  context,
+                                  "Please enter amount",
+                                  3,
+                                );
+                                return;
+                              }
 
-                                  if (terms == false) {
-                                    showSnackErrorMessage(
-                                      context,
-                                      "Please except terms and conditions",
-                                      3,
-                                    );
-                                    return;
-                                  }
-                                  double amount =
-                                      double.tryParse(amountController.text) ??
-                                      0;
-                                  context.read<AddFundCubit>().addFund(
+                              if (terms == false) {
+                                showSnackErrorMessage(
+                                  context,
+                                  "Please except terms and conditions",
+                                  3,
+                                );
+                                return;
+                              }
+                              double amount =
+                                  double.tryParse(amountController.text) ?? 0;
+                              context.read<AddFundCubit>().addFund(
                                     paymentId: selectedMethod ?? 0,
                                     amount: amount,
+                                    detail: detailController.text,
                                   );
-                                },
-                                buttonTitle: "Submit",
-                                textStyle: context.smallCaption14500?.copyWith(
-                                  color: config.submitTextColor,
-                                ),
-                                buttonColor: config.submitButtonColor,
-                                loading: state.status == AddFundStatus.loading,
-                                hasImage: false,
-                                borderRadius: 30,
-                              );
                             },
-                          )
+                            buttonTitle: "Submit",
+                            textStyle: context.smallCaption14500?.copyWith(
+                              color: config.submitTextColor,
+                            ),
+                            buttonColor: config.submitButtonColor,
+                            loading: state.status == AddFundStatus.loading,
+                            hasImage: false,
+                            borderRadius: 30,
+                          );
+                        },
+                      )
                           .animate()
                           .fade(duration: 500.ms)
                           .slideY(begin: 0.5, end: 0),

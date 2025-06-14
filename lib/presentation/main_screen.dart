@@ -5,13 +5,13 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:sms_owner/core/utils/settings.dart';
 import 'package:sms_owner/presentation/Home/cubit/home_cubit.dart';
 import 'package:sms_owner/presentation/Home/home_screen.dart';
-import 'package:sms_owner/presentation/Order/order_screen.dart';
+import 'package:sms_owner/presentation/Order/screens/order_screen.dart';
 import 'package:sms_owner/presentation/Payments/screens/payments_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
-  @override 
+  @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
@@ -42,6 +42,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = const [
     HomeScreen(),
     OrderScreen(),
+
     PaymentScreen(),
     Center(
       child: Text(
@@ -61,7 +62,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF2D6B5F),
-
+      resizeToAvoidBottomInset: false,
       body: SafeArea(child: _pages[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -101,7 +102,7 @@ class _MainScreenState extends State<MainScreen> {
             elevation: 0,
             backgroundColor: Color(0xFF2D6B5F),
             shape: const CircleBorder(),
-            child: const Icon(Icons.add, size: 40,color: Colors.white,),
+            child: const Icon(Icons.add, size: 40, color: Colors.white),
           ),
         ),
       ),

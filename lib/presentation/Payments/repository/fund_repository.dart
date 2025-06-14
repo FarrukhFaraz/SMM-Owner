@@ -31,12 +31,14 @@ class FundsRepository {
   Future<bool> addFunds({
     required int paymentId,
     required double amount,
+    String? detail,
   }) async {
     try {
       Map<String, dynamic> body = {
         "user_id": await SecureStorageService.getString(CommonKeys.userId),
         "payment_meta_id": paymentId,
         "amount": amount,
+        'detail': detail,
       };
 
       final response = await DioClient().post('/save-payment', data: body);
