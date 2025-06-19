@@ -51,7 +51,7 @@ jobs:
         run: flutter pub run change_app_package_name:main ${{ env.PACKAGE_NAME }}
 
       - name: Rename App
-        run: flutter pub run rename_app:main "${{ env.APP_NAME }}"
+        run: flutter pub run rename_app:main all="${{ env.APP_NAME }}"
 
       - name: Generate App Icon
         run: flutter pub run flutter_launcher_icons:main
