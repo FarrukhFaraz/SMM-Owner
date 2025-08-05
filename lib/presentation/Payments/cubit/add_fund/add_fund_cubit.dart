@@ -2,25 +2,17 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sms_owner/presentation/Payments/repository/fund_repository.dart';
+import 'package:sms_owner/presentation/payments/repository/fund_repository.dart';
 
 part 'add_fund_state.dart';
 
 class AddFundCubit extends Cubit<AddFundState> {
   AddFundCubit() : super(AddFundState.initial());
 
-  Future<void> addFund({
-    required int paymentId,
-    required double amount,
-    String? detail,
-  }) async {
+  Future<void> addFund({required int paymentId, required double amount, String? detail}) async {
     emit(state.copyWith(status: AddFundStatus.loading));
     try {
-      bool val = await FundsRepository().addFunds(
-        paymentId: paymentId,
-        amount: amount,
-        detail: detail,
-      );
+      bool val = await FundsRepository().addFunds(paymentId: paymentId, amount: amount, detail: detail);
       if (kDebugMode) {
         print('AddFundCubit.addFund:::: $val');
       }

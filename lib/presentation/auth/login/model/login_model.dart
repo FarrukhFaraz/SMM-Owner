@@ -1,9 +1,10 @@
-import 'package:sms_owner/presentation/Home/model/user_profile_model.dart';
+
+import 'package:sms_owner/presentation/profile/model/user_model.dart';
 
 class LoginResponseModel {
   int? statusCode;
   String? message;
-  UserProfileModel? user;
+  UserModel? user;
   String? token;
 
   LoginResponseModel({this.statusCode, this.message, this.user, this.token});
@@ -11,7 +12,7 @@ class LoginResponseModel {
   LoginResponseModel.fromJson(Map<String, dynamic> json) {
     statusCode = json['statuscode'];
     message = json['message'];
-    user = json['user'] != null ? UserProfileModel.fromJson(json['user']) : null;
+    user = json['user'] != null ? UserModel.fromJson(json['user']) : null;
     token = json['token'];
   }
 

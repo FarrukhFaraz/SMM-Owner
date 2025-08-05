@@ -1,14 +1,29 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:sms_owner/config/env/config_model/home_config.dart';
 import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
+import 'package:sms_owner/core/components/buttons.dart';
 import 'package:sms_owner/core/components/custom_appBar.dart';
-import 'package:sms_owner/core/components/custom_textfield.dart';
+import 'package:sms_owner/core/components/custom_textField.dart';
+import 'package:sms_owner/core/components/show_dialog_loading.dart';
+import 'package:sms_owner/core/components/snack_message.dart';
 import 'package:sms_owner/core/components/wallet_info.dart';
+import 'package:sms_owner/core/storage/secure_storage.dart';
+import 'package:sms_owner/core/utils/common_keys.dart';
+import 'package:sms_owner/presentation/order/cubit/order_cubit.dart';
+import 'package:sms_owner/presentation/profile/cubit/profile_cubit.dart';
+import 'package:sms_owner/presentation/service/model/service_model.dart';
+import 'package:sms_owner/presentation/service/screens/bottom_sheet/select_service.dart';
 
-import '../../core/components/url_lancher.dart';
+import '../../core/components/range_input_formatter.dart';
+import '../../core/components/url_launcher.dart';
+import '../service/screens/bottom_sheet/select_service_category.dart';
+import 'model/social_icon_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,363 +33,308 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  TextEditingController searchController = TextEditingController();
-  TextEditingController qunatityController = TextEditingController();
+  TextEditingController quantityController = TextEditingController();
   TextEditingController linkController = TextEditingController();
+  ServiceCategoryModel? selectedCategory;
+  ServiceModel? selectedService;
+  double total = 0.0;
+  final FocusNode _quantityNode = FocusNode();
+  final FocusNode _linkNode = FocusNode();
 
-  final List<SocialIcons> socialIcons = [
-    SocialIcons(
-      icon: 'assets/png/facebook1.png',
-      url: "https://www.facebook.com/?_rdr",
-    ),
-    SocialIcons(
-      icon: 'assets/png/video_library.png',
-      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
-    ),
-    SocialIcons(
-      icon: 'assets/png/clear.png',
-      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
-    ),
-    SocialIcons(
-      icon: 'assets/png/more.png',
-      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
-    ),
-    SocialIcons(
-      icon: 'assets/png/video_call.png',
-      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
-    ),
-    SocialIcons(
-      icon: 'assets/png/extension.png',
-      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
-    ),
-    SocialIcons(
-      icon: 'assets/png/camera.png',
-      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
-    ),
-    SocialIcons(
-      icon: 'assets/png/more_vert.png',
-      url: "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _linkNode.unfocus();
+    _quantityNode.unfocus();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EnvCubit, ENVModel>(
       builder: (context, homeConfiguration) {
         final homeConfig = homeConfiguration.homeConfig;
-        return Container(
-          color: homeConfig.backGroundColor,
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(0),
-                decoration: BoxDecoration(color: homeConfig.backContainerColor),
-                child: customAppBar(homeConfig),
-              ),
-              Divider(color: Colors.white, height: 0.5, thickness: 0.5),
-
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
+        return Scaffold(
+          backgroundColor: homeConfig.backGroundColor,
+          appBar: customAppBar2(backgroundColor: Color(0xff00695c)),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: homeConfig.backContainerColor,
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40), bottomRight: Radius.circular(40)),
                   ),
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: homeConfig.backContainerColor,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(40),
-                            bottomRight: Radius.circular(40),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: Container(
-                            padding: EdgeInsets.only(bottom: 20),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(40),
-                                bottomRight: Radius.circular(40),
-                              ),
-                              color: homeConfig.frontContainerColor,
-                            ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 15,
-                                    vertical: 10,
-                                  ),
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    color: homeConfig.walletContainerColor,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      WalletInfo(
-                                        title: 'My Wallet',
-                                        value: '\$ 350',
-                                        homeConfig: homeConfig,
-                                      ),
-                                      WalletInfo(
-                                        title: 'My Coins',
-                                        value: '1,234,567',
-                                        homeConfig: homeConfig,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                                // Social Icons Grid
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                  ),
-                                  child: Wrap(
-                                    spacing: 15,
-                                    runSpacing: 15,
-                                    alignment: WrapAlignment.center,
-                                    children: List.generate(socialIcons.length, (
-                                      index,
-                                    ) {
-                                      return GestureDetector(
-                                        onTap: () async {
-                                          await launchMyUrl(
-                                            "https://www.youtube.com/watch?v=_y4nzLXB2Lc",
-                                          );
-                                        },
-                                        child: CircleAvatar(
-                                          radius: 30,
-                                          child: Image.asset(
-                                            socialIcons[index].icon,
-
-                                            color: Colors.purple,
-                                            fit: BoxFit.fitHeight,
-
-                                            height: 30,
-                                            width: 30,
-                                          ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Container(
+                      padding: EdgeInsets.only(bottom: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40), bottomRight: Radius.circular(40)),
+                        color: homeConfig.frontContainerColor,
+                      ),
+                      child: Column(
+                        children: [
+                          Divider(color: Colors.white),
+                          BlocBuilder<ProfileCubit, ProfileState>(
+                            builder: (context, state) {
+                              if (state.status == ProfileStatus.loading && state.userModel == null) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  child: Skeletonizer(
+                                    enabled: true,
+                                    enableSwitchAnimation: true,
+                                    child: Card(
+                                      child: ListTile(
+                                        title: Text('Item number  as title'),
+                                        subtitle: const Text('Subtitle here'),
+                                        trailing: const Icon(
+                                          Icons.ac_unit,
+                                          size: 32,
                                         ),
-                                      );
-                                    }),
+                                      ),
+                                    ),
                                   ),
+                                );
+                              }
+                              return Container(
+                                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(color: homeConfig.walletContainerColor, borderRadius: BorderRadius.circular(20)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    WalletInfo(title: 'My Wallet', value: '\$ ${state.userModel?.balance??0.0}', homeConfig: homeConfig),
+                                    WalletInfo(title: 'My Coins', value: '${state.userModel?.spend}', homeConfig: homeConfig),
+                                  ],
                                 ),
-                              ],
+                              );
+                            },
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Wrap(
+                              spacing: 15,
+                              runSpacing: 15,
+                              alignment: WrapAlignment.center,
+                              children: List.generate(socialIcons.length, (index) {
+                                return GestureDetector(
+                                  onTap: () async {
+                                    await launchMyUrl("https://www.youtube.com/watch?v=_y4nzLXB2Lc");
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 30,
+                                    child: Image.asset(socialIcons[index].icon, color: Colors.purple,
+                                        fit: BoxFit.fitHeight,
+                                        height: 30,
+                                        width: 30),
+                                  ),
+                                );
+                              }),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                      const SizedBox(height: 20),
-
-                      _searchField(homeConfig),
-
-                      _dropdownSection(homeConfig),
-
-                      _linkField(homeConfig, label: "Link"),
-
-                      _quantitySection(homeConfig),
-
-                      const SizedBox(height: 20),
-                      const Text(
-                        "Total: \$10000",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: Colors.blue,
-                        ),
-                      ),
-
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 40,
-                            vertical: 15,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
-                        child: const Text(
-                          "Order Now",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      // const SizedBox(height: 100),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 20),
+
+                _dropdownSection(
+                  title: 'Category',
+                  value: selectedCategory?.name ?? '',
+                  onTap: () async {
+                    _linkNode.unfocus();
+                    _quantityNode.unfocus();
+                    await showModalBottomSheet(
+                      context: context,
+                      constraints: BoxConstraints(
+                        maxHeight: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.8,
+                        minHeight: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.8,
+                      ),
+                      isScrollControlled: true,
+                      backgroundColor: Colors.white,
+                      useSafeArea: true,
+                      sheetAnimationStyle: AnimationStyle(curve: Curves.easeInOutBack),
+                      showDragHandle: false,
+                      builder: (context) {
+                        return SizedBox(
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.8,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          child: SelectServiceCategoryView(
+                            onSelected: (ServiceCategoryModel model) {
+                              Navigator.pop(context);
+                              selectedCategory = model;
+                              selectedService = null;
+                              setState(() {});
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+                const SizedBox(height: 10),
+                _dropdownSection(
+                  title: 'Services',
+                  value: selectedService?.name ?? '',
+                  disabled: selectedCategory == null,
+                  onTap: () async {
+                    _linkNode.unfocus();
+                    _quantityNode.unfocus();
+                    await showModalBottomSheet(
+                      context: context,
+                      constraints: BoxConstraints(
+                        maxHeight: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.8,
+                        minHeight: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.8,
+                      ),
+                      isScrollControlled: true,
+                      backgroundColor: Colors.white,
+                      useSafeArea: true,
+                      sheetAnimationStyle: AnimationStyle(curve: Curves.easeInOutBack),
+                      showDragHandle: false,
+                      builder: (context) {
+                        return SizedBox(
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.8,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          child: SelectServiceView(
+                            categoryId: selectedCategory?.id?.toString() ?? '',
+                            onSelected: (ServiceModel model) {
+                              Navigator.pop(context);
+                              selectedService = model;
+                              if (quantityController.text.isNotEmpty) {
+                                double rate = (double.tryParse('${selectedService?.rate ?? 0.0}') ?? 0.0);
+                                double qty = (double.tryParse(quantityController.text) ?? 0.0);
+                                total = rate * qty;
+                              }
+
+                              setState(() {});
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+                _linkField(homeConfig, label: "Link"),
+                _quantitySection(homeConfig),
+                const SizedBox(height: 30),
+                Text("Total: \$${total.toStringAsFixed(2)}", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Colors.blue)),
+                const SizedBox(height: 20),
+                BlocConsumer<OrderCubit, OrderState>(
+                  listener: (context, state) {
+                    if (state.status == OrderStatus.success || state.status == OrderStatus.error) {
+                      if (state.createOrderModel?.statusCode == 200) {
+                        selectedCategory = null;
+                        selectedService = null;
+                        quantityController.clear();
+                        linkController.clear();
+                        total = 0.0;
+                        Navigator.pop(context);
+                        showSnackMessage(context, state.createOrderModel?.message ?? '',);
+                      } else if (state.createOrderModel?.statusCode == 404) {
+                        Navigator.pop(context);
+                        showSnackErrorMessage(context, state.createOrderModel?.message ?? '', 3);
+                      }
+                    }
+                  },
+                  builder: (context, state) {
+                    return CustomButton(
+                      buttonColor: Color(0xffffc61a),
+                      buttonTitle: 'order Now',
+                      disable: selectedCategory == null || selectedService == null || linkController.text.isEmpty || total == 0,
+                      textStyle: context.text16Bold?.copyWith(color: Colors.white),
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 2,
+                      onPressed: () async {
+                        OrderCubit orderCubit = context.read<OrderCubit>();
+                        _linkNode.unfocus();
+                        _quantityNode.unfocus();
+
+                        await showDialogLoading(
+                            context,
+                            msg: 'Creating'
+                        );
+
+                        Map<String, dynamic> body = {
+                          "user_id": await SecureStorageService.getString(CommonKeys.userId),
+                          "service": selectedService?.id,
+                          "link": linkController.text,
+                          "quantity": quantityController.text,
+                          "charge": total,
+                          "type": "normal",
+                        };
+                        await orderCubit.createOrder(body);
+                      },
+                    );
+                  },
+                ),
+                const SizedBox(height: 100),
+              ],
+            ),
           ),
         );
       },
     );
   }
 
-  Widget _searchField(HomeConfig homeConfig) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: CustomTextField(
-        controller: searchController,
-        hintText: 'Search Services ....',
-        hintStyle: context.text12Medium?.copyWith(color: Colors.grey),
-        keyboardType: TextInputType.visiblePassword,
-        fillColor: homeConfig.textFieldColor,
-        inputTextStyle: context.text15Medium?.copyWith(
-          color: homeConfig.dropDownTextColor,
-        ),
-        suffix: Container(
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: homeConfig.searchButtonBackgroundColor,
-            borderRadius: BorderRadius.circular(90),
-          ),
-          child: Icon(Icons.search, color: Colors.white),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(18),
-          borderSide: BorderSide(
-            width: 1,
-            color: homeConfig.textFieldBorderColor,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _dropdownSection(HomeConfig homeConfig) {
+  Widget _dropdownSection({required String title, required Function() onTap, required String value, bool disabled = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text(
-              "Category",
-              style: context.text12Medium?.copyWith(
-                color: homeConfig.categoryTextColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(height: 5),
-          DropdownButtonFormField(
-            dropdownColor: homeConfig.dropDownColor,
-            iconEnabledColor: Colors.black,
-            value: "Instagram Followers Service - Refill 30 Days Guarantee",
-            items:
-                [
-                      "Instagram Followers Service - Refill 30 Days Guarantee",
-                      "sfhjksdjfhsdjkhfsdkjhfsdjf",
-                      "jakdhfsjkdhfbnvmxncsdjn",
-                      'skdfjksdhfjksdhfndzvm,cnzx',
-                    ]
-                    .map(
-                      (e) => DropdownMenuItem(
-                        value: e,
-                        child: SizedBox(
-                          width: 280,
-                          child: Text(
-                            e,
-                            style: context.text10Bold?.copyWith(
-                              overflow: TextOverflow.ellipsis,
-                              fontSize: 14,
-                              color: homeConfig.dropDownTextColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-            onChanged: (_) {},
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
+          Padding(padding: const EdgeInsets.only(left: 10),
+              child: Text(title, style: context.text14Bold, maxLines: 2,)),
+          const SizedBox(height: 8),
+          GestureDetector(
+            onTap: disabled ? null : onTap,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: homeConfig.dropdownBorderColor),
+                border: Border.all(width: 1, color: disabled ? Colors.grey[350]! : Colors.grey),
               ),
-              fillColor: homeConfig.dropDownFieldColor,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text(
-              "Services",
-              style: context.text12Medium?.copyWith(
-                color: homeConfig.categoryTextColor,
-                fontWeight: FontWeight.bold,
+              child: Text(
+                value.isNotEmpty ? value : 'Select ${title.toLowerCase()}',
+                style: context.text14Regular?.copyWith(
+                  color:
+                  disabled
+                      ? Colors.grey[350]
+                      : value.isEmpty
+                      ? Colors.black45
+                      : Colors.black,
+                ),
               ),
-            ),
-          ),
-          const SizedBox(height: 5),
-          DropdownButtonFormField(
-            dropdownColor: homeConfig.dropDownColor,
-            iconEnabledColor: Colors.black,
-            value: "Instagram Followers Service - Refill 30 Days Guarantee",
-            items:
-                [
-                      "Instagram Followers Service - Refill 30 Days Guarantee",
-                      "sfhjksdjfhsdjkhfsdkjhfsdjf",
-                      "jakdhfsjkdhfbnvmxncsdjn",
-                      'skdfjksdhfjksdhfndzvm,cnzx',
-                    ]
-                    .map(
-                      (e) => DropdownMenuItem(
-                        value: e,
-                        child: Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: homeConfig.serviceIdTagColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                "ID: 1323113",
-                                style: context.text10Bold?.copyWith(
-                                  fontSize: 08,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 2),
-                            SizedBox(
-                              width: 230,
-                              child: Text(
-                                e,
-                                style: context.text10Bold?.copyWith(
-                                  fontSize: 14,
-                                  overflow: TextOverflow.ellipsis,
-                                  color: homeConfig.dropDownTextColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                    .toList(),
-            onChanged: (_) {},
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: homeConfig.dropdownBorderColor),
-              ),
-              fillColor: homeConfig.dropDownFieldColor,
             ),
           ),
         ],
@@ -390,43 +350,32 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 10),
-            child: Text(
-              label,
-              style: context.text12Medium?.copyWith(
-                color: homeConfig.categoryTextColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text(label, style: context.text12Medium?.copyWith(color: homeConfig.categoryTextColor, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(height: 5),
           CustomTextField(
             controller: linkController,
             hintText: 'link ....',
-            inputTextStyle: context.text15Medium?.copyWith(
-              color: homeConfig.dropDownTextColor,
-            ),
+            focusNode: _linkNode,
+            inputTextStyle: context.text15Medium?.copyWith(color: homeConfig.dropDownTextColor),
             hintStyle: context.text12Medium?.copyWith(color: Colors.grey),
             keyboardType: TextInputType.visiblePassword,
             fillColor: homeConfig.textFieldColor,
-            suffix: Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: homeConfig.pasteButtonBackgroundColor,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Text(
-                "Paste",
-                style: context.text12Bold?.copyWith(
-                  color: homeConfig.pasteButtonTextColor,
-                ),
+            suffix: GestureDetector(
+              onTap: () async {
+                final String text = await FlutterClipboard.paste();
+                linkController.text = text;
+                setState(() {});
+              },
+              child: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(color: homeConfig.pasteButtonBackgroundColor, borderRadius: BorderRadius.circular(5)),
+                child: Text("Paste", style: context.text12Bold?.copyWith(color: homeConfig.pasteButtonTextColor)),
               ),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(18),
-              borderSide: BorderSide(
-                width: 1,
-                color: homeConfig.textFieldBorderColor,
-              ),
+              borderSide: BorderSide(width: 1, color: homeConfig.textFieldBorderColor),
             ),
           ),
         ],
@@ -442,32 +391,37 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 10),
-            child: Text(
-              "Quantity",
-              style: context.text12Medium?.copyWith(
-                color: homeConfig.categoryTextColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text("Quantity", style: context.text12Medium?.copyWith(color: homeConfig.categoryTextColor, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(height: 5),
           CustomTextField(
-            controller: qunatityController,
+            controller: quantityController,
             hintText: '100',
-            hintStyle: context.text12Medium?.copyWith(
-              color: homeConfig.hintTextColor,
-            ),
+            focusNode: _quantityNode,
+            inputFormatter: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(3), RangeInputFormatter(min: 1, max: 1000)],
+            onChanged: (value) {
+              if (value.isEmpty) {
+                total = 0.0;
+              } else {
+                if (selectedService != null) {
+                  double rate = (double.tryParse('${selectedService?.rate ?? 0.0}') ?? 0.0);
+                  double qty = (double.tryParse(value) ?? 0.0);
+                  total = rate * qty;
+                } else {
+                  total = 0.0;
+                }
+              }
+              setState(() {
+
+              });
+            },
+            hintStyle: context.text12Medium?.copyWith(color: homeConfig.hintTextColor),
             keyboardType: TextInputType.visiblePassword,
             fillColor: homeConfig.textFieldColor,
-            inputTextStyle: context.text15Medium?.copyWith(
-              color: homeConfig.dropDownTextColor,
-            ),
+            inputTextStyle: context.text15Medium?.copyWith(color: homeConfig.dropDownTextColor),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(18),
-              borderSide: BorderSide(
-                width: 1,
-                color: homeConfig.textFieldBorderColor,
-              ),
+              borderSide: BorderSide(width: 1, color: homeConfig.textFieldBorderColor),
             ),
           ),
           const SizedBox(height: 5),
@@ -476,11 +430,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Min: 100", style: TextStyle(fontStyle: FontStyle.italic)),
-                Text(
-                  "Max: 1000000",
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
+                Text("Min: 1", style: TextStyle(fontStyle: FontStyle.italic)),
+                Text("Max: 1000", style: TextStyle(fontStyle: FontStyle.italic)),
               ],
             ),
           ),
@@ -490,8 +441,3 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class SocialIcons {
-  String icon;
-  String url;
-  SocialIcons({required this.icon, required this.url});
-}

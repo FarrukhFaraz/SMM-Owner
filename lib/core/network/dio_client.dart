@@ -13,8 +13,11 @@ class DioClient extends DioForNative {
 
   DioClient() {
     options = BaseOptions(
-      baseUrl: baseApiUrl,
+      baseUrl: APIURL.baseApiUrl,
       responseType: ResponseType.json,
+      headers: {
+        'accept': 'application/json',
+      }
     );
     interceptors.add(
       InterceptorsWrapper(

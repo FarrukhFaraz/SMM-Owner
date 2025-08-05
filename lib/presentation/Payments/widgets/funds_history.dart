@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/core/components/snack_message.dart';
-import 'package:sms_owner/presentation/Payments/cubit/payment_history/payment_history_cubit.dart';
-import 'package:sms_owner/presentation/Payments/model/payment_history_model.dart';
+import 'package:sms_owner/presentation/payments/cubit/payment_history/payment_history_cubit.dart';
+import 'package:sms_owner/presentation/payments/model/payment_history_model.dart';
 
 class FundsHistory extends StatefulWidget {
   const FundsHistory({super.key});
@@ -58,11 +58,7 @@ class _FundsHistoryState extends State<FundsHistory> {
                         style: TextStyle(color: config.methodTextColor),
                       ),
                       subtitle: Text(
-                        model.createdAt == null
-                            ? ""
-                            : DateFormat(
-                              'yyyy-MM-dd hh:mm',
-                            ).format(model.createdAt!),
+                        '${DateFormat('yyyy-MM-dd').tryParse(model.createdAt ?? '') ?? ''}',
                         style: TextStyle(color: config.dateTextColor),
                       ),
                       trailing: Column(

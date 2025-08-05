@@ -5,9 +5,9 @@ class ThemeManager {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: Color(0xFF4c8479), // Extracted primary color
-    scaffoldBackgroundColor: Color(0xFFF8F9FA), // Background color
+    scaffoldBackgroundColor: Color(0xFFF8F9FA), //// Background color
     appBarTheme: AppBarTheme(
-      backgroundColor: Color(0xFF3A86FF),
+      backgroundColor: Color(0xFF4c8479),
       titleTextStyle: TextStyle(
         color: Colors.white,
         fontSize: 20,

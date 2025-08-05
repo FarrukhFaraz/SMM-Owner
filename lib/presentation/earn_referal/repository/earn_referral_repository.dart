@@ -1,0 +1,24 @@
+import 'package:dio/dio.dart';
+import 'package:sms_owner/core/network/api_error.dart';
+import 'package:sms_owner/core/network/dio_client.dart';
+import 'package:sms_owner/presentation/order/model/order_model.dart';
+
+class OrderRepository {
+  Future<List<OrderModel>> fetchOrders() async {
+    try {
+      final response = await DioClient().get('/orders');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        List<OrderModel> responseList = (response.data['orders'] as List).map((data) => OrderModel.fromJson(data)).toList();
+        return responseList;
+      }
+      throw ApiError(code: 0, message: 'Something went wrong');
+    } on DioException catch (e) {
+      throw ApiError(code: 0, message: e.message);
+    } on TypeError catch (e) {
+      throw ApiError(code: 0, message: e.toString());
+    } catch (e) {
+      throw ApiError(code: 0, message: e.toString());
+    }
+  }
+}

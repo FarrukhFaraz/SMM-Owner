@@ -5,10 +5,10 @@ import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/custom_appBar.dart';
-import 'package:sms_owner/core/components/custom_textfield.dart';
-import 'package:sms_owner/presentation/Order/cubit/order_cubit.dart';
-import 'package:sms_owner/presentation/Order/model/order_model.dart';
-import 'package:sms_owner/presentation/Order/widget/order_item_widget.dart';
+import 'package:sms_owner/core/components/custom_textField.dart';
+import 'package:sms_owner/presentation/order/cubit/order_cubit.dart';
+import 'package:sms_owner/presentation/order/model/order_model.dart';
+import 'package:sms_owner/presentation/order/widget/order_item_widget.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -37,24 +37,21 @@ class _OrderScreenState extends State<OrderScreen> {
         final homeConfig = config.homeConfig;
         return Scaffold(
           backgroundColor: orderConfig.backgroundColor,
+          appBar: customAppBar2(
+              backgroundColor: Color(0xff00695c)
+          ),
           body: BlocBuilder<OrderCubit, OrderState>(
             builder: (context, state) {
               if (state.status == OrderStatus.loading) {
                 return Center(child: CircularProgressIndicator());
-              } else if (state.status != OrderStatus.initial && state.orderList.isEmpty) {
+              }
+              else if (state.status != OrderStatus.initial && state.orderList.isEmpty) {
                 return Center(child: Text("No orders found"));
               }
               return SafeArea(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      // Top Bar
-                      Container(
-                        padding: EdgeInsets.only(bottom: 12),
-                        decoration: BoxDecoration(color: orderConfig.topContainerColor),
-                        child: customAppBar(homeConfig),
-                      ),
-                      // Order History Title and Filter
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                         child: Row(

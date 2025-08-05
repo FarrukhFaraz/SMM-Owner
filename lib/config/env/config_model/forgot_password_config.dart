@@ -34,16 +34,12 @@ class ForgotPasswordConfig {
 
   factory ForgotPasswordConfig.fromMap(Map<String, dynamic> map) {
     return ForgotPasswordConfig(
-      backgroundColor: _hexToListColor(
-        map["backgroundColor"] ?? ["#4c8479", "#2b5f56"],
-      ),
+      backgroundColor: _hexToListColor(map["backgroundColor"] ?? ["#4c8479", "#2b5f56"]),
       lockColor: _hexToColor(map['lockColor'] ?? '#2b524a'),
       buttonColor: _hexToColor(map['buttonColor'] ?? '#bed2d0'),
       buttonTextColor: _hexToColor(map['buttonTextColor'] ?? '#2b524a'),
       textFieldBackgroundColor: _hexToColor(map["textFieldBackgroundColor"]),
-      textFieldBorderRadius: double.parse(
-        map["textFieldBorderRadius"].toString(),
-      ),
+      textFieldBorderRadius: double.parse(map["textFieldBorderRadius"].toString()),
       textFieldHintColor: _hexToColor(map["textFieldHintColor"] ?? "#bed2d0"),
       textFieldIconColor: _hexToColor(map["textFieldIconColor"] ?? "#bed2d0"),
       textFieldBorderColor: _hexToColor(map['textFieldBorderColor']),
@@ -62,16 +58,13 @@ class ForgotPasswordConfig {
     }
   }
 
-  static List<Color> _hexToListColor(dynamic value) {
-    List<Color> list = [];
-    if (value is String) {
-      list = [_hexToColor(value)];
-    } else if (value is List) {
-      list = value.map((hex) => _hexToColor(hex.toString())).toList();
-    } else {
-      list = [Colors.white];
-    }
-
-    return list.length > 1 ? list : [Color(0xff4c8479), Color(0xff2b5f56)];
+   static List<Color> _hexToListColor(dynamic value) {
+  if (value is String) {
+    return [_hexToColor(value)];
+  } else if (value is List) {
+    return value.map((hex) => _hexToColor(hex.toString())).toList();
+  } else {
+    return [Colors.white]; // fallback
   }
+}
 }

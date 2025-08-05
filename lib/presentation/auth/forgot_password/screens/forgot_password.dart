@@ -5,7 +5,7 @@ import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/buttons.dart';
-import 'package:sms_owner/core/components/custom_textfield.dart';
+import 'package:sms_owner/core/components/custom_textField.dart';
 import 'package:sms_owner/core/components/snack_message.dart';
 import 'package:sms_owner/core/utils/app_color.dart';
 import 'package:sms_owner/core/utils/navigation.dart';
@@ -29,6 +29,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return BlocBuilder<EnvCubit, ENVModel>(
       builder: (context, envModel) {
         final forgotPassConfig = envModel.forgotpasswordConfig;
+        List<Color> backgroundColor =
+            forgotPassConfig.backgroundColor.length > 1 ? forgotPassConfig.backgroundColor : [Color(0xff4c8479), Color(0xff2b5f56)];
         return Scaffold(
           backgroundColor: AppColor.kWhite,
           body: SingleChildScrollView(
@@ -77,7 +79,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     child: Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: forgotPassConfig.backgroundColor,
+                          colors: backgroundColor,
                           tileMode: TileMode.mirror,
                           end: AlignmentDirectional.topStart,
                           stops: [0.02, 1.5],

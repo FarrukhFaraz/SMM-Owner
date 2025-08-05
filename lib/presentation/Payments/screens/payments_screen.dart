@@ -4,10 +4,10 @@ import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/custom_appBar.dart';
-import 'package:sms_owner/presentation/Payments/cubit/payment_history/payment_history_cubit.dart';
-import 'package:sms_owner/presentation/Payments/cubit/payment_method/payment_method_cubit.dart';
-import 'package:sms_owner/presentation/Payments/widgets/funds_history.dart';
-import 'package:sms_owner/presentation/Payments/widgets/funds_widget.dart';
+import 'package:sms_owner/presentation/payments/cubit/payment_history/payment_history_cubit.dart';
+import 'package:sms_owner/presentation/payments/cubit/payment_method/payment_method_cubit.dart';
+import 'package:sms_owner/presentation/payments/widgets/funds_history.dart';
+import 'package:sms_owner/presentation/payments/widgets/funds_widget.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -16,8 +16,7 @@ class PaymentScreen extends StatefulWidget {
   State<PaymentScreen> createState() => _PaymentScreenState();
 }
 
-class _PaymentScreenState extends State<PaymentScreen>
-    with SingleTickerProviderStateMixin {
+class _PaymentScreenState extends State<PaymentScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -35,25 +34,17 @@ class _PaymentScreenState extends State<PaymentScreen>
         final config = paymentConfiguration.paymentConfig;
         final homeConfig = paymentConfiguration.homeConfig;
         return Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          appBar: customAppBar2(
+              backgroundColor: Color(0xff00695c)
+          ),
           body: Column(
             children: [
-              Container(
-                padding: EdgeInsets.only(bottom: 12),
-                decoration: BoxDecoration(color: config.tabBarBackgroundColor),
-                child: customAppBar(homeConfig),
-              ),
               Container(
                 height: 70,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(color: config.paymentContainerColor),
-                child: Center(
-                  child: Text(
-                    "Payments",
-                    style: context.text16Bold?.copyWith(color: Colors.black,
-                    fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ),
+                child: Center(child: Text("payments", style: context.text16Bold?.copyWith(color: Colors.black, fontStyle: FontStyle.italic))),
               ),
               Container(
                 color: config.tabBarBackgroundColor,
@@ -62,18 +53,10 @@ class _PaymentScreenState extends State<PaymentScreen>
                   labelColor: config.activeTabColor,
                   indicatorColor: config.tabBarIndicatorColor,
                   unselectedLabelColor: config.inactiveTabColor,
-                  tabs: const [
-                    Tab(text: "Add Funds"),
-                    Tab(text: "Funds History"),
-                  ],
+                  tabs: const [Tab(text: "Add Funds"), Tab(text: "Funds History")],
                 ),
               ),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [const FundsWidget(), const FundsHistory()],
-                ),
-              ),
+              Expanded(child: TabBarView(controller: _tabController, children: [const FundsWidget(), const FundsHistory()])),
             ],
           ),
         );

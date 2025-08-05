@@ -4,18 +4,10 @@ class PaymentHistoryModel {
   int? paymentMethodId;
   String? paymentMethod;
   String? amount;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
 
-  PaymentHistoryModel({
-    this.id,
-    this.userId,
-    this.paymentMethodId,
-    this.paymentMethod,
-    this.amount,
-    this.createdAt,
-    this.updatedAt,
-  });
+  PaymentHistoryModel({this.id, this.userId, this.paymentMethodId, this.paymentMethod, this.amount, this.createdAt, this.updatedAt});
 
   PaymentHistoryModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -23,8 +15,8 @@ class PaymentHistoryModel {
     paymentMethodId = json['payment_method_id'];
     paymentMethod = json['payment_method_name'];
     amount = json['amount'];
-    createdAt = DateTime.tryParse(json['created_at']);
-    updatedAt = DateTime.tryParse(json['updated_at']);
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
   }
 
   Map<String, dynamic> toJson() {

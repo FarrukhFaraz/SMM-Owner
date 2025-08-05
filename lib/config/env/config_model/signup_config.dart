@@ -62,32 +62,22 @@ class SignupConfig {
 
   factory SignupConfig.fromMap(Map<String, dynamic> map) {
     return SignupConfig(
-      backgroundColor: _hexToListColor(
-        map["backgroundColor"] ?? ["#4c8479", "#2b5f56"],
-      ),
+      backgroundColor: _hexToListColor(map["backgroundColor"] ?? ["#4c8479", "#2b5f56"]),
       cancelIconColor: _hexToColor(map["cancelIconColor"] ?? "#FFFFFF"),
       emailHint: map["emailHint"] ?? "Enter your email",
       passwordHint: map["passwordHint"] ?? "Enter your password",
       userNameHint: map["userNameHint"] ?? "Enter your userName",
       fullNameHint: map["fullnameHint"] ?? "Enter your fullName",
       whatsappHint: map["whatsappHint"] ?? "Enter your WhatsApp number",
-      retypePasswordHint:
-          map["retypePasswordHint"] ?? "Enter your retypePassword",
+      retypePasswordHint: map["retypePasswordHint"] ?? "Enter your retypePassword",
       emailError: map["emailError"] ?? "Please enter a valid email",
-      passwordError:
-          map["passwordError"] ?? "Password must be at least 6 characters",
+      passwordError: map["passwordError"] ?? "Password must be at least 6 characters",
       userNameError: map["userNameError"] ?? "Please enter userName",
       fullNameError: map["fullNameError"] ?? "Please enter your fullName",
       whatsappError: map["whatsappError"] ?? "Please enter WhatsApp number",
-      retypePasswordError:
-          map["retypePasswordError"] ??
-          "Password must be at least 6 characters",
-      textFieldBackgroundColor: _hexToColor(
-        map["textFieldBackgroundColor"] ?? "#2E2E2E",
-      ),
-      textFieldBorderRadius: double.parse(
-        map["textFieldBorderRadius"].toString(),
-      ),
+      retypePasswordError: map["retypePasswordError"] ?? "Password must be at least 6 characters",
+      textFieldBackgroundColor: _hexToColor(map["textFieldBackgroundColor"] ?? "#2E2E2E"),
+      textFieldBorderRadius: double.parse(map["textFieldBorderRadius"].toString()),
       textFieldHintColor: _hexToColor(map["textFieldHintColor"]),
       textFieldIconColor: _hexToColor(map["textFieldIconColor"]),
       focusBorderColor: _hexToColor(map['focusBorderColor']),
@@ -108,16 +98,13 @@ class SignupConfig {
     }
   }
 
-  static List<Color> _hexToListColor(dynamic value) {
-    List<Color> list = [];
+  static _hexToListColor(dynamic value) {
     if (value is String) {
-      list = [_hexToColor(value)];
+      return [_hexToColor(value)];
     } else if (value is List) {
-      list = value.map((hex) => _hexToColor(hex.toString())).toList();
+      return value.map((hex) => _hexToColor(hex.toString())).toList();
     } else {
-      // ["#4c8479", "#2b5f56"]
-      list = [Colors.white]; // fallback
+      return [Colors.white]; // fallback
     }
-    return list.length > 1 ? list : [Color(0xff4c8479), Color(0xff2b5f56)];
   }
 }

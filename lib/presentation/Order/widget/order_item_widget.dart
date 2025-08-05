@@ -4,7 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
-import 'package:sms_owner/presentation/Order/model/order_model.dart';
+import 'package:sms_owner/presentation/order/model/order_model.dart';
+import 'package:sms_owner/presentation/ticket/screens/create_ticket_screen.dart';
 
 import 'cancel_refill_widget.dart';
 
@@ -50,7 +51,7 @@ class OrderItemWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Order ID: ${orderModel.orderId}", style: context.text14Bold?.copyWith(color: Colors.white)),
+                    Text("order ID: ${orderModel.id}", style: context.text14Bold?.copyWith(color: Colors.white)),
                     if (orderModel.createdAt != null)
                       Text(
                         DateFormat('dd/MM/yyyy - hh:mm').format(orderModel.createdAt!),
@@ -65,7 +66,7 @@ class OrderItemWidget extends StatelessWidget {
               /// Product Title
               Padding(
                 padding: const EdgeInsets.all(12),
-                child: Text(orderModel.serviceName ?? '', style: context.text13Bold?.copyWith(color: orderConfig.orderProductColor)),
+                child: Text(orderModel.service?.name ?? '', style: context.text13Bold?.copyWith(color: orderConfig.orderProductColor)),
               ),
 
               const SizedBox(height: 4),
@@ -73,7 +74,7 @@ class OrderItemWidget extends StatelessWidget {
               /// Link
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Text("🔗 ${orderModel.serviceUrl}", style: context.text12Medium?.copyWith(color: orderConfig.linkColor)),
+                child: Text("🔗 ${orderModel.link}", style: context.text12Medium?.copyWith(color: orderConfig.linkColor)),
               ),
 
               const SizedBox(height: 6),
@@ -84,7 +85,7 @@ class OrderItemWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("\$${orderModel.price ?? '0'}", style: context.text16Bold?.copyWith(color: orderConfig.priceColor)),
+                    Text("\$${orderModel.total ?? '0'}", style: context.text16Bold?.copyWith(color: orderConfig.priceColor)),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(color: statusColor, borderRadius: BorderRadius.circular(20)),
@@ -96,8 +97,8 @@ class OrderItemWidget extends StatelessWidget {
 
               const SizedBox(height: 10),
               CancelRefillWidget(
-                canCancel: orderModel.canCancel ?? false,
-                canRefill: orderModel.refillAvailable ?? false,
+                canCancel: orderModel.service?.enableCancelButton=='ture',
+                canRefill: orderModel.service?.refill ?? false,
                 onCancel: () {
                   // TODO: Show confirmation and call cancel API
                 },
@@ -114,9 +115,9 @@ class OrderItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     _StatBlock(title: "Start Count", value: "${orderModel.startCount ?? 0}"),
-                    _StatBlock(title: "Order Quantity", value: "${orderModel.orderQuantity ?? 0}"),
-                    _StatBlock(title: "Total Quantity", value: "${orderModel.totalQuantity ?? 0}"),
-                    _StatBlock(title: "Remains", value: "${orderModel.remainingQuantity ?? 0}"),
+                    _StatBlock(title: "order Quantity", value: "${orderModel.quantity ?? 0}"),
+                    _StatBlock(title: "Total Quantity", value: "${orderModel.total ?? 0}"),
+                    _StatBlock(title: "Remains", value: "${orderModel.remains ?? 0}"),
                   ],
                 ),
               ),
@@ -141,15 +142,23 @@ class OrderItemWidget extends StatelessWidget {
                     const SizedBox(width: 8),
                     PopupMenuButton<String>(
                       offset: const Offset(0, 40),
+                      constraints: BoxConstraints(
+                        maxHeight: 120,
+                        minHeight: 120,
+                        minWidth: 100,
+                        maxWidth: 100,
+                      ),
                       color: orderConfig.dropdownBackgroundColor,
+
                       icon: const Icon(Icons.more_vert, color: Colors.black),
                       itemBuilder:
                           (context) => [
                             const PopupMenuItem(value: "ticket", child: Text("Create Ticket")),
                             const PopupMenuItem(value: "reorder", child: Text("Reorder")),
                           ],
-                      onSelected: (value) {
+                      onSelected: (value) async{
                         if (value == "ticket") {
+                          await Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CreateTicketScreen(selectedOrderId: orderModel.id?.toString())));
                           // Handle ticket
                         } else if (value == 'reorder') {
                           // Handle reorder

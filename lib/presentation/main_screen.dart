@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:sms_owner/core/utils/settings.dart';
-import 'package:sms_owner/presentation/Home/cubit/home_cubit.dart';
-import 'package:sms_owner/presentation/Home/home_screen.dart';
-import 'package:sms_owner/presentation/Order/screens/order_screen.dart';
-import 'package:sms_owner/presentation/Payments/screens/payments_screen.dart';
+import 'package:sms_owner/presentation/payments/screens/payments_screen.dart';
+import 'package:sms_owner/presentation/profile/cubit/profile_cubit.dart';
+import 'package:sms_owner/presentation/profile/screens/profile_screen.dart';
+
+import 'home/home_screen.dart';
+import 'order/screens/create_order_screen.dart';
+import 'order/screens/order_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -16,45 +17,32 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  late HomeCubit _homeCubit;
-  Settings settings = Settings();
-  final PersistentTabController controller = PersistentTabController();
+  late ProfileCubit _profileCubit;
 
   @override
   void initState() {
     super.initState();
-    _homeCubit = context.read<HomeCubit>();
-    _homeCubit.getMyProfile(loading: _homeCubit.myProfile == null);
+    _profileCubit = context.read<ProfileCubit>();
+    _profileCubit.fetchUserProfile();
   }
 
   int _selectedIndex = 0;
+  int _currentIndex = 0;
 
-  onItemTapped(int index) async {
-    HapticFeedback.lightImpact();
-
-    _selectedIndex = index;
-
-    setState(() {});
-  }
-
-  bool keyboardVisible = false;
 
   final List<Widget> _pages = const [
     HomeScreen(),
     OrderScreen(),
-
+    CreateOrderScreen(),
     PaymentScreen(),
-    Center(
-      child: Text(
-        "Account",
-        style: TextStyle(color: Colors.white, fontSize: 24),
-      ),
-    ),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
+    HapticFeedback.lightImpact();
     setState(() {
       _selectedIndex = index;
+      _currentIndex = index;
     });
   }
 
@@ -62,35 +50,34 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF2D6B5F),
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(child: _pages[_selectedIndex]),
+      body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
+        currentIndex: _currentIndex,
         selectedItemColor: Colors.white,
         backgroundColor: const Color(0xFF2D6B5F),
         unselectedItemColor: Colors.white70,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
           BottomNavigationBarItem(
-            icon: Padding(
-              padding: const EdgeInsets.only(right: 50),
-              child: Icon(Icons.shopping_bag),
-            ),
-            label: "Orders".padRight(20),
+            icon: Icon(Icons.shopping_bag),
+            label: "Orders",
           ),
+          // BottomNavigationBarItem(
+          //   icon: Padding(padding: const EdgeInsets.only(right: 50), child: Icon(Icons.shopping_bag)),
+          //   label: "Orders".padRight(20),
+          // ),
+          BottomNavigationBarItem(icon: SizedBox.shrink(),label: ''),
+          // BottomNavigationBarItem(
+          //   icon: Padding(padding: const EdgeInsets.only(left: 50), child: Icon(Icons.attach_money)),
+          //   label: "Top-Up".padLeft(20),
+          // ),
           BottomNavigationBarItem(
-            icon: Padding(
-              padding: const EdgeInsets.only(left: 50),
-              child: Icon(Icons.attach_money),
-            ),
-            label: "Top-Up".padLeft(20),
+            icon: Icon(Icons.attach_money),
+            label: "Top-Up",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: "Account",
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: "Account"),
         ],
       ),
       floatingActionButton: Container(
@@ -98,7 +85,9 @@ class _MainScreenState extends State<MainScreen> {
         child: Padding(
           padding: EdgeInsets.all(3),
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              _onItemTapped(2);
+            },
             elevation: 0,
             backgroundColor: Color(0xFF2D6B5F),
             shape: const CircleBorder(),

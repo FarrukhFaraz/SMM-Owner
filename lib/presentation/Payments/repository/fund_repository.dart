@@ -3,8 +3,8 @@ import 'package:sms_owner/core/network/api_error.dart';
 import 'package:sms_owner/core/network/dio_client.dart';
 import 'package:sms_owner/core/storage/secure_storage.dart';
 import 'package:sms_owner/core/utils/common_keys.dart';
-import 'package:sms_owner/presentation/Payments/model/payment_model.dart';
-import 'package:sms_owner/presentation/Payments/model/payment_history_model.dart';
+import 'package:sms_owner/presentation/payments/model/payment_model.dart';
+import 'package:sms_owner/presentation/payments/model/payment_history_model.dart';
 
 class FundsRepository {
   Future<List<PaymentModel>> loadPaymentMethods() async {
@@ -31,14 +31,14 @@ class FundsRepository {
   Future<bool> addFunds({
     required int paymentId,
     required double amount,
-    String? detail,
+    String? detail
   }) async {
     try {
       Map<String, dynamic> body = {
         "user_id": await SecureStorageService.getString(CommonKeys.userId),
         "payment_meta_id": paymentId,
         "amount": amount,
-        'detail': detail,
+        "detail": detail,
       };
 
       final response = await DioClient().post('/save-payment', data: body);

@@ -11,7 +11,7 @@ class OrderConfig {
   final String searchHint;
   final String filterButtonText;
 
-  // Order Card Texts
+  // order Card Texts
   final String orderIdPrefix;
   final String expirationText;
   final String priceLabel;
@@ -91,24 +91,20 @@ class OrderConfig {
       enabled: _parseBool(map['enabled'] ?? true),
       enableFilter: _parseBool(map['enableFilter'] ?? true),
       enableDropdown: _parseBool(map['enableDropdown'] ?? true),
-      screenTitle: map['screenTitle'] ?? "Order History",
-      searchHint: map['searchHint'] ?? "Search Order",
+      screenTitle: map['screenTitle'] ?? "order History",
+      searchHint: map['searchHint'] ?? "Search order",
       topContainerColor: _hexToColor(map['topContainerColor'] ?? ''),
       menuIconColor: _hexToColor(map['menuIconColor'] ?? ''),
-      orderHistoryTextColor: _hexToColor(
-        map['orderHistoryTextColor'] ?? '#000000',
-      ),
+      orderHistoryTextColor: _hexToColor(map['orderHistoryTextColor'] ?? '#000000'),
       orderProductColor: _hexToColor(map['orderProductTextColor'] ?? '#100f0d'),
       linkColor: _hexToColor(map['linkColor'] ?? '#5e17eb'),
       logoTextColor: _hexToColor(map['logoTextColor'] ?? '#ebc428'),
       searchFieldColor: _hexToColor(map['searchFieldColor'] ?? '#ebebeb'),
-      searchFieldTextColor: _hexToColor(
-        map['searchInputTextColor'] ?? '#100f0d',
-      ),
+      searchFieldTextColor: _hexToColor(map['searchInputTextColor'] ?? '#100f0d'),
       hintTextColor: _hexToColor(map['hintTextColor'] ?? '#100f0d'),
 
       filterButtonText: map['filterButtonText'] ?? "Filter",
-      orderIdPrefix: map['orderIdPrefix'] ?? "Order ID:",
+      orderIdPrefix: map['orderIdPrefix'] ?? "order ID:",
       expirationText: map['expirationText'] ?? "EXPIRATION:",
       priceLabel: map['priceLabel'] ?? "Price:",
       statusLabel: map['statusLabel'] ?? "Status:",
@@ -119,19 +115,13 @@ class OrderConfig {
       expirationColor: _hexToColor(map['expirationColor'] ?? "#FF0000"),
       priceColor: _hexToColor(map['priceColor'] ?? "#000000"),
       statusColor: _hexToColor(map['statusColor'] ?? "#000000"),
-      dropdownBackgroundColor: _hexToColor(
-        map['dropdownBackgroundColor'] ?? "#FFFFFF",
-      ),
+      dropdownBackgroundColor: _hexToColor(map['dropdownBackgroundColor'] ?? "#FFFFFF"),
       dropdownTextColor: _hexToColor(map['dropdownTextColor'] ?? "#000000"),
-      buttonBackgroundColor: _hexToColor(
-        map['buttonBackgroundColor'] ?? "#3A86FF",
-      ),
+      buttonBackgroundColor: _hexToColor(map['buttonBackgroundColor'] ?? "#3A86FF"),
       buttonTextColor: _hexToColor(map['buttonTextColor'] ?? "#FFFFFF"),
       filterButtonColor: _hexToColor(map['filterButtonColor'] ?? "#FF8C00"),
       filterIconColor: _hexToColor(map['filterIconColor'] ?? "#FFFFFF"),
-      navBarBackgroundColor: _hexToColor(
-        map['navBarBackgroundColor'] ?? "#0A0A0A",
-      ),
+      navBarBackgroundColor: _hexToColor(map['navBarBackgroundColor'] ?? "#0A0A0A"),
       navBarIconColor: _hexToColor(map['navBarIconColor'] ?? "#BBBBBB"),
       navBarSelectedColor: _hexToColor(map['navBarSelectedColor'] ?? "#FFFFFF"),
     );

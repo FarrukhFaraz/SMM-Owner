@@ -6,12 +6,12 @@ import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/buttons.dart';
-import 'package:sms_owner/core/components/custom_textfield.dart';
+import 'package:sms_owner/core/components/custom_textField.dart';
 import 'package:sms_owner/core/components/snack_message.dart';
 import 'package:sms_owner/core/utils/api_url.dart';
-import 'package:sms_owner/presentation/Payments/cubit/add_fund/add_fund_cubit.dart';
-import 'package:sms_owner/presentation/Payments/cubit/payment_history/payment_history_cubit.dart';
-import 'package:sms_owner/presentation/Payments/cubit/payment_method/payment_method_cubit.dart';
+import 'package:sms_owner/presentation/payments/cubit/add_fund/add_fund_cubit.dart';
+import 'package:sms_owner/presentation/payments/cubit/payment_history/payment_history_cubit.dart';
+import 'package:sms_owner/presentation/payments/cubit/payment_method/payment_method_cubit.dart';
 
 class FundsWidget extends StatefulWidget {
   const FundsWidget({super.key});
@@ -58,26 +58,27 @@ class _FundsWidgetState extends State<FundsWidget> {
                       direction: Axis.horizontal,
                       runAlignment: WrapAlignment.start,
                       spacing: 20,
-                      children: state.paymentList.map((e) {
-                        if (e.logo == null) return SizedBox();
-                        return Container(
-                          height: 50,
-                          width: 50,
-                          padding: EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.black),
-                            borderRadius: BorderRadius.circular(50),
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                '$baseMediaUrl/${e.logo}',
-                                scale: 1,
+                      children:
+                          state.paymentList.map((e) {
+                            if (e.logo == null) return SizedBox();
+                            return Container(
+                              height: 50,
+                              width: 50,
+                              padding: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: Colors.black),
+                                borderRadius: BorderRadius.circular(50),
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    '${APIURL.baseMediaUrl}/${e.logo}',
+                                    scale: 1,
+                                  ),
+                                  fit: BoxFit.contain,
+                                ),
                               ),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        );
-                      }).toList(),
+                            );
+                          }).toList(),
                     ),
                     SizedBox(height: 20),
                     Padding(
@@ -110,19 +111,20 @@ class _FundsWidgetState extends State<FundsWidget> {
                       ),
                       iconEnabledColor: Colors.black,
                       dropdownColor: Colors.white,
-                      items: state.paymentList
-                          .map(
-                            (e) => DropdownMenuItem(
-                              value: e.id,
-                              child: Text(
-                                e.name ?? '',
-                                style: TextStyle(
-                                  color: config.inputTextColor,
+                      items:
+                          state.paymentList
+                              .map(
+                                (e) => DropdownMenuItem(
+                                  value: e.id,
+                                  child: Text(
+                                    e.name ?? '',
+                                    style: TextStyle(
+                                      color: config.inputTextColor,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          )
-                          .toList(),
+                              )
+                              .toList(),
                       onChanged: (value) {
                         selectedMethod = value;
                         setState(() {});
@@ -159,8 +161,8 @@ class _FundsWidgetState extends State<FundsWidget> {
                     ),
                     const SizedBox(height: 12),
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, bottom: 5),
-                      child: Align(
+                       padding: const EdgeInsets.only(left: 10, bottom: 5),
+                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
                           "Instructions",
@@ -169,8 +171,8 @@ class _FundsWidgetState extends State<FundsWidget> {
                             fontStyle: FontStyle.italic,
                           ),
                         ),
-                      ),
-                    ),
+                                           ),
+                     ),
                     CustomTextField(
                       maxLines: 10,
                       controller: detailController,
@@ -183,7 +185,9 @@ class _FundsWidgetState extends State<FundsWidget> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       keyboardType: TextInputType.text,
+
                     ),
+
                     const SizedBox(height: 12),
                     Row(
                       children: [
@@ -203,68 +207,70 @@ class _FundsWidgetState extends State<FundsWidget> {
                         ),
                       ],
                     ),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: BlocConsumer<AddFundCubit, AddFundState>(
-                        listener: (context, state) {
-                          if (state.status == AddFundStatus.success) {
-                            context
-                                .read<PaymentHistoryCubit>()
-                                .loadPaymentHistory();
-                            showSnackMessage(
-                              context,
-                              "Payment successfully added",
-                            );
-                          }
-                        },
-                        builder: (context, state) {
-                          return CustomButton(
-                            onPressed: () {
-                              if (selectedMethod == null) {
-                                showSnackErrorMessage(
+                            listener: (context, state) {
+                              if (state.status == AddFundStatus.success) {
+                                context
+                                    .read<PaymentHistoryCubit>()
+                                    .loadPaymentHistory();
+                                showSnackMessage(
                                   context,
-                                  "Please select payment methods",
-                                  3,
+                                  "Payment successfully added",
                                 );
-                                return;
                               }
-                              if (amountController.text.isEmpty ||
-                                  amountController.text == '0') {
-                                showSnackErrorMessage(
-                                  context,
-                                  "Please enter amount",
-                                  3,
-                                );
-                                return;
-                              }
+                            },
+                            builder: (context, state) {
+                              return CustomButton(
+                                onPressed: () {
+                                  if (selectedMethod == null) {
+                                    showSnackErrorMessage(
+                                      context,
+                                      "Please select payment methods",
+                                      3,
+                                    );
+                                    return;
+                                  }
+                                  if (amountController.text.isEmpty ||
+                                      amountController.text == '0') {
+                                    showSnackErrorMessage(
+                                      context,
+                                      "Please enter amount",
+                                      3,
+                                    );
+                                    return;
+                                  }
 
-                              if (terms == false) {
-                                showSnackErrorMessage(
-                                  context,
-                                  "Please except terms and conditions",
-                                  3,
-                                );
-                                return;
-                              }
-                              double amount =
-                                  double.tryParse(amountController.text) ?? 0;
-                              context.read<AddFundCubit>().addFund(
+                                  if (terms == false) {
+                                    showSnackErrorMessage(
+                                      context,
+                                      "Please except terms and conditions",
+                                      3,
+                                    );
+                                    return;
+                                  }
+                                  double amount =
+                                      double.tryParse(amountController.text) ??
+                                      0;
+                                  context.read<AddFundCubit>().addFund(
                                     paymentId: selectedMethod ?? 0,
                                     amount: amount,
                                     detail: detailController.text,
                                   );
+                                },
+                                buttonTitle: "Submit",
+                                textStyle: context.smallCaption14500?.copyWith(
+                                  color: config.submitTextColor,
+                                ),
+                                buttonColor: config.submitButtonColor,
+                                loading: state.status == AddFundStatus.loading,
+                                hasImage: false,
+                                borderRadius: 30,
+                              );
                             },
-                            buttonTitle: "Submit",
-                            textStyle: context.smallCaption14500?.copyWith(
-                              color: config.submitTextColor,
-                            ),
-                            buttonColor: config.submitButtonColor,
-                            loading: state.status == AddFundStatus.loading,
-                            hasImage: false,
-                            borderRadius: 30,
-                          );
-                        },
-                      )
+                          )
                           .animate()
                           .fade(duration: 500.ms)
                           .slideY(begin: 0.5, end: 0),

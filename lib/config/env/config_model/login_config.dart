@@ -93,9 +93,7 @@ class LoginConfig {
     return LoginConfig(
       required: _parseBool(map["required"] ?? false),
       enabled: _parseBool(map["enabled"] ?? false),
-      backgroundColor: _hexToListColor(
-        map["backgroundColor"] ?? ["#4c8479", "#2b5f56"],
-      ),
+      backgroundColor: _hexToListColor(map["backgroundColor"] ?? ["#4c8479", "#2b5f56"]),
       enableAnimation: _parseBool(map["enableAnimation"] ?? true),
       animationAsset: map["animationAsset"] ?? "",
       backgroundImage: map["backgroundImage"] ?? "",
@@ -112,19 +110,12 @@ class LoginConfig {
       emailHint: map["emailHint"] ?? "Enter your email",
       passwordHint: map["passwordHint"] ?? "Enter your password",
       emailError: map["emailError"] ?? "Please enter a valid email",
-      passwordError:
-          map["passwordError"] ?? "Password must be at least 6 characters",
-      textFieldBackgroundColor: _hexToColor(
-        map["textFieldBackgroundColor"] ?? "#2E2E2E",
-      ),
-      textFieldBorderRadius: double.parse(
-        map["textFieldBorderRadius"].toString(),
-      ),
+      passwordError: map["passwordError"] ?? "Password must be at least 6 characters",
+      textFieldBackgroundColor: _hexToColor(map["textFieldBackgroundColor"] ?? "#2E2E2E"),
+      textFieldBorderRadius: double.parse(map["textFieldBorderRadius"].toString()),
       textFieldHintColor: _hexToColor(map["textFieldHintColor"] ?? "#AAAAAA"),
       textFieldIconColor: _hexToColor(map["textFieldIconColor"] ?? "#FFFFFF"),
-      buttonBackgroundColor: _hexToColor(
-        map["buttonBackgroundColor"] ?? "#3A86FF",
-      ),
+      buttonBackgroundColor: _hexToColor(map["buttonBackgroundColor"] ?? "#3A86FF"),
       buttonTextColor: _hexToColor(map["buttonTextColor"] ?? "#FFFFFF"),
       buttonBorderRadius: double.parse(map["buttonBorderRadius"].toString()),
       buttonHeight: double.parse(map["buttonHeight"].toString()),
@@ -147,17 +138,15 @@ class LoginConfig {
     }
   }
 
-  static List<Color> _hexToListColor(dynamic value) {
-    List<Color> list = [];
-    if (value is String) {
-      list = [_hexToColor(value)];
-    } else if (value is List) {
-      list = value.map((hex) => _hexToColor(hex.toString())).toList();
-    } else {
-      list = [Color(0xff4c8479), Color(0xff2b5f56)];
-    }
+  static _hexToListColor(dynamic value) {
 
-    return list.length > 1 ? list : [Color(0xff4c8479), Color(0xff2b5f56)];
+    if (value is String) {
+      return [_hexToColor(value)];
+    } else if (value is List) {
+      return value.map((hex) => _hexToColor(hex.toString())).toList();
+    } else {
+      return [Colors.white]; // fallback
+    }
   }
 
   static bool _parseBool(dynamic value) {

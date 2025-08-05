@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:sms_owner/core/utils/app_color.dart';
 
-showSnackMessage(BuildContext context, String msg, {int milli = 3000}) {
+showSnackMessage(BuildContext context, String msg, {int milli = 3000, bool isError= false}) {
   Duration duration = Duration(milliseconds: milli);
 
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(msg, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
-      backgroundColor: AppColor.kcPrimaryColor,
-      elevation: 4,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-      duration: duration,
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      dismissDirection: DismissDirection.endToStart,
-    ),
-  );
+  if(isError){
+    showSnackErrorMessage(context, msg, duration.inSeconds);
+  }else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
+        backgroundColor: AppColor.kcPrimaryColor,
+        elevation: 4,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+        duration: duration,
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        dismissDirection: DismissDirection.endToStart,
+      ),
+    );
+  }
 }
 
 showSnackErrorMessage(BuildContext context, String msg, int sec) {

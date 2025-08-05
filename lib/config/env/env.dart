@@ -124,7 +124,7 @@ final Map<String, dynamic> environment = {
     'dropDownFieldColor': '#ebebeb',
     "dropdownBorderColor": "#000000",
     "searchBorderColor": "#9e9e9e",
-     "serviceIdTagColor": "#bdbdbd",
+    "serviceIdTagColor": "#bdbdbd",
     "serviceIdTextColor": "#000000",
     "textFieldBorderColor": "#9e9e9e",
     "pasteButtonBackgroundColor": "#1976d2",
@@ -147,13 +147,13 @@ final Map<String, dynamic> environment = {
     'menuIconColor': '#ffffff',
     'logoTextColor': '#ebc428',
     'orderHistoryTextColor': '#020001',
-    "screenTitle": "Order History",
-    "searchHint": "Search Order",
+    "screenTitle": "order History",
+    "searchHint": "Search order",
     'searchInputTextColor': '#100f0d',
     'hintTextColor': '#100f0d',
     "filterButtonText": "Filter",
     //
-    "orderIdPrefix": "Order ID:",
+    "orderIdPrefix": "order ID:",
     "expirationText": "EXPIRATION:",
     "priceLabel": "Price:",
     "statusLabel": "Status:",
@@ -180,7 +180,6 @@ final Map<String, dynamic> environment = {
   },
 
   "paymentConfig": {
-  
     //Add fund
     "tabBarBackgroundColor": "#00695c",
     "activeTabColor": "#FFFFFF",
@@ -205,7 +204,5 @@ final Map<String, dynamic> environment = {
     // Fund History
     'firstContainerColor': '#ffffff',
     'paymentStatusColor': '#00bf63',
-
   },
-
 };

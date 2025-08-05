@@ -13,6 +13,7 @@ class CustomButton extends StatelessWidget {
     required this.onPressed,
     this.hasImage = false,
     this.assetImage,
+    this.disable= false,
   });
 
   final double? height;
@@ -22,6 +23,7 @@ class CustomButton extends StatelessWidget {
   final String buttonTitle;
   final TextStyle? textStyle;
   final bool loading;
+  final bool disable;
   final void Function() onPressed;
   final bool hasImage;
   final String? assetImage;
@@ -29,11 +31,11 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap:disable?null: onPressed,
       child: Container(
         width: width ?? double.infinity,
         height: height ?? 50,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(borderRadius ?? 10), color: buttonColor),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(borderRadius ?? 10), color: disable?Colors.grey: buttonColor),
         child:
             loading
                 ? Center(child: CircularProgressIndicator())

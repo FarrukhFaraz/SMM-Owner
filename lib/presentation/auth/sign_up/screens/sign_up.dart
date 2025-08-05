@@ -7,7 +7,7 @@ import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/buttons.dart';
-import 'package:sms_owner/core/components/custom_textfield.dart';
+import 'package:sms_owner/core/components/custom_textField.dart';
 import 'package:sms_owner/core/components/snack_message.dart';
 import 'package:sms_owner/core/utils/app_color.dart';
 import 'package:sms_owner/core/utils/navigation.dart';
@@ -46,6 +46,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return BlocBuilder<EnvCubit, ENVModel>(
       builder: (context, envModel) {
         final signupConfig = envModel.signupConfig;
+
+        List<Color> backgroundColor = signupConfig.backgroundColor.length > 1 ? signupConfig.backgroundColor : [Color(0xff4c8479), Color(0xff2b5f56)];
         return SafeArea(
           child: Scaffold(
             backgroundColor: Colors.white,
@@ -55,11 +57,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     Container(
                       alignment: Alignment.centerLeft,
-                      height: MediaQuery.of(context).size.height * .3,
-                      width: MediaQuery.of(context).size.width,
+                      height: 240,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50), bottomRight: Radius.circular(50)),
-                        gradient: LinearGradient(colors: signupConfig.backgroundColor),
+                        gradient: LinearGradient(colors:backgroundColor),
                       ),
                       child: Column(
                         children: [
@@ -116,7 +121,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               prefix: Icon(Icons.person, color: signupConfig.textFieldIconColor, size: 20),
                               inputTextStyle: context.text12Medium?.copyWith(color: signupConfig.inputTextColor),
                               validator: (value) {
-                                if (value == null || value.trim().isEmpty) {
+                                if (value == null || value
+                                    .trim()
+                                    .isEmpty) {
                                   return 'Full name is required';
                                 }
                                 return null;
@@ -134,7 +141,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               keyboardType: TextInputType.name,
                               fillColor: Colors.transparent,
                               validator: (value) {
-                                if (value == null || value.trim().isEmpty) {
+                                if (value == null || value
+                                    .trim()
+                                    .isEmpty) {
                                   return 'Username is required';
                                 }
                                 if (value.length < 6) {
@@ -156,7 +165,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               hintText: signupConfig.emailHint,
                               hintStyle: context.text12Medium?.copyWith(color: signupConfig.textFieldHintColor),
                               validator: (value) {
-                                if (value == null || value.trim().isEmpty) {
+                                if (value == null || value
+                                    .trim()
+                                    .isEmpty) {
                                   return 'Email is required';
                                 } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
                                   return 'Enter a valid email';
@@ -180,7 +191,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               hintStyle: context.text12Medium?.copyWith(color: signupConfig.textFieldHintColor),
                               inputFormatter: [FilteringTextInputFormatter.digitsOnly],
                               validator: (value) {
-                                if (value == null || value.trim().isEmpty) {
+                                if (value == null || value
+                                    .trim()
+                                    .isEmpty) {
                                   return 'Phone number is required';
                                 } else if (!RegExp(r'^[0-9]{10,15}$').hasMatch(value)) {
                                   return 'Enter a valid phone number';

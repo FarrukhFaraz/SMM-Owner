@@ -5,7 +5,7 @@ import 'package:sms_owner/config/env/env_cubit.dart';
 import 'package:sms_owner/config/env/env_model.dart';
 import 'package:sms_owner/config/theme/app_text_theme.dart';
 import 'package:sms_owner/core/components/buttons.dart';
-import 'package:sms_owner/core/components/custom_textfield.dart';
+import 'package:sms_owner/core/components/custom_textField.dart';
 import 'package:sms_owner/core/components/snack_message.dart';
 import 'package:sms_owner/core/utils/app_color.dart';
 import 'package:sms_owner/core/utils/navigation.dart';

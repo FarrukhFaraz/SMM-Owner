@@ -1,16 +1,17 @@
-import 'package:sms_owner/presentation/Home/model/user_profile_model.dart';
+
+import 'package:sms_owner/presentation/profile/model/user_model.dart';
 
 class SignUpResponseModel {
   int? statuscode;
   String? message;
-  UserProfileModel? user;
+  UserModel? user;
 
   SignUpResponseModel({this.statuscode, this.message, this.user});
 
   SignUpResponseModel.fromJson(Map<String, dynamic> json) {
     statuscode = json['statuscode'];
     message = json['message'];
-    user = json['user'] != null ? UserProfileModel.fromJson(json['user']) : null;
+    user = json['user'] != null ? UserModel.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
